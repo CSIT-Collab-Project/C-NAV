@@ -35,10 +35,10 @@ class CornerNode(LocationNode):
 
 
 class StairNode(LocationNode):
-    def __init__(self, connections: list, u: LocationNode, d: LocationNode):
+    def __init__(self, connections: list, upstairs: LocationNode, downstairs: LocationNode):
         super(StairNode, self).__init__(connections)
-        self.upstairs = u
-        self.downstairs = d
+        self.upstairs = upstairs
+        self.downstairs = downstairs
 
     def get_up(self) -> LocationNode:
         return self.upstairs
@@ -48,13 +48,13 @@ class StairNode(LocationNode):
 
 
 class DoorNode(LocationNode):
-    def __init__(self, connections: list, num: int, closest: LocationNode):
+    def __init__(self, connections: list, door_number: int, closest: LocationNode):
         super(DoorNode, self).__init__(connections)
-        self.door_num = num
+        self.door_number = door_number
         self.closest_node = closest
 
-    def get_door_num(self) -> int:
-        return self.door_num
+    def get_door_number(self) -> int:
+        return self.door_number
 
     def get_closest_node(self) -> LocationNode:
         return self.closest_node
