@@ -8,31 +8,27 @@ class LocationNode:
     def get_connections(self) -> list:
         return self.connections
 
-    def is_connected_to(self, other_node: LocationNode) -> bool:
-        if other_node in self.connections:
+    def is_connected_to(self, target_node: LocationNode) -> bool:
+        if target_node in self.connections:
             return True
         return False
 
 
 class CornerNode(LocationNode):
     def __init__(self, connections,
-                 n: LocationNode,
-                 s: LocationNode,
-                 e: LocationNode,
-                 w: LocationNode):
+                 north: LocationNode,
+                 south: LocationNode,
+                 east: LocationNode,
+                 west: LocationNode):
         super(CornerNode, self).__init__(connections)
-        self.north_node = n
-        self.south_node = s
-        self.east_node = e
-        self.west_node = w
-        self.turn_map = {'n': n, 's': s, 'e': e, 'w': w}
+        self.north_node = north
+        self.south_node = south
+        self.east_node = east
+        self.west_node = west
+        self.turn_map = {'n': north, 's': south, 'e': east, 'w': west}
 
     def get_turns(self) -> list:
-        available_turns = ['n', 's', 'e', 'w']
-        for turn in available_turns:
-            if not self.turn_map[turn]:
-                available_turns.remove(turn)
-        return available_turns
+        return [turn for turn in ['n', 's', 'e', 'w'] if self.turn_map[turn]]
 
     def get_node_to(self, direction: str) -> LocationNode:
         return self.turn_map[direction]
