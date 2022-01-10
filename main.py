@@ -16,6 +16,9 @@ class LocationNode:
     def add_connections(self, new_nodes: list):
         self.connections.extend(new_nodes)
 
+    def get_door_num(self):
+        return None
+
 
 class CornerNode(LocationNode):
     def __init__(self, connections,
@@ -72,6 +75,18 @@ class DoorNode(LocationNode):
 
     def get_closest_node(self) -> LocationNode:
         return self.closest_node
+
+
+def get_turn_direction(facing, from_node, to_node):
+    direct_order = ['n', 'e', 's', 'w']
+
+
+def go_to(start, end, direction_list=[]):
+    if start.get_door_num() == end.get_door_num():
+        return 'Found'
+
+    for node in start.get_door_num().get_door_num():
+        go_to(node, end)
 
 
 if __name__ == '__main__':
