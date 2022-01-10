@@ -13,13 +13,16 @@ class LocationNode:
             return True
         return False
 
+    def add_connections(self, new_nodes: list):
+        self.connections.extend(new_nodes)
+
 
 class CornerNode(LocationNode):
     def __init__(self, connections,
-                 n: LocationNode,
-                 s: LocationNode,
-                 e: LocationNode,
-                 w: LocationNode):
+                 n: LocationNode = None,
+                 s: LocationNode = None,
+                 e: LocationNode = None,
+                 w: LocationNode = None):
         super(CornerNode, self).__init__(connections)
         self.north_node = n
         self.south_node = s
@@ -36,6 +39,13 @@ class CornerNode(LocationNode):
 
     def get_node_to(self, direction: str) -> LocationNode:
         return self.turn_map[direction]
+
+    def add_directions(self, n: LocationNode, s: LocationNode, e: LocationNode, w: LocationNode):
+        self.north_node = n
+        self.east_node = e
+        self.south_node = s
+        self.west_node = w
+        self.add_connections([n, s, e, w])
 
 
 class StairNode(LocationNode):
