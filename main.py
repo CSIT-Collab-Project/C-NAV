@@ -1,5 +1,10 @@
 def get_turn_direction(facing, from_node, to_node):
-    direct_order = ['n', 'e', 's', 'w']
+    direct_order = {'n': 1, 'e': 1, 's': 2, 'w': 2}
+    to_direction = from_node.turn_map[to_node]
+    if direct_order[facing] - direct_order[to_direction] == 0:
+        return 'left'
+    else:
+        return 'right'
 
 
 def go_to(start, end, direction_list=[]):
