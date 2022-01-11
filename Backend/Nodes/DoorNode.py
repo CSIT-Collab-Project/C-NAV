@@ -1,4 +1,4 @@
-from Nodes.Node import Node
+from Backend.Nodes.Node import Node
 
 
 class DoorNode(Node):
@@ -7,5 +7,4 @@ class DoorNode(Node):
         self.door_num = num
         self.closest_node = closest
 
-    # we don't need get_door_num or get_closest_node. We can just use DoorNode.door_num and DoorNode.closest_node
 

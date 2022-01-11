@@ -1,4 +1,4 @@
-from Nodes.Node import Node
+from Backend.Nodes.Node import Node
 
 
 class CornerNode(Node):

@@ -1,7 +1,5 @@
-from Nodes.Node import Node
-from Nodes.StairNode import StairNode
-from Nodes.CornerNode import CornerNode
-from Nodes.DoorNode import DoorNode
+from Backend.Nodes.CornerNode import CornerNode
+from Backend.Nodes.DoorNode import DoorNode
 
 fc1 = CornerNode([])
 fr1 = CornerNode([])
