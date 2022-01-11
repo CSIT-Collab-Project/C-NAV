@@ -13,6 +13,7 @@ class CornerNode(Node):
         self.east_node = e
         self.west_node = w
         self.turn_map = {'n': n, 's': s, 'e': e, 'w': w}
+        self.node_map = {n: 'n', s: 's', e: 'e', w: 'w'}
 
     async def get_turns(self) -> list:
         available_turns = ['n', 's', 'e', 'w']

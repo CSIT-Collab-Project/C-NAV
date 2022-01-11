@@ -8,7 +8,7 @@ fl1 = CornerNode([])
 bc1 = CornerNode([])
 br1 = CornerNode([])
 bl1 = CornerNode([])
-the_void = CornerNode([])
+the_void = None
 
 room_1108 = DoorNode([fl1, bl1], 1108, fl1)
 room_1105 = DoorNode([fl1, fc1], 1105, fl1)
@@ -31,4 +31,3 @@ async def build_school():
     await bc1.add_directions(the_void, br1, fc1, bl1)
     await br1.add_directions(the_void, the_void, fr1, bc1)
     await bl1.add_directions(the_void, bc1, fl1, the_void)
-    await the_void.add_directions(the_void, the_void, the_void, the_void)

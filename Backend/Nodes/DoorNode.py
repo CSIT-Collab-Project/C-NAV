@@ -7,4 +7,6 @@ class DoorNode(Node):
         self.door_num = num
         self.closest_node = closest
 
-
+    async def connect_to_network(self):
+        for connection in self.connections:
+            await connection.add_connections([self])
