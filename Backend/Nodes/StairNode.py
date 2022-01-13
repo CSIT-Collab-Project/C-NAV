@@ -7,4 +7,3 @@ class StairNode(Node):
         self.upstairs = u
         self.downstairs = d
 
-        # we don't need get_up or get_down methods here. We can just use StairNode.upstairs and StairNode.downstairs
