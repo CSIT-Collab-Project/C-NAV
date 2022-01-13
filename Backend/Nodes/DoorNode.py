@@ -1,7 +1,8 @@
+from __future__ import annotations
 from Backend.Nodes.Node import Node
 
 
-async def create_door(connections: list, num: int, closest: Node):
+async def create_door(connections: list, num: int, closest: Node) -> DoorNode:
     door = DoorNode(connections, num, closest)
     await connect_to_network(door)
     return door

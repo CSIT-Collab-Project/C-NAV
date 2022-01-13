@@ -3,7 +3,7 @@ import asyncio
 from Node_Config.nodes import *
 
 
-async def get_turn_direction(facing, from_node, to_node):
+async def get_turn_direction(facing: str, from_node: CornerNode, to_node: Node) -> str:
     direct_order = {'n': 1, 'e': 1, 's': 2, 'w': 2}
 
     try:
@@ -17,7 +17,7 @@ async def get_turn_direction(facing, from_node, to_node):
         pass
 
 
-async def go_to(start, end, facing, direction_list=None):
+async def go_to(start: Node, end: DoorNode, facing: str, direction_list: list = None) -> list:
     if direction_list is None:
         direction_list = []
     visited = []
