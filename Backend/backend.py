@@ -16,7 +16,9 @@ async def get_turn_direction(facing, from_node, to_node):
         return 'left'
 
 
-async def go_to(start, end, facing, direction_list=[]):
+async def go_to(start, end, facing, direction_list=None):
+    if direction_list is None:
+        direction_list = []
     if isinstance(start, DoorNode):
         if start.door_num == end.door_num:
             return direction_list

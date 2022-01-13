@@ -1,6 +1,5 @@
 from Backend.Nodes.CornerNode import CornerNode
 from Backend.Nodes.DoorNode import DoorNode
-from Backend.Nodes.Node import Node
 
 fc1 = CornerNode([])
 fr1 = CornerNode([])
