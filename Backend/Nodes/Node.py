@@ -6,8 +6,7 @@ class Node:
         self.connections = connections
 
     async def is_connected_to(self, target_node: Node) -> bool:
-        if target_node in self.connections:
-            return True
+        return True if target_node in self.connections else False
 
     async def add_connections(self, new_nodes: list):
         self.connections.extend(new_nodes)

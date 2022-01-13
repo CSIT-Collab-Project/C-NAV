@@ -17,10 +17,11 @@ async def get_turn_direction(facing, from_node, to_node):
         pass
 
 
-async def go_to(start, end, facing, direction_list=[]):
+async def go_to(start, end, facing, direction_list=None):
+    if direction_list is None:
+        direction_list = []
     visited = []
-    queue = []
-    queue.append([start])
+    queue = [[start]]
 
     while queue:
         current_path = queue.pop(0)

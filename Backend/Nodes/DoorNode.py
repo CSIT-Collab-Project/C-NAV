@@ -8,8 +8,7 @@ async def create_door(connections: list, num: int, closest: Node):
 
 
 async def connect_to_network(node):
-    for connection in node.connections:
-        await connection.add_connections([node])
+    [await connection.add_connections([node]) for connection in node.connections]
 
 
 class DoorNode(Node):

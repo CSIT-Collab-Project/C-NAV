@@ -16,11 +16,7 @@ class CornerNode(Node):
         self.node_map = {n: 'n', s: 's', e: 'e', w: 'w'}
 
     async def get_turns(self) -> list:
-        available_turns = ['n', 's', 'e', 'w']
-        for turn in available_turns:
-            if not self.turn_map[turn]:
-                available_turns.remove(turn)
-        return available_turns
+        return [turn for turn in ['n', 's', 'e', 'w'] if not self.turn_map[turn]]
 
     async def get_node_to(self, direction: str) -> Node:
         return self.turn_map[direction]
