@@ -18,30 +18,23 @@ async def get_turn_direction(facing, from_node, to_node):
 
 
 async def go_to(start, end, facing, direction_list=[]):
-    print(start.connections)
+    visited = []
+    queue = []
+    queue.append([start])
 
-    if isinstance(start, DoorNode):
-        print(start.door_num)
-        print(end.door_num)
-        if start.door_num == end.door_num:
-            return direction_list
+    while queue:
+        current_path = queue.pop(0)
+        current_pos = current_path[-1]
+        visited.append(current_pos)
 
-    else:
-        print("Else")
-        if start is not None:
-            print("If start is not")
-            for node in start.connections:
-                if node != start:
-                    print("If node != start")
-                    try:
-                        print("RECURSE")
-                        direction_list.append(asyncio.ensure_future(get_turn_direction(facing, start, node)))
-                        asyncio.ensure_future(go_to(node, end, start.node_map[node]))
-                    except KeyError:
-                        print('KeyError')
-                        pass
+        if isinstance(current_pos, DoorNode) and current_pos.door_num == end.door_num:
+            return current_path
 
-    return 'Error'
+        for connection in current_pos.connections:
+            if connection not in visited:
+                new_path = list(current_path)
+                new_path.append(connection)
+                queue.append(new_path)
 
 
 async def main():
