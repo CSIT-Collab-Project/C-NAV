@@ -12,5 +12,13 @@ def login():
 def home():
     return send_from_directory('../Frontend','index.html')
 
+@app.route('/style.css')
+def css():
+    return send_from_directory('../Frontend','style.css')
+
+@app.route('/scripts.js')
+def js():
+    return send_from_directory('../Frontend','scripts.js')
+
 if __name__ == '__main__':
     app.run(port=8080, debug=True)
