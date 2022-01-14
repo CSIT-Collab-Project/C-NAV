@@ -6,4 +6,3 @@ class StairNode(Node):
         super(StairNode, self).__init__(connections)
         self.upstairs = u
         self.downstairs = d
-
