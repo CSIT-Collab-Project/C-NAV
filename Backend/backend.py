@@ -25,6 +25,12 @@ async def convert_to_direction(facing, path):
         except KeyError:
             print('No Work')
 
+    to_direction = path[-1].door_side
+    if direct_order[direct_order.index(facing) - 1] == to_direction:
+        turn_order.append('room door is on the left')
+    elif direct_order[direct_order.index(facing) + 1] == to_direction:
+        turn_order.append('room door is on the right')
+
     return turn_order
 
 
@@ -57,11 +63,13 @@ async def go_to(start, end):
                 queue.append(new_path)
 
 
-async def main():
+async def main(start_loc, end_loc):
+    opp_directions = {'n': 's', 'e': 'w', 's': 'n', 'w': 'e'}
     await build_school()
-    directions = await go_to(fl1, room_1312)
+    directions = await go_to(start_loc, end_loc)
     path = [direction for direction in directions]
-    print([turn for turn in await convert_to_direction('n', path)])
+    print([turn for turn in await convert_to_direction(opp_directions[start_loc.door_side], path)])
+    return [turn for turn in await convert_to_direction(opp_directions[start_loc.door_side], path)]
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    asyncio.run(main(room_1401, room_1311))
