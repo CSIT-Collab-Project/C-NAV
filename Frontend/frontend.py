@@ -20,5 +20,9 @@ def css():
 def js():
     return send_from_directory('../Frontend','scripts.js')
 
+@app.route('/directions')
+    async def directions(start, end):
+        
+
 if __name__ == '__main__':
     app.run(port=8080, debug=True)
