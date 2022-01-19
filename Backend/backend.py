@@ -4,23 +4,43 @@ from Backend.Nodes.Node import Node
 from Node_Config.nodes import *
 
 
-async def get_turn_direction(facing: str, from_node: CornerNode, to_node: Node) -> str:
-    direct_order = {'n': 1, 'e': 1, 's': 2, 'w': 2}
+async def convert_to_direction(facing, path):
+    direct_order = ['n', 'e', 's', 'w', 'n', 'w']
+    turn_order = []
 
-    try:
-        to_direction = from_node.node_map[to_node]
+    for i in range(len(path) - 1):
+        from_node = path[i]
+        to_node = path[i + 1]
 
-        if direct_order[facing] - direct_order[to_direction] == 0:
-            return 'right'
-        else:
-            return 'left'
-    except KeyError:
-        pass
+        try:
+            to_direction = from_node.node_map[to_node]
+
+            if direct_order[direct_order.index(facing) - 1] == to_direction:
+                facing = await turn(facing, 'left')
+                turn_order.append('left')
+            elif direct_order[direct_order.index(facing) + 1] == to_direction:
+                facing = await turn(facing, 'right')
+                turn_order.append('right')
+            else:
+                turn_order.append('continue until next intersection')
+
+        except KeyError:
+            print('No Work')
+
+    return turn_order
 
 
-async def go_to(start: Node, end: DoorNode, facing: str, direction_list: list = None) -> list:
-    if direction_list is None:
-        direction_list = []
+async def turn(start_direction, turn_direction):
+    directions = ('n', 'e', 's', 'w', 'n', 'w')
+    if turn_direction == 'right':
+        return directions[directions.index(start_direction) + 1]
+    elif turn_direction == 'left':
+        return directions[directions.index(start_direction) - 1]
+    else:
+        return 'continue straight'
+
+
+async def go_to(start, end):
     visited = []
     queue = [[start]]
 
@@ -39,11 +59,17 @@ async def go_to(start: Node, end: DoorNode, facing: str, direction_list: list = 
                 queue.append(new_path)
 
 
-async def main():
-    await build_school()
-    directions = await go_to(br1, room_1401, 'n')
-    print([direction for direction in directions])
+# async def main():
+#     await build_school()
+#     directions = await go_to(fl1, room_1312)
+#     path = [direction for direction in directions]
+#     print([turn for turn in await convert_to_direction('n', path)])
 
+
+async def run(start: Node, end: Node):
+    await build_school()
+    return [turn for turn in await convert_to_direction('n', [direction for direction in await go_to(start=start, end=end)])]
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    # asyncio.run(main())
+    asyncio.run(run(fl1, room_1312))

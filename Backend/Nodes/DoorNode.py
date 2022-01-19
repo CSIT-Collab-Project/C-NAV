@@ -8,8 +8,11 @@ async def create_door(connections: list, num: int, closest: Node) -> DoorNode:
     return door
 
 
-async def connect_to_network(node):
-    [await connection.add_connections([node]) for connection in node.connections]
+async def connect_to_network(node, directions):
+    for i in range(len(node.connections)):
+        await node.connections[i].add_connections([node])
+        if isinstance(node, DoorNode):
+            node.connections[i].node_map[node] = directions[i]
 
 
 class DoorNode(Node):
@@ -18,10 +21,8 @@ class DoorNode(Node):
         self.door_num = num
         self.closest_node = closest
 
-    async def set_info(self, connections, num, closest):
+    async def set_info(self, connections, num, closest, directions):
         self.connections = connections
         self.door_num = num
         self.closest_node = closest
-        await connect_to_network(self)
-
-
+        await connect_to_network(self, directions)

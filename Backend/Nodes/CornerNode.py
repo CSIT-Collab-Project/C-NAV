@@ -37,5 +37,6 @@ class CornerNode(Node):
         self.south_node = s
 
         self.west_node = w
-
+        self.turn_map = {'n': n, 's': s, 'e': e, 'w': w}
+        self.node_map = {n: 'n', s: 's', e: 'e', w: 'w'}
         await self.add_connections([n, s, e, w])
