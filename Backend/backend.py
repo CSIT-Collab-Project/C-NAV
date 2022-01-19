@@ -30,6 +30,8 @@ async def convert_to_direction(facing, path):
         turn_order.append('room door is on the left')
     elif direct_order[direct_order.index(facing) + 1] == to_direction:
         turn_order.append('room door is on the right')
+    else:
+        turn_order.append('room door is straight ahead')
 
     return turn_order
 
@@ -72,4 +74,4 @@ async def main(start_loc, end_loc):
     return [turn for turn in await convert_to_direction(opp_directions[start_loc.door_side], path)]
 
 if __name__ == '__main__':
-    asyncio.run(main(room_1401, room_1311))
+    asyncio.run(main(room_1401, room_1107))
