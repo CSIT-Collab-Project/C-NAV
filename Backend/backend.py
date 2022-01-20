@@ -67,7 +67,17 @@ async def go_to(start, end):
                 queue.append(new_path)
 
 
-async def main(start_loc, end_loc):
+async def main(start_str, end_str):
+
+    start_loc = None
+    end_loc = None
+
+    for room in room_list:
+        if room.door_num == int(start_str):
+            start_loc = room
+        elif room.door_num == int(end_str):
+            end_loc = room
+
     opp_directions = {'n': 's', 'e': 'w', 's': 'n', 'w': 'e'}
     await build_school()
 

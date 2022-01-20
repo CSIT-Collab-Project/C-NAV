@@ -30,13 +30,42 @@ room_1420 = DoorNode([], 0, the_void, 'e')
 room_1309 = DoorNode([], 0, the_void, 'n')
 room_1224 = DoorNode([], 0, the_void, 's')
 room_1303 = DoorNode([], 0, the_void, 's')
-
 room_1307 = DoorNode([], 0, the_void, 'n')
 room_1305 = DoorNode([], 0, the_void, 's')
 room_1221 = DoorNode([], 0, the_void, 'n')
 room_1203 = DoorNode([], 0, the_void, 's')
 room_1226 = DoorNode([], 0, the_void, 'w')
 room_1227 = DoorNode([], 0, the_void, 'w')
+
+room_list = [
+    room_1108,
+    room_1105,
+    room_1102,
+    room_1401,
+    room_1402,
+    room_1409,
+    room_1202,
+    room_1225,
+    room_1228,
+    room_1223,
+    room_1311,
+    room_1312,
+    room_1107,
+    room_1109,
+    room_1106,
+    room_1104,
+    room_1410,
+    room_1420,
+    room_1309,
+    room_1224,
+    room_1303,
+    room_1307,
+    room_1305,
+    room_1221,
+    room_1203,
+    room_1226,
+    room_1227
+]
 
 
 async def build_doors():
