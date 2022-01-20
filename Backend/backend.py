@@ -1,6 +1,6 @@
 import asyncio
+import json
 
-from Backend.Nodes.Node import Node
 from Node_Config.nodes import *
 
 
@@ -26,6 +26,14 @@ async def convert_to_direction(facing, path):
 
         except KeyError:
             print('No Work')
+
+    to_direction = path[-1].door_side
+    if direct_order[direct_order.index(facing) - 1] == to_direction:
+        turn_order.append('room door is on the left')
+    elif direct_order[direct_order.index(facing) + 1] == to_direction:
+        turn_order.append('room door is on the right')
+    else:
+        turn_order.append('room door is straight ahead')
 
     return turn_order
 
@@ -59,17 +67,19 @@ async def go_to(start, end):
                 queue.append(new_path)
 
 
-# async def main():
-#     await build_school()
-#     directions = await go_to(fl1, room_1312)
-#     path = [direction for direction in directions]
-#     print([turn for turn in await convert_to_direction('n', path)])
-
-
-async def run(start: Node, end: Node):
+async def main(start_loc, end_loc):
+    opp_directions = {'n': 's', 'e': 'w', 's': 'n', 'w': 'e'}
     await build_school()
-    return [turn for turn in await convert_to_direction('n', [direction for direction in await go_to(start=start, end=end)])]
+
+    directions = [direction for direction in await convert_to_direction(opp_directions[start_loc.door_side],
+                                                                        [direction for direction in
+                                                                         await go_to(start_loc, end_loc)])]
+    return await toJSON(directions)
+
+
+async def toJSON(directions: list):
+    return json.dumps(directions, indent=2)
+
 
 if __name__ == '__main__':
-    # asyncio.run(main())
-    asyncio.run(run(fl1, room_1312))
+    print(asyncio.run(main(room_1401, room_1107)))
