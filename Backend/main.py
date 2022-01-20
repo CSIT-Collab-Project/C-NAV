@@ -19,11 +19,13 @@ def home():
 
 @app.route('/style.css')
 def css():
-    return send_from_directory('../Frontend','style.css')
+    return send_from_directory('../Frontend', 'style.css')
+
 
 @app.route('/scripts.js')
 def js():
-    return send_from_directory('../Frontend','scripts.js')
+    return send_from_directory('../Frontend', 'scripts.js')
+
 
 @app.route('/directions-<start>-<end>')
 async def directions(start, end):
