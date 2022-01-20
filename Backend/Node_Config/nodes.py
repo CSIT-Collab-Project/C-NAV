@@ -36,6 +36,7 @@ room_1221 = DoorNode([], 0, the_void, 'n')
 room_1203 = DoorNode([], 0, the_void, 's')
 room_1226 = DoorNode([], 0, the_void, 'w')
 room_1227 = DoorNode([], 0, the_void, 'w')
+room_1204 = DoorNode([], 0, the_void, 'w')
 
 room_list = [
     room_1108,
@@ -64,7 +65,8 @@ room_list = [
     room_1221,
     room_1203,
     room_1226,
-    room_1227
+    room_1227,
+    room_1204
 ]
 
 
@@ -96,6 +98,7 @@ async def build_doors():
     await room_1203.set_info([bl1], 1203, bl1, ["w"])
     await room_1226.set_info([fc1, bc1], 1226, bc1, ["n", "s"])
     await room_1227.set_info([fc1, bc1], 1227, bc1, ["n", "s"])
+    await room_1204.set_info([bl1], 1204, bl1, ["w"])
 
 
 async def build_school():
