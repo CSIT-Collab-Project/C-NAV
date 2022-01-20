@@ -1,5 +1,7 @@
+from __future__ import absolute_import
 from flask import Flask
 from flask.helpers import send_from_directory
+from Backend.backend import run
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
@@ -24,8 +26,11 @@ def js():
     return send_from_directory('../Frontend','scripts.js')
 
 @app.route('/directions')
-    async def directions(start, end):
-        
+async def directions(start, end):
+    directionjson = await run(start, end)
+    print(directionjson)
+    return directionjson
+
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)
