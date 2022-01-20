@@ -31,6 +31,13 @@ room_1309 = DoorNode([], 0, the_void, 'n')
 room_1224 = DoorNode([], 0, the_void, 's')
 room_1303 = DoorNode([], 0, the_void, 's')
 
+room_1307 = DoorNode([], 0, the_void, 'n')
+room_1305 = DoorNode([], 0, the_void, 's')
+room_1221 = DoorNode([], 0, the_void, 'n')
+room_1203 = DoorNode([], 0, the_void, 's')
+room_1226 = DoorNode([], 0, the_void, 'w')
+room_1227 = DoorNode([], 0, the_void, 'w')
+
 
 async def build_doors():
     await room_1108.set_info([fl1, bl1], 1108, fl1, ["n", "s"])
@@ -46,7 +53,7 @@ async def build_doors():
     await room_1311.set_info([bc1, br1], 1311, bc1, ["e", "w"])
     await room_1312.set_info([bc1, br1], 1312, br1, ["e", "w"])
     await room_1107.set_info([fl1], 1107, fl1, ["s"])
-    await room_1109.set_info([fl1], 1107, fl1, ["s"])
+    await room_1109.set_info([fl1], 1109, fl1, ["s"])
     await room_1106.set_info([fc1, fl1], 1106, fc1, ["w", "e"])
     await room_1104.set_info([fc1, bc1], 1104, fc1, ["n", "s"])
     await room_1410.set_info([fc1, fr1], 1410, fr1, ["e", "w"])
@@ -54,6 +61,12 @@ async def build_doors():
     await room_1309.set_info([br1], 1309, br1, ["e"])
     await room_1224.set_info([br1, bc1], 1224, br1, ["e", "w"])
     await room_1303.set_info([br1], 1303, br1, ["e"])
+    await room_1307.set_info([br1], 1307, br1, ["e"])
+    await room_1305.set_info([br1], 1305, br1, ["e"])
+    await room_1221.set_info([bl1], 1221, bl1, ["w"])
+    await room_1203.set_info([bl1], 1203, bl1, ["w"])
+    await room_1226.set_info([fc1, bc1], 1226, bc1, ["n", "s"])
+    await room_1227.set_info([fc1, bc1], 1227, bc1, ["n", "s"])
 
 
 async def build_school():
