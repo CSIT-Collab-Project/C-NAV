@@ -69,8 +69,8 @@ async def go_to(start, end):
 
 async def main(start_str, end_str):
 
-    start_loc = None
-    end_loc = None
+    start_loc = room_1311
+    end_loc = room_1312
 
     for room in room_list:
         if room.door_num == int(start_str):
@@ -92,4 +92,4 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main(room_1401, room_1107)))
+    print(asyncio.run(main('1401', '1107')))
