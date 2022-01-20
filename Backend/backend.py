@@ -22,7 +22,7 @@ async def convert_to_direction(facing, path):
                 facing = await turn(facing, 'right')
                 turn_order.append('right')
             else:
-                turn_order.append('continue until next intersection')
+                turn_order.append('continue straight')
 
         except KeyError:
             print('No Work')
@@ -72,14 +72,14 @@ async def main(start_str, end_str):
     start_loc = room_1311
     end_loc = room_1312
 
+    opp_directions = {'n': 's', 'e': 'w', 's': 'n', 'w': 'e'}
+    await build_school()
+
     for room in room_list:
         if room.door_num == int(start_str):
             start_loc = room
         elif room.door_num == int(end_str):
             end_loc = room
-
-    opp_directions = {'n': 's', 'e': 'w', 's': 'n', 'w': 'e'}
-    await build_school()
 
     directions = [direction for direction in await convert_to_direction(opp_directions[start_loc.door_side],
                                                                         [direction for direction in
@@ -92,4 +92,4 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('1401', '1107')))
+    print(asyncio.run(main('1102', '1311')))
