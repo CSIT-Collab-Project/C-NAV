@@ -22,9 +22,7 @@ async def convert_to_direction(facing, path):
             turn_order.append('right')
         elif direct_order[direct_order.index(facing)] == to_direction:
             turn_order.append('continue straight')
-        elif direct_order[direct_order.index(facing) - 2] == to_direction:
-            turn_order.append('turn around?')
-            facing = await turn(facing, 'reverse')
+
 
     to_direction = path[-1].door_side
     if direct_order[direct_order.index(facing) - 1] == to_direction:
@@ -52,9 +50,6 @@ async def turn(start_direction, turn_direction):
 async def go_to(start, end):
     visited = []
     queue = [[start]]
-
-    if set(start.connections) == set(end.connections):
-        return ['room in this hall segment']
 
     while queue:
         current_path = queue.pop(0)
@@ -102,4 +97,4 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('1311', '1410')))
+    print(asyncio.run(main('1311', '1309')))

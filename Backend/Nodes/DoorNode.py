@@ -1,5 +1,6 @@
 from __future__ import annotations
 from Backend.Nodes.Node import Node
+from Backend.Nodes.CornerNode import CornerNode
 
 
 async def create_door(connections: list, num: int, closest: Node, directions):
@@ -30,3 +31,18 @@ class DoorNode(Node):
         self.door_num = num
         self.closest_node = closest
         await connect_to_network(self, directions)
+
+    async def in_same_hall(self, checkNode):
+        self_corner_list = set()
+        check_corner_list = set()
+        for connection in self.connections:
+            if isinstance(connection, CornerNode):
+                self_corner_list.add(connection)
+
+        for connection in checkNode.connections:
+            if isinstance(connection, CornerNode):
+                check_corner_list.add(connection)
+
+        if self_corner_list == check_corner_list:
+            return True
+        return False
