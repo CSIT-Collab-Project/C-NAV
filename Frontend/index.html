@@ -15,15 +15,17 @@
     <div>
         <div class="container">
             <h1>CRLS Nav</h1>
-            <label for="initial-location">Current Room Number</label>
-            <input type="text" id="initial-location">
+            <form id="location-input" action="">
+                <label for="initial-location">Current Room Number</label>
+                <input type="text" id="initial-location">
+                <label for="destination">Current Room Number</label>
+                <input type="text" id="destination">
+                <button type="button" class="btn-light" id="location-submit">Submit</button>
+            </form>
 
-            <label for="destination">Current Room Number</label>
-            <input type="text" id="destination">
+
+        <div id="direction-display"></div>
         </div>
-
-
-
     </div>
 
 
