@@ -12,20 +12,19 @@ async def convert_to_direction(facing, path):
         from_node = path[i]
         to_node = path[i + 1]
 
-        try:
-            to_direction = from_node.node_map[to_node]
+        to_direction = from_node.node_map[to_node]
 
-            if direct_order[direct_order.index(facing) - 1] == to_direction:
-                facing = await turn(facing, 'left')
-                turn_order.append('left')
-            elif direct_order[direct_order.index(facing) + 1] == to_direction:
-                facing = await turn(facing, 'right')
-                turn_order.append('right')
-            else:
-                turn_order.append('continue straight')
-
-        except KeyError:
-            print('No Work')
+        if direct_order[direct_order.index(facing) - 1] == to_direction:
+            facing = await turn(facing, 'left')
+            turn_order.append('left')
+        elif direct_order[direct_order.index(facing) + 1] == to_direction:
+            facing = await turn(facing, 'right')
+            turn_order.append('right')
+        elif direct_order[direct_order.index(facing)] == to_direction:
+            turn_order.append('continue straight')
+        elif direct_order[direct_order.index(facing) - 2] == to_direction:
+            turn_order.append('turn around?')
+            facing = await turn(facing, 'reverse')
 
     to_direction = path[-1].door_side
     if direct_order[direct_order.index(facing) - 1] == to_direction:
@@ -44,6 +43,8 @@ async def turn(start_direction, turn_direction):
         return directions[directions.index(start_direction) + 1]
     elif turn_direction == 'left':
         return directions[directions.index(start_direction) - 1]
+    elif turn_direction == 'reverse':
+        return directions[directions.index(start_direction) - 2]
     else:
         return 'continue straight'
 
@@ -52,12 +53,16 @@ async def go_to(start, end):
     visited = []
     queue = [[start]]
 
+    if set(start.connections) == set(end.connections):
+        return ['room in this hall segment']
+
     while queue:
         current_path = queue.pop(0)
         current_pos = current_path[-1]
         visited.append(current_pos)
 
         if isinstance(current_pos, DoorNode) and current_pos.door_num == end.door_num:
+            print(current_path)
             return current_path
 
         for connection in current_pos.connections:
@@ -69,8 +74,8 @@ async def go_to(start, end):
 
 async def main(start_str, end_str):
 
-    start_loc = room_1311
-    end_loc = room_1312
+    start_loc = None
+    end_loc = None
 
     opp_directions = {'n': 's', 'e': 'w', 's': 'n', 'w': 'e'}
     await build_school()
@@ -81,9 +86,14 @@ async def main(start_str, end_str):
         elif room.door_num == int(end_str):
             end_loc = room
 
+    if not start_loc or not end_loc:
+        print('Error')
+        return await toJSON(['Error'])
+
     directions = [direction for direction in await convert_to_direction(opp_directions[start_loc.door_side],
                                                                         [direction for direction in
                                                                          await go_to(start_loc, end_loc)])]
+
     return await toJSON(directions)
 
 
@@ -92,4 +102,4 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('1102', '1311')))
+    print(asyncio.run(main('1311', '1410')))
