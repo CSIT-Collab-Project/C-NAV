@@ -23,13 +23,15 @@ class CornerNode(Node):
 
         self.node_map = {n: 'n', s: 's', e: 'e', w: 'w'}
 
+        self.door_map = {}
+
     async def get_turns(self) -> list:
         return [turn for turn in ['n', 's', 'e', 'w'] if not self.turn_map[turn]]
 
     async def get_node_to(self, direction: str) -> Node:
         return self.turn_map[direction]
 
-    async def add_directions(self, n: Node, s: Node, e: Node, w: Node):
+    async def add_directions(self, n: Node, e: Node, s: Node, w: Node):
         self.north_node = n
 
         self.east_node = e
