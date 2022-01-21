@@ -2,6 +2,7 @@ from __future__ import absolute_import
 from flask import Flask
 from flask.helpers import send_from_directory
 from backend import main
+from db import Database
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
@@ -36,3 +37,4 @@ async def directions(start, end):
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)
+    Database()
