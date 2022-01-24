@@ -101,9 +101,15 @@ async def build_doors():
 
 async def build_school():
     await fc1.add_directions(bc1, fr1, the_void, fl1)
+    await fc1.set_name("Front Center 1st")
     await fr1.add_directions(br1, the_void, the_void, fc1)
+    await fr1.set_name("Front Right 1st")
     await fl1.add_directions(bl1, fc1, the_void, the_void)
+    await fl1.set_name("Front Left 1st")
     await bc1.add_directions(the_void, br1, fc1, bl1)
+    await bc1.set_name("Back Center 1st")
     await br1.add_directions(the_void, the_void, fr1, bc1)
+    await br1.set_name("Back Right 1st")
     await bl1.add_directions(the_void, bc1, fl1, the_void)
+    await bl1.set_name("Back Left 1st")
     await build_doors()
