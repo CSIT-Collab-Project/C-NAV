@@ -2,3 +2,10 @@
     text-align: center;
     margin-top: 20px;
 }
+
+.main {
+    align-self: center;
+}
+#location-submit {
+    width: 100%;
+}
