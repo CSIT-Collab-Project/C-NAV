@@ -1,5 +1,6 @@
 from Backend.Nodes.CornerNode import CornerNode
 from Backend.Nodes.DoorNode import DoorNode
+from Backend.Nodes.StairNode import StairNode
 
 fc1 = CornerNode([])
 fr1 = CornerNode([])
@@ -8,6 +9,8 @@ bc1 = CornerNode([])
 br1 = CornerNode([])
 bl1 = CornerNode([])
 the_void = CornerNode([])
+stair2_f1 = StairNode([], "w")
+stair2_f2 = StairNode([], "w")
 
 room_1108 = DoorNode([], 0, the_void, 'e')
 room_1105 = DoorNode([], 0, the_void, 's')
@@ -37,6 +40,7 @@ room_1203 = DoorNode([], 0, the_void, 's')
 room_1226 = DoorNode([], 0, the_void, 'w')
 room_1227 = DoorNode([], 0, the_void, 'w')
 room_1204 = DoorNode([], 0, the_void, 'w')
+room_1234 = DoorNode([], 0, the_void, "e")
 
 room_list = [
     room_1108,
@@ -65,7 +69,8 @@ room_list = [
     room_1203,
     room_1226,
     room_1227,
-    room_1204
+    room_1204,
+    room_1234
 ]
 
 
@@ -97,6 +102,7 @@ async def build_doors():
     await room_1226.set_info([fc1, bc1, room_1227, room_1104], 1226, bc1, ["n", "s", "n", "n"])
     await room_1227.set_info([fc1, bc1, room_1226, room_1104], 1227, bc1, ["n", "s", "s", "n"])
     await room_1204.set_info([bl1, room_1221, room_1203], 1204, bl1, ["w", "w", "w"])
+    await room_1234.set_info([stair2_f2], 1234, stair2_f2, "e")
 
 
 async def build_school():
@@ -104,7 +110,7 @@ async def build_school():
     await fc1.set_name("Front Center 1st")
     await fr1.add_directions(br1, the_void, the_void, fc1)
     await fr1.set_name("Front Right 1st")
-    await fl1.add_directions(bl1, fc1, the_void, the_void)
+    await fl1.add_directions(bl1, fc1, stair2_f1, the_void)
     await fl1.set_name("Front Left 1st")
     await bc1.add_directions(the_void, br1, fc1, bl1)
     await bc1.set_name("Back Center 1st")
@@ -112,4 +118,8 @@ async def build_school():
     await br1.set_name("Back Right 1st")
     await bl1.add_directions(the_void, bc1, fl1, the_void)
     await bl1.set_name("Back Left 1st")
+    await stair2_f1.add_directions(fl1, the_void, the_void, the_void, stair2_f2, the_void)
+    await stair2_f1.set_name("Stair 2 1st Floor")
+    await stair2_f2.add_directions(the_void, room_1234, the_void, the_void, the_void, stair2_f1)
+    await stair2_f2.set_name("Stair 2 2nd Floor")
     await build_doors()
