@@ -6,6 +6,7 @@ async function getDirections() {
     const directions = await requestDirections(currentRoom, destination);
     const directionDisplay = document.getElementById("direction-display");
     directionDisplay.innerHTML = directions;
+    bottomBar(currentRoom, destination);
     return directions;
 }
 
@@ -25,3 +26,8 @@ nextBtn.addEventListener("click", () => {
     nextBtn.style.display = "none";
 });
 
+function bottomBar(start, end, directionList) {
+   const bottomHUD = document.getElementById("bottom-bar");
+   bottomHUD.style.display = "block";
+   document.getElementById("start-id").innerHTML = start;
+}
