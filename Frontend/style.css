@@ -9,3 +9,15 @@
 #location-submit {
     width: 100%;
 }
+
+#location-input {
+    display: flex;
+}
+
+#bottom-bar {
+    list-style-type: none;
+}
+
+#en-route-ui {
+    display: none;
+}
