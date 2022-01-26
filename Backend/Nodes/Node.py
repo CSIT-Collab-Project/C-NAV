@@ -12,5 +12,5 @@ class Node:
     async def add_connections(self, new_nodes: list):
         self.connections.extend(new_nodes)
 
-    async def set_name(self, new_name: str):
+    def set_name(self, new_name: str):
         self.name = new_name
