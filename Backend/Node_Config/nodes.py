@@ -2,16 +2,34 @@ from Backend.Nodes.CornerNode import CornerNode
 from Backend.Nodes.DoorNode import DoorNode
 from Backend.Nodes.StairNode import StairNode
 
-fc1 = CornerNode([])
-fr1 = CornerNode([])
-fl1 = CornerNode([])
-bc1 = CornerNode([])
-br1 = CornerNode([])
-bl1 = CornerNode([])
-the_void = CornerNode([])
-stair2_f1 = StairNode([], "w")
-stair2_f2 = StairNode([], "w")
+fc1 = CornerNode([], "Front Center 1st")
+fr1 = CornerNode([], "Front Right 1st")
+fl1 = CornerNode([], "Front Left 1st")
+bc1 = CornerNode([], "Back Center 1st")
+br1 = CornerNode([], "Back Right 1st")
+bl1 = CornerNode([], "Back Left 1st")
+the_void = CornerNode([], "The endless void of nothingness and despair. "
+                          "Nothing can enter, nothing can exit. Pure emptiness")
 
+stair1_f1 = StairNode([], "n", "Stair 1 1st Floor")
+stair1_f2 = StairNode([], "n", "Stair 1 2nd Floor")
+
+stair2_f1 = StairNode([], "w", "Stair 2 1st Floor")
+stair2_f2 = StairNode([], "w", "Stair 2 2nd Floor")
+
+stair3_f1 = StairNode([], "w", "Stair 3 1st Floor")
+stair3_f2 = StairNode([], "w", "Stair 3 2nd Floor")
+
+stair5_f1 = StairNode([], "n", "Stair 5 1st Floor")
+stair5_f2 = StairNode([], "n", "Stair 5 2nd Floor")
+
+stair6_f1 = StairNode([], "n", "Stair 6 1st Floor")
+stair6_f2 = StairNode([], "n", "Stair 6 2nd Floor")
+
+stair8_f1 = StairNode([], "e", "Stair 8 1st Floor")
+stair8_f2 = StairNode([], "e", "Stair 8 2nd Floor")
+
+# 1st Floor
 room_1108 = DoorNode([], 0, the_void, 'e')
 room_1105 = DoorNode([], 0, the_void, 's')
 room_1102 = DoorNode([], 0, the_void, 's')
@@ -40,7 +58,12 @@ room_1203 = DoorNode([], 0, the_void, 's')
 room_1226 = DoorNode([], 0, the_void, 'w')
 room_1227 = DoorNode([], 0, the_void, 'w')
 room_1204 = DoorNode([], 0, the_void, 'w')
+
+# Testing
 room_1234 = DoorNode([], 0, the_void, "e")
+
+# 2nd Floor
+
 
 room_list = [
     room_1108,
@@ -107,19 +130,28 @@ async def build_doors():
 
 async def build_school():
     await fc1.add_directions(bc1, fr1, the_void, fl1)
-    await fc1.set_name("Front Center 1st")
     await fr1.add_directions(br1, the_void, the_void, fc1)
-    await fr1.set_name("Front Right 1st")
     await fl1.add_directions(bl1, fc1, stair2_f1, the_void)
-    await fl1.set_name("Front Left 1st")
     await bc1.add_directions(the_void, br1, fc1, bl1)
-    await bc1.set_name("Back Center 1st")
     await br1.add_directions(the_void, the_void, fr1, bc1)
-    await br1.set_name("Back Right 1st")
     await bl1.add_directions(the_void, bc1, fl1, the_void)
-    await bl1.set_name("Back Left 1st")
+
+    await stair1_f1.add_directions(the_void, fr1, fc1, fl1, stair1_f2, the_void)
+    await stair1_f2.add_directions(the_void, the_void, the_void, the_void, the_void, stair1_f1)
+
     await stair2_f1.add_directions(fl1, the_void, the_void, the_void, stair2_f2, the_void)
-    await stair2_f1.set_name("Stair 2 1st Floor")
-    await stair2_f2.add_directions(the_void, room_1234, the_void, the_void, the_void, stair2_f1)
-    await stair2_f2.set_name("Stair 2 2nd Floor")
+    await stair2_f2.add_directions(the_void, the_void, the_void, the_void, the_void, stair2_f1)
+
+    await stair3_f1.add_directions(bl1, the_void, fr1, the_void, stair3_f2, the_void)
+    await stair3_f2.add_directions(the_void, the_void, the_void, the_void, the_void, stair3_f1)
+
+    await stair5_f1.add_directions(the_void, the_void, bl1, the_void, stair5_f2, the_void)
+    await stair5_f2.add_directions(the_void, the_void, the_void, the_void, the_void, stair5_f1)
+
+    await stair6_f1.add_directions(the_void, the_void, br1, the_void, stair6_f2, the_void)
+    await stair6_f2.add_directions(the_void, the_void, the_void, the_void, the_void, stair6_f1)
+
+    await stair8_f1.add_directions(br1, the_void, fr1, the_void, stair8_f2, the_void)
+    await stair8_f2.add_directions(the_void, the_void, the_void, the_void, the_void, stair8_f2)
+
     await build_doors()

@@ -2,12 +2,13 @@ from Backend.Nodes.Node import Node
 
 
 class StairNode(Node):
-    def __init__(self, connections: list, door_side: str, upstairs: Node = None, downstairs: Node = None,
+    def __init__(self, connections: list, door_side: str, name: str, upstairs: Node = None, downstairs: Node = None,
                  n: Node = None,
                  s: Node = None,
                  e: Node = None,
                  w: Node = None):
         super(StairNode, self).__init__(connections)
+        self.set_name(name)
         self.upstairs = upstairs
         self.downstairs = downstairs
         self.north_node = n

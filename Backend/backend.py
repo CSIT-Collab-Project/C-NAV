@@ -3,7 +3,6 @@ import json
 
 import Backend.Nodes.StairNode
 from Node_Config.nodes import *
-from Nodes.StairNode import StairNode as StairNode
 
 
 async def convert_to_direction(facing, path):
@@ -14,7 +13,8 @@ async def convert_to_direction(facing, path):
         from_node = path[i]
         to_node = path[i + 1]
 
-        if isinstance(from_node, Backend.Nodes.StairNode.StairNode) and isinstance(to_node, Backend.Nodes.StairNode.StairNode):
+        if isinstance(from_node, Backend.Nodes.StairNode.StairNode) and \
+                isinstance(to_node, Backend.Nodes.StairNode.StairNode):
             if from_node.upstairs == to_node:
                 turn_order.append('go up 1 floor')
             elif from_node.downstairs == to_node:
@@ -123,4 +123,4 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('1202', '1234')))
+    print(asyncio.run(main('1409', '1221')))

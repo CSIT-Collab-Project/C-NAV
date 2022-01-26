@@ -2,7 +2,7 @@ from Backend.Nodes.Node import Node
 
 
 class CornerNode(Node):
-    def __init__(self, connections,
+    def __init__(self, connections, name,
                  n: Node = None,
                  s: Node = None,
                  e: Node = None,
@@ -10,6 +10,8 @@ class CornerNode(Node):
                  ):
 
         super(CornerNode, self).__init__(connections)
+
+        self.set_name(name)
 
         self.north_node = n
 
