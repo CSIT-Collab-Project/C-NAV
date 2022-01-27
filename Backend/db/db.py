@@ -1,26 +1,39 @@
 from pymongo import MongoClient
 import subprocess
-import logging
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-file = logging.FileHandler('database.log')
-file_format = logging.Formatter('%(asctime)s : %(funcName)s : %(message)s')
-file.setLevel(logging.DEBUG)
-file.setFormatter(file_format)
-stream = logging.StreamHandler()
-stream_format = logging.Formatter('%(asctime)s : %(funcName)s : %(message)s')
-stream.setLevel(logging.DEBUG)
-stream.setFormatter(stream_format)
-logger.addHandler(file)
-logger.addHandler(stream)
+from Backend.Nodes.Node import Node
+from Backend.logger import logger
 
 
 class Database(object):
     def __init__(self):
-        logger.info('Starting up database')
-        subprocess.run('"C:\\Program Files\\MongoDB\\Server\\5.0\\bin\\mongod.exe"', stdout=False)
-        logger.info('Initialising connection')
-        self.connection = MongoClient()
-        self.db = (self.connection['C-Nav'])['cache']
+        try:
+            logger.info('Starting MongoDB executable')
+            self.server = subprocess.run('"C:\\Program Files\\MongoDB\\Server\\5.0\\bin\\mongod.exe"', stdout=False)
+            logger.info('MongoDB server running')
+        except Exception as e:
+            logger.error(f'An exception occurred while trying to start the server: {e}')
+        else:
+            try:
+                logger.info('Connecting to the server')
+                self.connection = MongoClient()
+                logger.info('Server connected')
+            except Exception as e:
+                logger.error(f'An exception occurred while trying to connect: {e}')
+            else:
+                try:
+                    logger.info('Initialising the database')
+                    self.db = self.connection['C-Nav']
+                    logger.info('Database initialised')
+                except Exception as e:
+                    logger.error(f'An exception occurred while trying to initialise the database: {e}')
+                else:
+                    try:
+                        logger.info('Initialising the collection')
+                        self.collection = self.db['cache']
+                        logger.info('Collection initialised')
+                    except Exception as e:
+                        logger.error(f'An exception occurred while trying to initialise the collection: {e}')
 
+    async def get(self, start: Node, stop: Node) -> list:
+        # do stuff
+        pass

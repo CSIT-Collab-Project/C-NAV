@@ -2,7 +2,7 @@ from __future__ import absolute_import
 from flask import Flask
 from flask.helpers import send_from_directory
 from backend import main
-from db import Database
+from db.db import Database
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
