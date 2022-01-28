@@ -34,6 +34,3 @@ class Database(object):
                     except Exception as e:
                         logger.error(f'An exception occurred while trying to initialise the collection: {e}')
 
-    async def get(self, start: Node, stop: Node) -> list:
-        # do stuff
-        pass
