@@ -3,29 +3,53 @@ document.getElementById("location-submit").addEventListener("click", getDirectio
 async function getDirections() {
     const currentRoom = document.getElementById("initial-location").value;
     const destination = document.getElementById("destination").value;
-    const directions = await requestDirections(currentRoom, destination);
+    const initialDirections = await requestDirections(currentRoom, destination);
+    const directionDict = {
+        "left": "Turn left at the next intersection",
+        "right": "Turn right at the next intersection",
+        "continue straight": "Continue straight through the next intersection",
+        "room door is on the left": "Room door is on the left",
+        "room door is on the right": "Room door is on the right",
+        "room door is straight ahead": "Room door is straight ahead",
+        "enter stairs straight ahead": "Enter stairs straight ahead",
+        "enter stairs on right": "Enter stairs on right",
+        "enter stairs on left": "Enter stairs on left",
+        "exit left": "Exit the room to the left",
+        "exit right": "Exit the room to the right"
+    }
     const directionDisplay = document.getElementById("direction-display");
     const currentDirection = document.getElementById("current-direction");
     const nextStepBtn = document.getElementById("next-direction");
     const backStepBtn = document.getElementById("previous-direction");
+    let convertedDirections = []
     let currentDirectionNum = 0
+    const directionKeys = Object.keys(directionDict);
 
-    directionDisplay.innerHTML = directions;
+    for (item of initialDirections) {
+        if (directionKeys.includes(item)) {
+            convertedDirections.push(directionDict[item]);
+        }
+        else {
+            convertedDirections.push(item);
+        }
+    }
+
+    // directionDisplay.innerHTML = convertedDirections;
 
     // add error handling for if no directions are recieved
     document.getElementById("location-input").style.display = "none";
-    bottomBar(currentRoom, destination, directions);
+    bottomBar(currentRoom, destination, convertedDirections);
     document.getElementById("en-route-ui").style.display = "block";
-    currentDirection.innerHTML = directions[currentDirectionNum];
+    currentDirection.innerHTML = convertedDirections[currentDirectionNum];
     nextStepBtn.addEventListener("click", () => {
-        currentDirection.innerHTML = directions[currentDirectionNum + 1];
+        currentDirection.innerHTML = convertedDirections[currentDirectionNum + 1];
         currentDirectionNum += 1;
     });
     backStepBtn.addEventListener("click", () => {
-        currentDirection.innerHTML = directions[currentDirectionNum - 1];
+        currentDirection.innerHTML = convertedDirections[currentDirectionNum - 1];
         currentDirectionNum -= 1;
     });
-    return directions;
+    return convertedDirections;
 }
 
 
@@ -54,6 +78,9 @@ function bottomBar(start, end, directionList) {
 
     bottomHUD.style.display = "block";
     document.getElementById("start-id").innerHTML = start;
+    if (start[1] === '3') {
+        document.getElementById("start-id").style.color = "#122aff";
+    }
     document.getElementById("end-id").innerHTML = end;
     document.getElementById("steps-id").innerHTML = remainingSteps;
    

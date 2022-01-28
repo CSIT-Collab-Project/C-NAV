@@ -1,0 +1,13 @@
+{
+    "left": "turn left at the next intersection",
+    "right": "turn right at the next intersection",
+    "continue straight": "continue straight through the next intersection",
+    "room door is on the left": "room door is on the left",
+    "room door is on the right": "room door is on the right",
+    "room door is straight ahead": "room door is straight ahead",
+    "enter stairs straight ahead": "enter stairs straight ahead",
+    "enter stairs on right": "enter stairs on right",
+    "enter stairs on left": "enter stairs on left",
+    "exit left": "exit the room to the left",
+    "exit right": "exit the room to the right"
+}
