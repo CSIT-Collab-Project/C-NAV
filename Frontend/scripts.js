@@ -5,30 +5,26 @@ async function getDirections() {
     const destination = document.getElementById("destination").value;
     const directions = await requestDirections(currentRoom, destination);
     const directionDisplay = document.getElementById("direction-display");
-    directionDisplay.innerHTML = directions;
+    const currentDirection = document.getElementById("current-direction");
+    const nextStepBtn = document.getElementById("next-direction");
+    const backStepBtn = document.getElementById("previous-direction");
+    let currentDirectionNum = 0
 
+    directionDisplay.innerHTML = directions;
 
     // add error handling for if no directions are recieved
     document.getElementById("location-input").style.display = "none";
     bottomBar(currentRoom, destination, directions);
-    const currentDirection = document.getElementById("current-direction");
     document.getElementById("en-route-ui").style.display = "block";
-    let currentDirectionNum = 0
     currentDirection.innerHTML = directions[currentDirectionNum];
-    const nextStepBtn = document.getElementById("next-direction");
     nextStepBtn.addEventListener("click", () => {
         currentDirection.innerHTML = directions[currentDirectionNum + 1];
         currentDirectionNum += 1;
-        // if (currentDirectionNum === directions.length) {
-
-        // }
     });
-    const backStepBtn = document.getElementById("previous-direction");
     backStepBtn.addEventListener("click", () => {
         currentDirection.innerHTML = directions[currentDirectionNum - 1];
         currentDirectionNum -= 1;
     });
-
     return directions;
 }
 
@@ -51,21 +47,37 @@ nextBtn.addEventListener("click", () => {
 
 function bottomBar(start, end, directionList) {
     const bottomHUD = document.getElementById("bottom-bar");
+    const numofSteps = directionList.length - 1;
+    const nextStepBtn = document.getElementById("next-direction");
+    const backBtn = document.getElementById("previous-direction");
+    let remainingSteps = directionList.length - 1;
+
     bottomHUD.style.display = "block";
     document.getElementById("start-id").innerHTML = start;
     document.getElementById("end-id").innerHTML = end;
-    let remainingSteps = directionList.length - 1;
     document.getElementById("steps-id").innerHTML = remainingSteps;
-    const nextStepBtn = document.getElementById("next-direction");
+   
     nextStepBtn.addEventListener("click", () => {
         remainingSteps -= 1;
         document.getElementById("steps-id").innerHTML = remainingSteps;
         if (remainingSteps === 0) {
             nextStepBtn.style.display = "none";
         }
+        if (remainingSteps !== numofSteps) {
+            backBtn.style.display = "inline";
+        }
     });
     if (remainingSteps > 0) {
         nextStepBtn.style.display = "inline";
     }
-
+    backBtn.addEventListener("click", () => {
+        remainingSteps += 1;
+        document.getElementById("steps-id").innerHTML = remainingSteps;
+        if (remainingSteps > 0) {
+            nextStepBtn.style.display = "inline";
+        }
+        if (remainingSteps === numofSteps) {
+            backBtn.style.display = "none";
+        }
+    });
 }
