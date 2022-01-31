@@ -76,12 +76,14 @@ function bottomBar(start, end, directionList) {
     const backBtn = document.getElementById("previous-direction");
     let remainingSteps = directionList.length - 1;
 
+    // rework zone color thing so it's more clear -- add more variables
     bottomHUD.style.display = "block";
     document.getElementById("start-id").innerHTML = start;
-    if (start[1] === '3') {
-        document.getElementById("start-id").style.color = "#122aff";
-    }
+    const startZoneColor = zoneColor(start);
+    document.getElementById("start-id").style.color = startZoneColor;
+    const endZoneColor = zoneColor(end);
     document.getElementById("end-id").innerHTML = end;
+    document.getElementById("end-id").style.color = endZoneColor;
     document.getElementById("steps-id").innerHTML = remainingSteps;
    
     nextStepBtn.addEventListener("click", () => {
@@ -107,4 +109,21 @@ function bottomBar(start, end, directionList) {
             backBtn.style.display = "none";
         }
     });
+}
+
+function zoneColor(roomNum) {
+    const zoneNum = roomNum[1];
+    if (zoneNum === '3') {
+        return "#122aff";
+    }
+    else if (zoneNum === '2') {
+        return "#35e84a";
+    }
+    else if (zoneNum === '4') {
+        return "#6ee4ff";
+    }
+    else if (zoneNum === '1') {
+        return "#e62e2e";
+    }
+    
 }
