@@ -19,7 +19,7 @@ class StairNode(Node):
         self.node_map = {n: 'n', s: 's', e: 'e', w: 'w'}
         self.turn_map = {'n': n, 's': s, 'e': e, 'w': w}
 
-    async def add_directions(self, n: Node, e: Node, s: Node, w: Node, u: Node, d: Node):
+    async def add_directions(self, n, e, s, w, u, d):
         self.north_node = n
 
         self.east_node = e
@@ -32,5 +32,44 @@ class StairNode(Node):
         self.downstairs = d
 
         self.turn_map = {'n': n, 's': s, 'e': e, 'w': w, 'u': u, 'd': d}
-        self.node_map = {n: 'n', s: 's', e: 'e', w: 'w', u: 'u', d: 'd'}
-        await self.add_connections([n, s, e, w, u, d])
+        nodes = []
+
+        if isinstance(n, list):
+            for node in n:
+                self.node_map[node] = 'n'
+                nodes.append(node)
+        else:
+            self.node_map[n] = 'n'
+            nodes.append(n)
+
+        if isinstance(e, list):
+            for node in e:
+                self.node_map[node] = 'e'
+                nodes.append(node)
+        else:
+            self.node_map[e] = 'e'
+            nodes.append(e)
+
+        if isinstance(s, list):
+            for node in s:
+                self.node_map[node] = 's'
+                nodes.append(node)
+        else:
+            self.node_map[s] = 's'
+            nodes.append(s)
+
+        if isinstance(w, list):
+            for node in w:
+                self.node_map[node] = 'w'
+                nodes.append(node)
+        else:
+            self.node_map[w] = 'w'
+            nodes.append(w)
+
+        self.node_map[u] = 'u'
+        nodes.append(u)
+        self.node_map[d] = 'd'
+        nodes.append(d)
+
+        await self.add_connections(nodes)
+

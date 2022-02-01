@@ -1,6 +1,7 @@
 from __future__ import annotations
 from Backend.Nodes.Node import Node
 from Backend.Nodes.CornerNode import CornerNode
+from Backend.logger import logger
 
 
 async def create_door(connections: list, num: int, closest: Node, directions):
@@ -13,6 +14,7 @@ async def connect_to_network(node, directions):
     opp_directions = {'n': 's', 'e': 'w', 's': 'n', 'w': 'e'}
     for i in range(len(node.connections)):
         await node.connections[i].add_connections([node])
+        # logger.info(f"Connecting {node.connections[i].name} to {node.name}")
         if isinstance(node, DoorNode):
             node.connections[i].node_map[node] = directions[i]
             node.node_map[node.connections[i]] = opp_directions[directions[i]]

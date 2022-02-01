@@ -33,14 +33,39 @@ class CornerNode(Node):
     async def get_node_to(self, direction: str) -> Node:
         return self.turn_map[direction]
 
-    async def add_directions(self, n: Node, e: Node, s: Node, w: Node):
-        self.north_node = n
+    async def add_directions(self, n, e, s, w):
+        nodes = []
 
-        self.east_node = e
+        if isinstance(n, list):
+            for node in n:
+                self.node_map[node] = 'n'
+                nodes.append(node)
+        else:
+            self.node_map[n] = 'n'
+            nodes.append(n)
 
-        self.south_node = s
+        if isinstance(e, list):
+            for node in e:
+                self.node_map[node] = 'e'
+                nodes.append(node)
+        else:
+            self.node_map[e] = 'e'
+            nodes.append(e)
 
-        self.west_node = w
-        self.turn_map = {'n': n, 's': s, 'e': e, 'w': w}
-        self.node_map = {n: 'n', s: 's', e: 'e', w: 'w'}
-        await self.add_connections([n, s, e, w])
+        if isinstance(s, list):
+            for node in s:
+                self.node_map[node] = 's'
+                nodes.append(node)
+        else:
+            self.node_map[s] = 's'
+            nodes.append(s)
+
+        if isinstance(w, list):
+            for node in w:
+                self.node_map[node] = 'w'
+                nodes.append(node)
+        else:
+            self.node_map[w] = 'w'
+            nodes.append(w)
+
+        await self.add_connections(nodes)
