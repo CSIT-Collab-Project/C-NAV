@@ -21,8 +21,6 @@ async def convert_to_direction(facing, path):
                 elif from_node.downstairs == to_node:
                     turn_order.append('go down 1 floor')
                 facing = await turn(to_node.door_side, 'reverse')
-            elif isinstance(to_node, Backend.Nodes.CornerNode.CornerNode):
-                turn_order.append('exit stairs')
             else:
                 to_direction = from_node.node_map[to_node]
                 if direct_order[direct_order.index(facing) - 1] == to_direction:
