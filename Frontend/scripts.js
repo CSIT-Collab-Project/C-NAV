@@ -15,7 +15,10 @@ async function getDirections() {
         "enter stairs on right": "Enter stairs on right",
         "enter stairs on left": "Enter stairs on left",
         "exit left": "Exit the room to the left",
-        "exit right": "Exit the room to the right"
+        "exit right": "Exit the room to the right",
+        "exit stairs left": "Exit the stairs to the left",
+        "exit stairs right": "Exit the stairs to the right",
+        "exit stairs straight": "Exit the stairs straight ahead"
     }
     const directionDisplay = document.getElementById("direction-display");
     const currentDirection = document.getElementById("current-direction");
@@ -34,7 +37,7 @@ async function getDirections() {
         }
     }
 
-    // directionDisplay.innerHTML = convertedDirections;
+    directionDisplay.innerHTML = convertedDirections;
 
     // add error handling for if no directions are recieved
     document.getElementById("location-input").style.display = "none";
@@ -74,16 +77,27 @@ function bottomBar(start, end, directionList) {
     const numofSteps = directionList.length - 1;
     const nextStepBtn = document.getElementById("next-direction");
     const backBtn = document.getElementById("previous-direction");
+    const startZoneCall = zoneColor(start);
+    const startZoneColor = startZoneCall[1];
+    const endZoneCall = zoneColor(end);
+    const endZoneColor = endZoneCall[1];
+    const startRoom = document.getElementById("start-id");
+    const endRoom = document.getElementById("end-id");
     let remainingSteps = directionList.length - 1;
 
     // rework zone color thing so it's more clear -- add more variables
     bottomHUD.style.display = "block";
-    document.getElementById("start-id").innerHTML = start;
-    const startZoneColor = zoneColor(start);
-    document.getElementById("start-id").style.color = startZoneColor;
-    const endZoneColor = zoneColor(end);
-    document.getElementById("end-id").innerHTML = end;
-    document.getElementById("end-id").style.color = endZoneColor;
+    startRoom.innerHTML = start;
+    endRoom.innerHTML = end;
+    startRoom.style.background = startZoneColor;
+    endRoom.style.background = endZoneColor;
+    if (startZoneCall[0] === '3') {
+        startRoom.style.color = 'white';
+    }
+    if (endZoneCall[0] === '3') {
+        endRoom.style.color = 'white';
+    }
+
     document.getElementById("steps-id").innerHTML = remainingSteps;
    
     nextStepBtn.addEventListener("click", () => {
@@ -113,17 +127,15 @@ function bottomBar(start, end, directionList) {
 
 function zoneColor(roomNum) {
     const zoneNum = roomNum[1];
-    if (zoneNum === '3') {
-        return "#122aff";
+    const zoneColors = {
+        '3' : '#122aff',
+        '2' : '#35e84a',
+        '4' : '#6ee4ff',
+        '1' : '#e62e2e',
+        '5' : '#8f5f25',
+        '6' : '#ed890e'
     }
-    else if (zoneNum === '2') {
-        return "#35e84a";
-    }
-    else if (zoneNum === '4') {
-        return "#6ee4ff";
-    }
-    else if (zoneNum === '1') {
-        return "#e62e2e";
-    }
-    
+    if (Object.keys(zoneColors).includes(zoneNum)) {
+        return [zoneNum, zoneColors[zoneNum]];
+    }   
 }

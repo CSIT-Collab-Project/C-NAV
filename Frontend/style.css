@@ -18,6 +18,10 @@
     list-style-type: none;
 }
 
+#bottom-bar li p {
+    padding: 5px;
+}
+
 #en-route-ui {
     display: none;
 }
