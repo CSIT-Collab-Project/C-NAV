@@ -1,4 +1,9 @@
-document.getElementById("location-submit").addEventListener("click", getDirections);
+async function requestDirections(start, end) {
+    const url = `/directions-${start}-${end}`;
+    let directionsJson = await fetch(url)
+        .then(response => response.json());
+    return directionsJson;
+}
 
 async function getDirections() {
     const currentRoom = document.getElementById("initial-location").value;
@@ -42,11 +47,12 @@ async function getDirections() {
     // add error handling for if no directions are recieved
     document.getElementById("location-input").style.display = "none";
     bottomBar(currentRoom, destination, convertedDirections);
+    directionTable();
     document.getElementById("en-route-ui").style.display = "block";
     currentDirection.innerHTML = convertedDirections[currentDirectionNum];
     nextStepBtn.addEventListener("click", () => {
         currentDirection.innerHTML = convertedDirections[currentDirectionNum + 1];
-        currentDirectionNum += 1;
+        currentDirectionNum ++;
     });
     backStepBtn.addEventListener("click", () => {
         currentDirection.innerHTML = convertedDirections[currentDirectionNum - 1];
@@ -55,13 +61,7 @@ async function getDirections() {
     return convertedDirections;
 }
 
-
-async function requestDirections(start, end) {
-    const url = `/directions-${start}-${end}`;
-    let directionsJson = await fetch(url)
-        .then(response => response.json());
-    return directionsJson;
-}
+document.getElementById("location-submit").addEventListener("click", directions);
 
 
 const destinationForm = document.getElementById("destination-form");
@@ -123,6 +123,10 @@ function bottomBar(start, end, directionList) {
             backBtn.style.display = "none";
         }
     });
+}
+
+function directionTable(directionList) {
+
 }
 
 function zoneColor(roomNum) {
