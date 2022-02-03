@@ -42,12 +42,12 @@ async function getDirections() {
         }
     }
 
-    directionDisplay.innerHTML = convertedDirections;
+    // directionDisplay.innerHTML = convertedDirections;
 
     // add error handling for if no directions are recieved
     document.getElementById("location-input").style.display = "none";
     bottomBar(currentRoom, destination, convertedDirections);
-    directionTable();
+    // directionTable();
     document.getElementById("en-route-ui").style.display = "block";
     currentDirection.innerHTML = convertedDirections[currentDirectionNum];
     nextStepBtn.addEventListener("click", () => {
@@ -61,7 +61,7 @@ async function getDirections() {
     return convertedDirections;
 }
 
-document.getElementById("location-submit").addEventListener("click", directions);
+document.getElementById("location-submit").addEventListener("click", getDirections);
 
 
 const destinationForm = document.getElementById("destination-form");
@@ -125,9 +125,9 @@ function bottomBar(start, end, directionList) {
     });
 }
 
-function directionTable(directionList) {
+// function directionTable(directionList) {
 
-}
+// }
 
 function zoneColor(roomNum) {
     const zoneNum = roomNum[1];
