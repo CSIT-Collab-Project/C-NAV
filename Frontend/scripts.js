@@ -47,7 +47,7 @@ async function getDirections() {
     // add error handling for if no directions are recieved
     document.getElementById("location-input").style.display = "none";
     bottomBar(currentRoom, destination, convertedDirections);
-    // directionTable();
+    directionTable(convertedDirections);
     document.getElementById("en-route-ui").style.display = "block";
     currentDirection.innerHTML = convertedDirections[currentDirectionNum];
     nextStepBtn.addEventListener("click", () => {
@@ -56,7 +56,7 @@ async function getDirections() {
     });
     backStepBtn.addEventListener("click", () => {
         currentDirection.innerHTML = convertedDirections[currentDirectionNum - 1];
-        currentDirectionNum -= 1;
+        currentDirectionNum --;
     });
     return convertedDirections;
 }
@@ -125,9 +125,24 @@ function bottomBar(start, end, directionList) {
     });
 }
 
-// function directionTable(directionList) {
-
-// }
+function directionTable(directionList) {
+    document.getElementById('direction-table').style.display = "block";
+    const table = document.getElementById("direction-table");
+    let stepNum = 1
+    for (item of directionList) {
+        const currentStepRow = document.createElement('tr');
+        const currentStepCell = document.createElement('td');
+        const currentStepNumCell = document.createElement('td');
+        const currentStepDirection = document.createTextNode(item);
+        const currentStepNum = document.createTextNode(stepNum);
+        currentStepNumCell.appendChild(currentStepNum);
+        currentStepRow.appendChild(currentStepNumCell);
+        currentStepCell.appendChild(currentStepDirection);
+        currentStepRow.appendChild(currentStepCell);
+        table.appendChild(currentStepRow);
+        stepNum ++;
+    }
+}
 
 function zoneColor(roomNum) {
     const zoneNum = roomNum[1];
