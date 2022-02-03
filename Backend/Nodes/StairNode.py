@@ -17,7 +17,6 @@ class StairNode(Node):
         self.west_node = w
         self.door_side = door_side
         self.node_map = {n: 'n', s: 's', e: 'e', w: 'w'}
-        self.turn_map = {'n': n, 's': s, 'e': e, 'w': w}
 
     async def add_directions(self, n, e, s, w, u, d):
         self.north_node = n
@@ -31,7 +30,6 @@ class StairNode(Node):
         self.upstairs = u
         self.downstairs = d
 
-        self.turn_map = {'n': n, 's': s, 'e': e, 'w': w, 'u': u, 'd': d}
         nodes = []
 
         if isinstance(n, list):

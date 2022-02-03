@@ -34,6 +34,7 @@ stair2_f1 = StairNode([], "w", "Stair 2 1st Floor")
 stair2_f2 = StairNode([], "w", "Stair 2 2nd Floor")
 stair2_f3 = StairNode([], "w", "Stair 2 3rd Floor")
 stair2_f4 = StairNode([], "w", "Stair 2 4th Floor")
+stair2_f5 = StairNode([], "w", "Stair 2 5th Floor")
 
 stair3_f1 = StairNode([], "w", "Stair 3 1st Floor")
 stair3_f2 = StairNode([], "w", "Stair 3 2nd Floor")
@@ -55,6 +56,7 @@ stair9_f1 = StairNode([], "e", "Stair 9 1st Floor")
 stair9_f2 = StairNode([], "e", "Stair 9 2nd Floor")
 stair9_f3 = StairNode([], "e", "Stair 9 3rd Floor")
 stair9_f4 = StairNode([], "e", "Stair 9 4th Floor")
+stair9_f5 = StairNode([], "e", "Stair 9 5th Floor")
 
 # 1st Floor
 room_1108 = DoorNode([], 0, the_void, 'e')
@@ -158,6 +160,17 @@ room_4405 = DoorNode([], 0, the_void, "s")
 room_4410 = DoorNode([], 0, the_void, "e")
 room_4406 = DoorNode([], 0, the_void, "s")
 
+room_5101 = DoorNode([], 0, the_void, "s")
+room_5102 = DoorNode([], 0, the_void, "n")
+room_5103 = DoorNode([], 0, the_void, "s")
+room_5104 = DoorNode([], 0, the_void, "n")
+room_5105 = DoorNode([], 0, the_void, "n")
+room_5405 = DoorNode([], 0, the_void, "s")
+room_5404 = DoorNode([], 0, the_void, "n")
+room_5403 = DoorNode([], 0, the_void, "s")
+room_5402 = DoorNode([], 0, the_void, "n")
+room_5401 = DoorNode([], 0, the_void, "s")
+
 room_list = [
     room_1108,
     room_1105,
@@ -183,8 +196,6 @@ room_list = [
     room_1305,
     room_1221,
     room_1203,
-    room_1226,
-    room_1227,
     room_1204,
     room_2203,
     room_2204,
@@ -233,28 +244,56 @@ room_list = [
     room_3102,
     room_3401,
     room_3404,
-    room_3402
+    room_3402,
+    room_4111,
+    room_4117,
+    room_4118,
+    room_4119,
+    room_4120,
+    room_4121,
+    room_4122,
+    room_4105,
+    room_4104,
+    room_4103,
+    room_4102,
+    room_4101,
+    room_4401,
+    room_4402,
+    room_4403,
+    room_4405,
+    room_4410,
+    room_4406,
+    room_5101,
+    room_5102,
+    room_5103,
+    room_5104,
+    room_5105,
+    room_5405,
+    room_5404,
+    room_5403,
+    room_5402,
+    room_5401
 ]
 
 
 async def build_doors():
-    await room_1108.set_info([fl1, bl1, room_1202], 1108, fl1, ["n", "s", "s"])
-    await room_1105.set_info([fl1, fc1, room_1102, room_1106], 1105, fl1, ["e", "w", "w", "w"])
-    await room_1102.set_info([fl1, fc1, room_1105, room_1106], 1102, fc1, ["e", "w", "e", "w"])
-    await room_1401.set_info([fc1, fr1, room_1409, room_1402], 1401, fc1, ["e", "w", "w", "w"])
-    await room_1402.set_info([fc1, fr1, room_1401, room_1409], 1402, fc1, ["e", "w", "e", "w"])
-    await room_1409.set_info([fc1, fr1, room_1401, room_1402], 1409, fr1, ["e", "w", "e", "e"])
-    await room_1202.set_info([fl1, bl1, room_1108], 1202, fl1, ["n", "s", "n"])
-    await room_1225.set_info([bl1, bc1, room_1223, room_1224, room_1228], 1225, bc1, ["e", "w", "e", "e", "w"])
-    await room_1228.set_info([bl1, bc1, room_1223, room_1224, room_1225], 1228, bc1, ["e", "n", "e", "e", "e"])
-    await room_1223.set_info([bl1, bc1, room_1224, room_1225, room_1228], 1223, bl1, ["e", "w", "w", "w", "w"])
-    await room_1311.set_info([bc1, br1, room_1312], 1311, bc1, ["e", "w", "w"])
-    await room_1312.set_info([bc1, br1, room_1311], 1312, br1, ["e", "w", "e"])
+    await room_1108.set_info([fl1, bl1, room_1202, stair3_f1], 1108, fl1, ["n", "s", "s", "s"])
+    await room_1105.set_info([fl1, fr1, room_1102, room_1106, stair1_f1], 1105, fl1, ["e", "w", "w", "w", "w"])
+    await room_1102.set_info([fl1, fr1, room_1105, room_1106, stair1_f1], 1102, fc1, ["e", "w", "e", "w", "w"])
+    await room_1401.set_info([fl1, fr1, room_1409, room_1402, stair1_f1], 1401, fc1, ["e", "w", "w", "w", "e"])
+    await room_1402.set_info([fl1, fr1, room_1401, room_1409, stair1_f1], 1402, fc1, ["e", "w", "e", "w", "e"])
+    await room_1409.set_info([fl1, fr1, room_1401, room_1402, stair1_f1], 1409, fr1, ["e", "w", "e", "e", "e"])
+    await room_1202.set_info([fl1, bl1, room_1108, stair3_f1], 1202, fl1, ["n", "s", "n", "n"])
+    await room_1225.set_info([bl1, br1, room_1223, room_1224, room_1228], 1225, bc1, ["e", "w", "e", "e", "w"])
+    await room_1228.set_info([bl1, br1, room_1223, room_1224, room_1225], 1228, bc1, ["e", "n", "e", "e", "e"])
+    await room_1223.set_info([bl1, br1, room_1224, room_1225, room_1228], 1223, bl1, ["e", "w", "w", "w", "w"])
+    await room_1311.set_info([bl1, br1, room_1312], 1311, bc1, ["e", "w", "w"])
+    await room_1312.set_info([bl1, br1, room_1311], 1312, br1, ["e", "w", "e"])
     await room_1107.set_info([fl1, room_1109], 1107, fl1, ["s", "n"])
     await room_1109.set_info([fl1, room_1107], 1109, fl1, ["s", "s"])
-    await room_1106.set_info([fc1, fl1, room_1105, room_1102], 1106, fc1, ["w", "e", "e", "e"])
-    await room_1104.set_info([fc1, bc1, room_1227, room_1226], 1104, fc1, ["n", "s", "s", "s"])
-    await room_1410.set_info([fc1, fr1], 1410, fr1, ["e", "w"])
+    await room_1106.set_info([fr1, fl1, room_1105, room_1102], 1106, fc1, ["w", "e", "e", "e"])
+    await room_1104.set_info([fr1, bl1, room_1227, room_1226], 1104, fc1, ["n", "s", "s", "s"])
+    await room_1410.set_info([fl1, fr1], 1410, fr1, ["e", "w"])
     await room_1420.set_info([fr1], 1420, fr1, ["s"])
     await room_1309.set_info([br1, room_1303, room_1307, room_1305], 1309, br1, ["e", "e", "w", "w"])
     await room_1303.set_info([br1, room_1305, room_1307, room_1309], 1303, br1, ["e", "w", "w", "w"])
@@ -262,8 +301,6 @@ async def build_doors():
     await room_1305.set_info([br1, room_1303, room_1307, room_1309], 1305, br1, ["e", "e", "e", "e"])
     await room_1221.set_info([bl1, room_1203, room_1204], 1221, bl1, ["w", "n", "e"])
     await room_1203.set_info([bl1, room_1221, room_1204], 1203, bl1, ["w", "s", "e"])
-    await room_1226.set_info([fc1, bc1, room_1227, room_1104], 1226, bc1, ["n", "s", "n", "n"])
-    await room_1227.set_info([fc1, bc1, room_1226, room_1104], 1227, bc1, ["n", "s", "s", "n"])
     await room_1204.set_info([bl1, room_1221, room_1203], 1204, bl1, ["w", "w", "w"])
 
     await room_2203.set_info([room_2204, room_2205, room_2206, room_2207, room_2208, room_2209, room_2210, bl2], 2203,
@@ -341,33 +378,76 @@ async def build_doors():
     await room_2202.set_info([room_2212, room_2201, bl2, fl2], 2202, bl2, ['s', 'n', 's', 'n'])
     await room_2201.set_info([room_2212, room_2202, bl2, fl2], 2201, bl2, ['s', 's', 's', 'n'])
 
+    await room_2119.set_info([fl2], 2119, fl2, ['s'])
     await room_3124.set_info([l3], 3124, l3, ['n'])
     await room_3111.set_info([l3], 3111, l3, ['s'])
     await room_3103.set_info([room_3104, room_3101, room_3102, room_3401, stair1_f3, room_3404, room_3402, l3, r3],
                              3103, l3, ['n', 'w', 'w', 'w', 'w', 'w', 'w', 'e', 'w'])
     await room_3104.set_info([room_3103, room_3101, room_3102, room_3401, stair1_f3, room_3404, room_3402, l3, r3],
-                             3103, l3, ['s', 'w', 'w', 'w', 'w', 'w', 'w', 'e', 'w'])
+                             3104, l3, ['s', 'w', 'w', 'w', 'w', 'w', 'w', 'e', 'w'])
     await room_3101.set_info([room_3103, room_3104, room_3102, room_3401, stair1_f3, room_3404, room_3402, l3, r3],
-                             3103, l3, ['e', 'e', 'e', 'w', 'w', 'w', 'w', 'e', 'w'])
+                             3101, l3, ['e', 'e', 'e', 'w', 'w', 'w', 'w', 'e', 'w'])
     await room_3102.set_info([room_3103, room_3104, room_3101, room_3401, stair1_f3, room_3404, room_3402, l3, r3],
-                             3103, l3, ['e', 'e', 'w', 'w', 'w', 'w', 'w', 'e', 'w'])
+                             3102, l3, ['e', 'e', 'w', 'w', 'w', 'w', 'w', 'e', 'w'])
     await room_3401.set_info([room_3103, room_3104, room_3101, room_3102, stair1_f3, room_3404, room_3402, l3, r3],
-                             3103, l3, ['e', 'e', 'e', 'e', 's', 'w', 'w', 'e', 'w'])
+                             3401, l3, ['e', 'e', 'e', 'e', 's', 'w', 'w', 'e', 'w'])
     await room_3404.set_info([room_3103, room_3104, room_3101, room_3102, room_3401, stair1_f3, room_3402, l3, r3],
-                             3103, l3, ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'w'])
+                             3404, l3, ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'w'])
     await room_3402.set_info([room_3103, room_3104, room_3101, room_3102, room_3401, stair1_f3, room_3404, l3, r3],
-                             3103, l3, ['e', 'e', 'e', 'e', 'e', 'e', 'w', 'e', 'w'])
+                             3402, l3, ['e', 'e', 'e', 'e', 'e', 'e', 'w', 'e', 'w'])
 
-    await room_2119.set_info([fl2], 2119, fl2, ['s'])
+    await room_4111.set_info([room_4117, room_4118, room_4119, room_4120, room_4121, room_4122, stair2_f4, stair3_f4,
+                              l4], 4111, l4, ['s', 's', 's', 's', 's', 's', 'e', 's', 's'])
+    await room_4117.set_info([room_4111, room_4118, room_4119, room_4120, room_4121, room_4122, stair2_f4, stair3_f4,
+                              l4], 4117, l4, ['n', 's', 's', 's', 's', 's', 'n', 's', 's'])
+    await room_4118.set_info([room_4111, room_4117, room_4119, room_4120, room_4121, room_4122, stair2_f4, stair3_f4,
+                              l4], 4118, l4, ['n', 'n', 's', 's', 's', 's', 'n', 's', 'n'])
+    await room_4119.set_info([room_4111, room_4117, room_4118, room_4120, room_4121, room_4122, stair2_f4, stair3_f4,
+                              l4], 4119, l4, ['n', 'n', 'n', 's', 's', 's', 'n', 's', 'n'])
+    await room_4120.set_info([room_4111, room_4117, room_4118, room_4119, room_4121, room_4122, stair2_f4, stair3_f4,
+                              l4], 4120, l4, ['n', 'n', 'n', 'n', 's', 's', 'n', 's', 'n'])
+    await room_4121.set_info([room_4111, room_4117, room_4118, room_4119, room_4120, room_4122, stair2_f4, stair3_f4,
+                              l4], 4121, l4, ['n', 'n', 'n', 'n', 'n', 's', 's', 's', 'n'])
+    await room_4122.set_info([room_4111, room_4117, room_4118, room_4119, room_4120, room_4121, stair2_f4, stair3_f4,
+                              l4], 4122, l4, ['n', 'n', 'n', 'n', 'n', 'n', 's', 's', 'n'])
+
+    await room_4105.set_info([room_4104, room_4103, room_4102, room_4101, room_4401, stair1_f4, room_4402, room_4403,
+                              room_4405, l4, r4], 4105, l4, ['w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'e', 'w'])
+    await room_4104.set_info([room_4105, room_4103, room_4102, room_4101, room_4401, stair1_f4, room_4402, room_4403,
+                              room_4405, l4, r4], 4104, l4, ['e', 's', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'e', 'w'])
+    await room_4103.set_info([room_4105, room_4104, room_4102, room_4101, room_4401, stair1_f4, room_4402, room_4403,
+                              room_4405, l4, r4], 4103, l4, ['e', 'n', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'e', 'w'])
+    await room_4102.set_info([room_4105, room_4104, room_4103, room_4101, room_4401, stair1_f4, room_4402, room_4403,
+                              room_4405, l4, r4], 4102, l4, ['e', 'e', 'e', 'w', 'w', 'w', 'w', 'w', 'w', 'e', 'w'])
+    await room_4101.set_info([room_4105, room_4104, room_4103, room_4102, room_4401, stair1_f4, room_4402, room_4403,
+                              room_4405, l4, r4], 4101, l4, ['e', 'e', 'e', 'e', 'w', 'w', 'w', 'w', 'w', 'e', 'w'])
+    await room_4401.set_info([room_4105, room_4104, room_4103, room_4102, room_4101, stair1_f4, room_4402, room_4403,
+                              room_4405, l4, r4], 4401, l4, ['e', 'e', 'e', 'e', 'e', 'e', 'w', 'w', 'w', 'e', 'w'])
+    await room_4402.set_info([room_4105, room_4104, room_4103, room_4102, room_4101, stair1_f4, room_4401, room_4403,
+                              room_4405, l4, r4], 4402, l4, ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'w', 'w', 'e', 'w'])
+    await room_4403.set_info([room_4105, room_4104, room_4103, room_4102, room_4101, stair1_f4, room_4401, room_4402,
+                              room_4405, l4, r4], 4403, l4, ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'n', 'e', 'w'])
+    await room_4405.set_info([room_4105, room_4104, room_4103, room_4102, room_4101, stair1_f4, room_4401, room_4402,
+                              room_4405, l4, r4], 4405, l4, ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 's', 'e', 'w'])
+
+    await room_4410.set_info([stair8_f4, r4], 4410, r4, ['n', 'n'])
+    await room_4406.set_info([r3], 4406, r4, ['s'])
+
+    await room_5102.set_info([room_5101, room_5104, room_5103, room_5104, room_5105, room_5405, room_5404, room_5403,
+                              room_5402, room_5401, stair2_f5, stair9_f5], 5102, the_void, ['w', 'w', 'w', 'w', 'w',
+                                                                                            'w', 'w', 'w', 'w', 'w',
+                                                                                            'e', 'w'])
+    await room_5101.set_info([room_5102, room_5104, room_5103, room_5104, room_5105, room_5405, room_5404, room_5403,
+                              room_5402, room_5401, stair2_f5, stair9_f5], 5101, the_void, ['e', 's', 'w', 'w', 'w',
+                                                                                            'w', 'w', 'w', 'w', 'w',
+                                                                                            'e', 'w'])
 
 
 async def build_school():
-    await fc1.add_directions(stair1_f1, fr1, the_void, fl1)
-    await fr1.add_directions([br1, stair8_f1], the_void, stair9_f1, fc1)
-    await fl1.add_directions([bl1, stair3_f1], fc1, stair2_f1, the_void)
-    await bc1.add_directions(the_void, br1, the_void, bl1)
-    await br1.add_directions(stair6_f1, the_void, [fr1, stair8_f1], bc1)
-    await bl1.add_directions(stair5_f1, bc1, [fl1, stair3_f1], the_void)
+    await fr1.add_directions([br1, stair8_f1], the_void, stair9_f1, [fl1, stair1_f1])
+    await fl1.add_directions([bl1, stair3_f1], [fr1, stair1_f1], stair2_f1, the_void)
+    await br1.add_directions(stair6_f1, the_void, [fr1, stair8_f1], bl1)
+    await bl1.add_directions(stair5_f1, br1, [fl1, stair3_f1], the_void)
 
     await fr2.add_directions([br2, stair8_f2], the_void, stair9_f2, fl2)
     await fl2.add_directions([bl2, stair3_f2], fr2, stair2_f2, the_void)
@@ -377,17 +457,24 @@ async def build_school():
     await l3.add_directions(stair3_f3, r3, stair2_f3, the_void)
     await r3.add_directions(stair8_f3, the_void, stair9_f3, l3)
 
+    await l4.add_directions(stair3_f4, r4, stair2_f4, the_void)
+    await r4.add_directions(stair8_f4, the_void, stair9_f4, l4)
+
     await stair1_f1.add_directions(the_void, fr1, fc1, fl1, stair1_f2, the_void)
     await stair1_f2.add_directions(the_void, fr2, the_void, fl2, stair1_f3, stair1_f1)
-    await stair1_f3.add_directions(the_void, l3, the_void, r3, stair1_f4, stair1_f2)
+    await stair1_f3.add_directions(the_void, r3, the_void, l3, stair1_f4, stair1_f2)
+    await stair1_f4.add_directions(the_void, r4, the_void, l4, the_void, stair1_f3)
 
     await stair2_f1.add_directions(fl1, the_void, the_void, the_void, stair2_f2, the_void)
     await stair2_f2.add_directions(fl2, the_void, the_void, the_void, stair2_f3, stair2_f1)
     await stair2_f3.add_directions(l3, the_void, the_void, the_void, stair2_f4, stair2_f2)
+    await stair2_f4.add_directions(l4, the_void, the_void, the_void, stair2_f5, stair2_f3)
+    await stair2_f5.add_directions(the_void, the_void, the_void, the_void, the_void, stair2_f4)
 
     await stair3_f1.add_directions(bl1, the_void, fl1, the_void, stair3_f2, the_void)
     await stair3_f2.add_directions(bl2, the_void, fl2, the_void, stair3_f3, stair3_f1)
     await stair3_f3.add_directions(the_void, the_void, l3, the_void, stair3_f4, stair3_f2)
+    await stair3_f4.add_directions(the_void, the_void, l4, the_void, the_void, stair3_f4)
 
     await stair5_f1.add_directions(the_void, the_void, bl1, the_void, stair5_f2, the_void)
     await stair5_f2.add_directions(the_void, the_void, bl2, the_void, the_void, stair5_f1)
@@ -398,9 +485,12 @@ async def build_school():
     await stair8_f1.add_directions(br1, the_void, fr1, the_void, stair8_f2, the_void)
     await stair8_f2.add_directions(br2, the_void, fr2, the_void, stair8_f3, stair8_f2)
     await stair8_f3.add_directions(the_void, the_void, r3, the_void, stair8_f4, stair8_f2)
+    await stair8_f4.add_directions(the_void, the_void, r4, the_void, the_void, stair8_f3)
 
     await stair9_f1.add_directions(br1, the_void, fr1, the_void, stair9_f2, the_void)
     await stair9_f2.add_directions(br2, the_void, fr2, the_void, stair9_f3, stair9_f1)
     await stair9_f3.add_directions(r3, the_void, the_void, the_void, stair9_f4, stair9_f2)
+    await stair9_f4.add_directions(r4, the_void, the_void, the_void, stair9_f5, stair9_f3)
+    await stair9_f5.add_directions(the_void, the_void, the_void, the_void, the_void, stair9_f4)
 
     await build_doors()
