@@ -9,8 +9,13 @@ from Node_Config.nodes import *
 async def convert_to_direction(facing, path):
     direct_order = ['n', 'e', 's', 'w', 'n', 'w']
     turn_order = []
+    skip = False
 
     for i in range(len(path) - 1):
+        if skip:
+            skip = False
+            continue
+
         from_node = path[i]
         to_node = path[i + 1]
 
@@ -31,6 +36,8 @@ async def convert_to_direction(facing, path):
                     turn_order.append('exit stairs right')
                 elif direct_order[direct_order.index(facing)] == to_direction:
                     turn_order.append('exit stairs straight')
+                    if isinstance(to_node, Backend.Nodes.CornerNode.CornerNode):
+                        skip = True
 
         else:
             if isinstance(from_node, DoorNode) and i == 0:
@@ -44,17 +51,6 @@ async def convert_to_direction(facing, path):
                 elif direct_order[direct_order.index(facing)] == to_direction:
                     turn_order.append('exit straight')
 
-            elif isinstance(to_node, Backend.Nodes.StairNode.StairNode):
-                to_direction = to_node.door_side
-                if direct_order[direct_order.index(facing) - 1] == to_direction:
-                    facing = await turn(facing, 'left')
-                    turn_order.append('enter stairs on left')
-                elif direct_order[direct_order.index(facing) + 1] == to_direction:
-                    facing = await turn(facing, 'right')
-                    turn_order.append('enter stairs on right')
-                elif direct_order[direct_order.index(facing)] == to_direction:
-                    turn_order.append('enter stairs straight ahead')
-
             elif not isinstance(from_node, Backend.Nodes.StairNode.StairNode):
                 to_direction = from_node.node_map[to_node]
                 if direct_order[direct_order.index(facing) - 1] == to_direction:
@@ -65,6 +61,17 @@ async def convert_to_direction(facing, path):
                     turn_order.append('right')
                 elif direct_order[direct_order.index(facing)] == to_direction:
                     turn_order.append('continue straight')
+
+            if isinstance(to_node, Backend.Nodes.StairNode.StairNode):
+                to_direction = to_node.door_side
+                if direct_order[direct_order.index(facing) - 1] == to_direction:
+                    facing = await turn(facing, 'left')
+                    turn_order.append('enter stairs on left')
+                elif direct_order[direct_order.index(facing) + 1] == to_direction:
+                    facing = await turn(facing, 'right')
+                    turn_order.append('enter stairs on right')
+                elif direct_order[direct_order.index(facing)] == to_direction:
+                    turn_order.append('enter stairs straight ahead')
 
     to_direction = path[-1].door_side
     if direct_order[direct_order.index(facing) - 1] == to_direction:
@@ -117,8 +124,6 @@ async def main(start_str, end_str):
     opp_directions = {'n': 's', 'e': 'w', 's': 'n', 'w': 'e'}
     await build_school()
 
-    print([node.name for node in fl1.connections])
-
     for room in room_list:
         if room.door_num == int(start_str):
             start_loc = room
@@ -149,4 +154,4 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('2202', '2119')))
+    print(asyncio.run(main('1105', '2405')))
