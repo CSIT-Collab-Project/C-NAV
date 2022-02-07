@@ -28,3 +28,8 @@
 #previous-direction {
     display: none;
 }
+
+#direction-table {
+    display: none;
+    margin: 10px;
+}

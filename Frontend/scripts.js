@@ -23,7 +23,10 @@ async function getDirections() {
         "exit right": "Exit the room to the right",
         "exit stairs left": "Exit the stairs to the left",
         "exit stairs right": "Exit the stairs to the right",
-        "exit stairs straight": "Exit the stairs straight ahead"
+        "exit stairs straight": "Exit the stairs straight ahead",
+        "go up 1 floor": "Go up one floor",
+        "go down 1 floor": "Go down one floor",
+        "enter doors in stairwell": "Enter doors in stairwell"
     }
     const directionDisplay = document.getElementById("direction-display");
     const currentDirection = document.getElementById("current-direction");
@@ -47,16 +50,25 @@ async function getDirections() {
     // add error handling for if no directions are recieved
     document.getElementById("location-input").style.display = "none";
     bottomBar(currentRoom, destination, convertedDirections);
-    // directionTable();
+    directionTable(convertedDirections);
     document.getElementById("en-route-ui").style.display = "block";
     currentDirection.innerHTML = convertedDirections[currentDirectionNum];
+    let stepCount = 1
+    let stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
+    currentDirection.appendChild(stepCountNode);
     nextStepBtn.addEventListener("click", () => {
+        stepCount ++; 
         currentDirection.innerHTML = convertedDirections[currentDirectionNum + 1];
+        stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
+        currentDirection.appendChild(stepCountNode);
         currentDirectionNum ++;
     });
     backStepBtn.addEventListener("click", () => {
+        stepCount--;
         currentDirection.innerHTML = convertedDirections[currentDirectionNum - 1];
-        currentDirectionNum -= 1;
+        stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
+        currentDirection.appendChild(stepCountNode);
+        currentDirectionNum --;
     });
     return convertedDirections;
 }
@@ -125,9 +137,24 @@ function bottomBar(start, end, directionList) {
     });
 }
 
-// function directionTable(directionList) {
-
-// }
+function directionTable(directionList) {
+    document.getElementById('direction-table').style.display = "block";
+    const table = document.getElementById("direction-table");
+    let stepNum = 1
+    for (item of directionList) {
+        const currentStepRow = document.createElement('tr');
+        const currentStepCell = document.createElement('td');
+        const currentStepNumCell = document.createElement('td');
+        const currentStepDirection = document.createTextNode(item);
+        const currentStepNum = document.createTextNode(stepNum);
+        currentStepNumCell.appendChild(currentStepNum);
+        currentStepRow.appendChild(currentStepNumCell);
+        currentStepCell.appendChild(currentStepDirection);
+        currentStepRow.appendChild(currentStepCell);
+        table.appendChild(currentStepRow);
+        stepNum ++;
+    }
+}
 
 function zoneColor(roomNum) {
     const zoneNum = roomNum[1];
