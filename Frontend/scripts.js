@@ -23,7 +23,10 @@ async function getDirections() {
         "exit right": "Exit the room to the right",
         "exit stairs left": "Exit the stairs to the left",
         "exit stairs right": "Exit the stairs to the right",
-        "exit stairs straight": "Exit the stairs straight ahead"
+        "exit stairs straight": "Exit the stairs straight ahead",
+        "go up 1 floor": "Go up one floor",
+        "go down 1 floor": "Go down one floor",
+        "enter doors in stairwell": "Enter doors in stairwell"
     }
     const directionDisplay = document.getElementById("direction-display");
     const currentDirection = document.getElementById("current-direction");
@@ -50,12 +53,21 @@ async function getDirections() {
     directionTable(convertedDirections);
     document.getElementById("en-route-ui").style.display = "block";
     currentDirection.innerHTML = convertedDirections[currentDirectionNum];
+    let stepCount = 1
+    let stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
+    currentDirection.appendChild(stepCountNode);
     nextStepBtn.addEventListener("click", () => {
+        stepCount ++; 
         currentDirection.innerHTML = convertedDirections[currentDirectionNum + 1];
+        stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
+        currentDirection.appendChild(stepCountNode);
         currentDirectionNum ++;
     });
     backStepBtn.addEventListener("click", () => {
+        stepCount--;
         currentDirection.innerHTML = convertedDirections[currentDirectionNum - 1];
+        stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
+        currentDirection.appendChild(stepCountNode);
         currentDirectionNum --;
     });
     return convertedDirections;
