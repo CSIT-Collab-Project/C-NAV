@@ -1,6 +1,7 @@
 from __future__ import annotations
 from Backend.Nodes.Node import Node
 from Backend.Nodes.CornerNode import CornerNode
+from Backend.Nodes.StairwellNode import StairwellNode
 from Backend.logger import logger
 
 
@@ -15,7 +16,7 @@ async def connect_to_network(node, directions):
     for i in range(len(node.connections)):
         await node.connections[i].add_connections([node])
         #logger.info(f"Connecting {node.connections[i].name} to {node.name}")
-        if isinstance(node, DoorNode):
+        if isinstance(node, DoorNode) and not isinstance(node.connections[i], StairwellNode):
             node.connections[i].node_map[node] = directions[i]
             node.node_map[node.connections[i]] = opp_directions[directions[i]]
 

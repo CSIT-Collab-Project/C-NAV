@@ -1,6 +1,7 @@
 from Backend.Nodes.CornerNode import CornerNode
 from Backend.Nodes.DoorNode import DoorNode
 from Backend.Nodes.StairNode import StairNode
+from Backend.Nodes.StairwellNode import StairwellNode
 
 fc1 = CornerNode([], "Front Center 1st")
 fr1 = CornerNode([], "Front Right 1st")
@@ -131,6 +132,12 @@ room_2212 = DoorNode([], 0, the_void, "e")
 room_2202 = DoorNode([], 0, the_void, "w")
 room_2201 = DoorNode([], 0, the_void, "w")
 room_2119 = DoorNode([], 0, the_void, "s")
+
+room_2414 = DoorNode([], 0, the_void, "s")
+room_2415 = DoorNode([], 0, the_void, "e")
+room_2412 = DoorNode([], 0, the_void, "n")
+room_2411 = DoorNode([], 0, the_void, "e")
+
 room_3124 = DoorNode([], 0, the_void, "e")
 room_3111 = DoorNode([], 0, the_void, "s")
 room_3103 = DoorNode([], 0, the_void, "n")
@@ -140,6 +147,11 @@ room_3102 = DoorNode([], 0, the_void, "s")
 room_3401 = DoorNode([], 0, the_void, "s")
 room_3404 = DoorNode([], 0, the_void, "n")
 room_3402 = DoorNode([], 0, the_void, "s")
+
+room_3411 = DoorNode([], 0, the_void, "s")
+room_3412 = DoorNode([], 0, the_void, "e")
+room_3409 = DoorNode([], 0, the_void, "n")
+room_3408 = DoorNode([], 0, the_void, "e")
 
 room_4111 = DoorNode([], 0, the_void, "s")
 room_4117 = DoorNode([], 0, the_void, "w")
@@ -236,6 +248,10 @@ room_list = [
     room_2202,
     room_2201,
     room_2119,
+    room_2414,
+    room_2415,
+    room_2412,
+    room_2411,
     room_3124,
     room_3111,
     room_3103,
@@ -245,6 +261,10 @@ room_list = [
     room_3401,
     room_3404,
     room_3402,
+    room_3411,
+    room_3412,
+    room_3409,
+    room_3408,
     room_4111,
     room_4117,
     room_4118,
@@ -379,6 +399,17 @@ async def build_doors():
     await room_2201.set_info([room_2212, room_2202, bl2, fl2], 2201, bl2, ['s', 's', 's', 'n'])
 
     await room_2119.set_info([fl2], 2119, fl2, ['s'])
+
+    sw8_f2 = StairwellNode(stair8_f2, [])
+    await stair8_f2.add_connections([sw8_f2])
+    sw9_f2 = StairwellNode(stair9_f2, [])
+    await stair9_f2.add_connections([sw9_f2])
+
+    await room_2414.set_info([sw8_f2, room_2415], 2414, sw8_f2, ["n", "w"])
+    await room_2415.set_info([sw8_f2, room_2414], 2415, sw8_f2, ["n", "e"])
+    await room_2412.set_info([sw9_f2, room_2412], 2412, sw9_f2, ["n", "w"])
+    await room_2411.set_info([sw9_f2, room_2411], 2411, sw9_f2, ["n", "e"])
+
     await room_3124.set_info([l3], 3124, l3, ['n'])
     await room_3111.set_info([l3], 3111, l3, ['s'])
     await room_3103.set_info([room_3104, room_3101, room_3102, room_3401, stair1_f3, room_3404, room_3402, l3, r3],
@@ -395,6 +426,16 @@ async def build_doors():
                              3404, l3, ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'w'])
     await room_3402.set_info([room_3103, room_3104, room_3101, room_3102, room_3401, stair1_f3, room_3404, l3, r3],
                              3402, l3, ['e', 'e', 'e', 'e', 'e', 'e', 'w', 'e', 'w'])
+
+    sw8_f3 = StairwellNode(stair8_f3, [])
+    await stair8_f3.add_connections([sw8_f3])
+    sw9_f3 = StairwellNode(stair9_f3, [])
+    await stair9_f3.add_connections([sw9_f3])
+
+    await room_3411.set_info([sw8_f3, room_3412], 3411, sw8_f3, ["n", "w"])
+    await room_3412.set_info([sw8_f3, room_3411], 3412, sw8_f3, ["n", "e"])
+    await room_3409.set_info([sw9_f3, room_3408], 3409, sw9_f3, ["n", "w"])
+    await room_3408.set_info([sw9_f3, room_3409], 3408, sw9_f3, ["n", "e"])
 
     await room_4111.set_info([room_4117, room_4118, room_4119, room_4120, room_4121, room_4122, stair2_f4, stair3_f4,
                               l4], 4111, l4, ['s', 's', 's', 's', 's', 's', 'e', 's', 's'])
