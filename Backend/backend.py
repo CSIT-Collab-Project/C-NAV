@@ -19,6 +19,9 @@ async def convert_to_direction(facing, path):
         from_node = path[i]
         to_node = path[i + 1]
 
+        if isinstance(from_node, StairNode) and not isinstance(to_node, StairwellNode):
+            facing = await turn(from_node.door_side, 'reverse')
+
         if isinstance(from_node, Backend.Nodes.StairNode.StairNode):
             if isinstance(to_node, Backend.Nodes.StairNode.StairNode):
                 if from_node.upstairs == to_node:
@@ -26,6 +29,8 @@ async def convert_to_direction(facing, path):
                 elif from_node.downstairs == to_node:
                     turn_order.append('go down 1 floor')
                 facing = await turn(to_node.door_side, 'reverse')
+            elif isinstance(to_node, StairwellNode):
+                turn_order.append('enter doors in stairwell')
             else:
                 to_direction = from_node.node_map[to_node]
                 if direct_order[direct_order.index(facing) - 1] == to_direction:
@@ -39,17 +44,23 @@ async def convert_to_direction(facing, path):
                     if isinstance(to_node, Backend.Nodes.CornerNode.CornerNode):
                         skip = True
 
+        elif isinstance(from_node, StairwellNode):
+            continue
+
         else:
             if isinstance(from_node, DoorNode) and i == 0:
-                to_direction = from_node.node_map[to_node]
-                if direct_order[direct_order.index(facing) - 1] == to_direction:
-                    facing = await turn(facing, 'left')
-                    turn_order.append('exit left')
-                elif direct_order[direct_order.index(facing) + 1] == to_direction:
-                    facing = await turn(facing, 'right')
-                    turn_order.append('exit right')
-                elif direct_order[direct_order.index(facing)] == to_direction:
-                    turn_order.append('exit straight')
+                if isinstance(to_node, StairwellNode):
+                    turn_order.append('exit to stairwell')
+                else:
+                    to_direction = from_node.node_map[to_node]
+                    if direct_order[direct_order.index(facing) - 1] == to_direction:
+                        facing = await turn(facing, 'left')
+                        turn_order.append('exit left')
+                    elif direct_order[direct_order.index(facing) + 1] == to_direction:
+                        facing = await turn(facing, 'right')
+                        turn_order.append('exit right')
+                    elif direct_order[direct_order.index(facing)] == to_direction:
+                        turn_order.append('exit straight')
 
             elif not isinstance(from_node, Backend.Nodes.StairNode.StairNode):
                 to_direction = from_node.node_map[to_node]
@@ -117,7 +128,6 @@ async def go_to(start, end):
 
 
 async def main(start_str, end_str):
-
     start_loc = None
     end_loc = None
 
@@ -154,4 +164,4 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('1105', '2405')))
+    print(asyncio.run(main('3402', '3411')))
