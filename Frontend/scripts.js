@@ -28,7 +28,6 @@ async function getDirections() {
         "go down 1 floor": "Go down one floor",
         "enter doors in stairwell": "Enter doors in stairwell"
     }
-    const directionDisplay = document.getElementById("direction-display");
     const currentDirection = document.getElementById("current-direction");
     const nextStepBtn = document.getElementById("next-direction");
     const backStepBtn = document.getElementById("previous-direction");
@@ -44,8 +43,6 @@ async function getDirections() {
             convertedDirections.push(item);
         }
     }
-
-    // directionDisplay.innerHTML = convertedDirections;
 
     // add error handling for if no directions are recieved
     document.getElementById("location-input").style.display = "none";
@@ -95,6 +92,8 @@ function bottomBar(start, end, directionList) {
     const endZoneColor = endZoneCall[1];
     const startRoom = document.getElementById("start-id");
     const endRoom = document.getElementById("end-id");
+    const dirTableElement = document.getElementById('direction-table');
+    const tableBtn = document.getElementById("table-btn");
     let remainingSteps = directionList.length - 1;
 
     // rework zone color thing so it's more clear -- add more variables
@@ -135,12 +134,26 @@ function bottomBar(start, end, directionList) {
             backBtn.style.display = "none";
         }
     });
+    let tableShows = false;
+    tableBtn.addEventListener("click", () => {
+        if (!tableShows) {
+            dirTableElement.style.display = 'block';
+            tableShows = true;
+        }
+        else if (tableShows) {
+            dirTableElement.style.display = 'none';
+            tableShows = false;
+        }
+    });
 }
 
 function directionTable(directionList) {
-    document.getElementById('direction-table').style.display = "block";
+    // add turning icons like on google maps next to the direction descriptions instead of numbers
+    // like arrows that point left, right, or straight
+    // also add those in the main display for the current direction
     const table = document.getElementById("direction-table");
     let stepNum = 1
+     
     for (item of directionList) {
         const currentStepRow = document.createElement('tr');
         const currentStepCell = document.createElement('td');

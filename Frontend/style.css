@@ -24,6 +24,7 @@
 
 #en-route-ui {
     display: none;
+    padding: 10px;
 }
 #previous-direction {
     display: none;
@@ -35,5 +36,5 @@
 }
 
 .fa-list-ul {
-    
+    cursor: pointer;
 }

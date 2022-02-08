@@ -13,56 +13,49 @@
 </head>
 
 <body>
-    <div>
-        <div class="header">
-            <nav class="navbar navbar-dark bg-dark">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">CRLS Nav</a>
-                </div>
-            </nav>
-
-        </div>
-
-        <div class="main container mt-2">
-            <form id="location-input" action="" class="flex-column flex-md-row">
-                <label class="fs-2" for="initial-location">Current Room Number</label>
-                <input type="text" id="initial-location" class="form-control" placeholder="Current Room"
-                    aria-describedby="basic-addon1">
-                <button type="button" class="mt-2 btn btn-primary" id="next">Next</button>
-                <div id="destination-form">
-                    <label class="fs-2" for="destination">Destination Room Number</label>
-                    <input type="text" id="destination" class="form-control" placeholder="Destination"
-                        aria-describedby="basic-addon1">
-                    <button type="button" class="mt-2 btn btn-success" id="location-submit">Submit</button>
-                </div>
-            </form>
-
-            <div id="en-route-ui">
-                <h2 id="current-direction"></h2>
-                <button type="button" class="mt-2 btn btn-secondary" id="previous-direction">Back</button>
-                <button type="button" class="mt-2 btn btn-primary" id="next-direction">Next Direction</button>
+    <div class="header">
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">CRLS Nav</a>
             </div>
+        </nav>
+    </div>
+    <div class="main container mt-2">
+        <form id="location-input" action="" class="flex-column flex-md-row">
+            <label class="fs-2" for="initial-location">Current Room Number</label>
+            <input type="text" id="initial-location" class="form-control" placeholder="Current Room"
+                aria-describedby="basic-addon1">
+            <button type="button" class="mt-2 btn btn-primary" id="next">Next</button>
+            <div id="destination-form">
+                <label class="fs-2" for="destination">Destination Room Number</label>
+                <input type="text" id="destination" class="form-control" placeholder="Destination"
+                    aria-describedby="basic-addon1">
+                <button type="button" class="mt-2 btn btn-success" id="location-submit">Submit</button>
+            </div>
+        </form>
+    </div>
 
-
-
-            <div id="direction-display"></div>
+    <div class="ui fixed-bottom">
+        <div id="en-route-ui" class="container">
+            <h2 id="current-direction"></h2>
+            <button type="button" class="mt-2 btn btn-secondary" id="previous-direction">Back</button>
+            <button type="button" class="mt-2 btn btn-primary" id="next-direction">Next Direction</button>
+             <div id="directions-table container">
+                <table id="direction-table">
+                    <tr>
+                        <th>Step</th>
+                        <th>Direction</th>
+                    </tr>
+                </table>
+            </div>
         </div>
 
-        <div id="directions-table container">
-            <table id="direction-table">
-                <tr>
-                    <th>Step</th>
-                    <th>Direction</th>
-                </tr>        
-            </table>
-        </div>
-
-        <div class="info-bar fixed-bottom" id="bottom-bar" style="display: none;">
+        <div class="info-bar" id="bottom-bar" style="display: none;">
             <nav class="navbar navbar-light bg-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">CRLS Nav</a>
                     <li class="nav-item">
-                        <i class="fas fa-list-ul"></i>
+                        <i id="table-btn" class="fas fa-list-ul"></i>
                     </li>
                     <li class="nav-item">
                         <p id="start-label">From</p>
@@ -77,13 +70,9 @@
                         <p id="steps-id"></p>
                     </li>
                 </div>
-
             </nav>
-
         </div>
-
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
