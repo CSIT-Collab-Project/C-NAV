@@ -68,6 +68,8 @@ async def convert_to_direction(facing, path):
                         skip = True
 
         elif isinstance(from_node, StairwellNode):
+            if isinstance(to_node, DoorNode):
+                facing = "e"
             continue
 
         else:
