@@ -10,6 +10,7 @@ async def convert_to_direction(facing, path):
     direct_order = ['n', 'e', 's', 'w', 'n', 'w']
     turn_order = []
     skip = False
+    just_staired = False
 
     for i in range(len(path) - 1):
         if skip:
@@ -19,8 +20,29 @@ async def convert_to_direction(facing, path):
         from_node = path[i]
         to_node = path[i + 1]
 
+        if just_staired:
+            just_staired = False
+            if from_node in [stair3_f2, stair3_f3]:
+                if to_node in [n2e, n3e]:
+                    turn_order.append("exit stairs through doors to right")
+                    facing = "w"
+                    continue
+                else:
+                    turn_order.append("through doors to left:")
+            elif from_node in [stair2_f2, stair2_f3]:
+                if to_node in [s2e, s3e]:
+                    turn_order.append("exit stairs through doors to left")
+                    facing = "w"
+                    continue
+                else:
+                    turn_order.append("through doors on right:")
+        elif from_node in [stair3_f2, stair3_f3, stair2_f2, stair2_f3] and isinstance(to_node, CornerNode):
+            turn_order.append("exit through doors across stairwell")
+            continue
+
         if isinstance(from_node, StairNode) and not isinstance(to_node, StairwellNode):
-            facing = await turn(from_node.door_side, 'reverse')
+            if to_node not in [n2e, n3e, s2e, s3e]:
+                facing = await turn(from_node.door_side, 'reverse')
 
         if isinstance(from_node, Backend.Nodes.StairNode.StairNode):
             if isinstance(to_node, Backend.Nodes.StairNode.StairNode):
@@ -29,6 +51,7 @@ async def convert_to_direction(facing, path):
                 elif from_node.downstairs == to_node:
                     turn_order.append('go down 1 floor')
                 facing = await turn(to_node.door_side, 'reverse')
+                just_staired = True
             elif isinstance(to_node, StairwellNode):
                 turn_order.append('enter doors in stairwell')
             else:
@@ -164,4 +187,4 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('3402', '3411')))
+    print(asyncio.run(main('3103', '3121')))
