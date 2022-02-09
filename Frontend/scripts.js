@@ -155,6 +155,7 @@ function directionTable(directionList) {
     let stepNum = 1
      
     for (item of directionList) {
+        // replace step numbers with the icons in this table
         const currentStepRow = document.createElement('tr');
         const currentStepCell = document.createElement('td');
         const currentStepNumCell = document.createElement('td');

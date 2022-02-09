@@ -38,3 +38,6 @@
 .fa-list-ul {
     cursor: pointer;
 }
+#current-icon {
+    display: inline;
+}
