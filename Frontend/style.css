@@ -41,3 +41,17 @@
 #current-icon {
     display: inline;
 }
+.main {
+    margin-top: 60px;
+}
+#table-btn img {
+    width: 40px;
+    margin-bottom: 15px;
+}
+#table-btn {
+    margin-bottom: 10px;
+    padding: 0;
+}
+#table-btn-label{
+    margin-top: 2px;
+}
