@@ -10,8 +10,8 @@ async function getDirections() {
     const destination = document.getElementById("destination").value;
     const initialDirections = await requestDirections(currentRoom, destination);
     const directionDict = {
-        "left": "Turn left at the next intersection",
-        "right": "Turn right at the next intersection",
+        "left": ["Turn left at the next intersection", "turnleft"],
+        "right": ["Turn right at the next intersection", "turnright"],
         "continue straight": "Continue straight through the next intersection",
         "room door is on the left": "Room door is on the left",
         "room door is on the right": "Room door is on the right",
@@ -31,9 +31,10 @@ async function getDirections() {
     const currentDirection = document.getElementById("current-direction");
     const nextStepBtn = document.getElementById("next-direction");
     const backStepBtn = document.getElementById("previous-direction");
+    const currentIcon = document.getElementById("current-icon");
+    const directionKeys = Object.keys(directionDict);
     let convertedDirections = []
     let currentDirectionNum = 0
-    const directionKeys = Object.keys(directionDict);
 
     for (item of initialDirections) {
         if (directionKeys.includes(item)) {
@@ -49,10 +50,15 @@ async function getDirections() {
     bottomBar(currentRoom, destination, convertedDirections);
     directionTable(convertedDirections);
     document.getElementById("en-route-ui").style.display = "block";
-    currentDirection.innerHTML = convertedDirections[currentDirectionNum];
-    let stepCount = 1
+  
+    let currentDirectionList = convertedDirections[currentDirectionNum]
+    currentDirection.innerHTML = currentDirectionList[0];
+    let icon = currentDirectionList[1];
+    currentIcon.src = `/icon-${icon}`;
+    let stepCount = 1;
     let stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
     currentDirection.appendChild(stepCountNode);
+
     nextStepBtn.addEventListener("click", () => {
         stepCount ++; 
         currentDirection.innerHTML = convertedDirections[currentDirectionNum + 1];
@@ -60,6 +66,7 @@ async function getDirections() {
         currentDirection.appendChild(stepCountNode);
         currentDirectionNum ++;
     });
+
     backStepBtn.addEventListener("click", () => {
         stepCount--;
         currentDirection.innerHTML = convertedDirections[currentDirectionNum - 1];
@@ -102,10 +109,10 @@ function bottomBar(start, end, directionList) {
     endRoom.innerHTML = end;
     startRoom.style.background = startZoneColor;
     endRoom.style.background = endZoneColor;
-    if (startZoneCall[0] === '3') {
+    if (startZoneCall[0] === '3' || startZoneCall[0] === '1' || startZoneCall[0] === '5') {
         startRoom.style.color = 'white';
     }
-    if (endZoneCall[0] === '3') {
+    if (endZoneCall[0] === '3' || endZoneCall[0] === '1' || endZoneCall[0] === '5') {
         endRoom.style.color = 'white';
     }
 
@@ -155,6 +162,7 @@ function directionTable(directionList) {
     let stepNum = 1
      
     for (item of directionList) {
+        // replace step numbers with the icons in this table
         const currentStepRow = document.createElement('tr');
         const currentStepCell = document.createElement('td');
         const currentStepNumCell = document.createElement('td');
