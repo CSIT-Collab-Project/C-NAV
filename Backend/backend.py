@@ -143,6 +143,7 @@ async def go_to(start, end):
             visited.append(current_pos)
 
             if isinstance(current_pos, DoorNode) and current_pos.door_num == end.door_num:
+                print(current_path)
                 return current_path
 
             for connection in current_pos.connections:
@@ -189,4 +190,4 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('2602', '2608')))
+    print(asyncio.run(main('2602', '1607')))

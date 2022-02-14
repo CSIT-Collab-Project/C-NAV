@@ -30,12 +30,33 @@ s3e = CornerNode([], "South Extension 3rd Floor")
 l4 = CornerNode([], "Left 4th")
 r4 = CornerNode([], "Right 4th")
 
+atl0 = CornerNode([], "Arts Building Top Left Basement")
+atr0 = CornerNode([], "Arts Building Top Right Basement")
+aml0 = CornerNode([], "Arts Building Middle Left Basement")
+amr0 = CornerNode([], "Arts Building Middle Right Basement")
+abl0 = CornerNode([], "Arts Building Bottom Left Basement")
+abr0 = CornerNode([], "Arts Building Bottom Right Basement")
+
+af1 = CornerNode([], "Arts Building Front 1st")
+atl1 = CornerNode([], "Arts Building Top Left 1st")
+abl1 = CornerNode([], "Arts Building Bottom Left 1st")
+abr1 = CornerNode([], "Arts Building Bottom Right 1st")
+atr1 = CornerNode([], "Arts Building Top Right 1st")
+
 atl2 = CornerNode([], "Arts Building Top Left 2nd")
 abl2 = CornerNode([], "Arts Building Back Left 2nd")
 abr2 = CornerNode([], "Arts Building Back Right 2nd")
 atr2 = CornerNode([], "Arts Building Top Right 2nd")
 amb2 = CornerNode([], "Arts Building Middle Bottom 2nd")
 amt2 = CornerNode([], "Arts Building Middle Top 2nd")
+
+atl3 = CornerNode([], "Arts Building Top Left 3rd")
+atll3 = CornerNode([], "Arts Building Top Left Left 3rd")
+abl3 = CornerNode([], "Arts Building Back Left 3rd")
+abr3 = CornerNode([], "Arts Building Back Right 3rd")
+atr3 = CornerNode([], "Arts Building Top Right 3rd")
+amb3 = CornerNode([], "Arts Building Middle Bottom 3rd")
+amt3 = CornerNode([], "Arts Building Middle Top 3rd")
 
 the_void = CornerNode([], "The endless void of nothingness and despair. "
                           "Nothing can enter, nothing can exit. Pure emptiness")
@@ -72,6 +93,21 @@ stair9_f2 = StairNode([], "e", "Stair 9 2nd Floor")
 stair9_f3 = StairNode([], "e", "Stair 9 3rd Floor")
 stair9_f4 = StairNode([], "e", "Stair 9 4th Floor")
 stair9_f5 = StairNode([], "e", "Stair 9 5th Floor")
+
+stair11_f0 = StairNode([], "e", "Stair 11 Basement")
+stair11_f1 = StairNode([], "e", "Stair 11 1st Floor")
+stair11_f2 = StairNode([], "e", "Stair 11 2nd Floor")
+stair11_f3 = StairNode([], "e", "Stair 11 3rd Floor")
+
+stair14_f0 = StairNode([], "w", "Stair 14 Basement")
+stair14_f1 = StairNode([], "w", "Stair 14 1st Floor")
+stair14_f2 = StairNode([], "w", "Stair 14 2nd Floor")
+stair14_f3 = StairNode([], "w", "Stair 14 3rd Floor")
+
+stair17_f0 = StairNode([], "e", "Stair 17 Basement")
+stair17_f1 = StairNode([], "e", "Stair 17 1st Floor")
+stair17_f2 = StairNode([], "e", "Stair 17 2nd Floor")
+stair17_f3 = StairNode([], "e", "Stair 17 3rd Floor")
 
 # 1st Floor
 room_1108 = DoorNode([], 0, the_void, 'e')
@@ -209,6 +245,33 @@ room_5403 = DoorNode([], 0, the_void, "s")
 room_5402 = DoorNode([], 0, the_void, "n")
 room_5401 = DoorNode([], 0, the_void, "s")
 
+# Arts Building
+
+room_0601 = DoorNode([], 0, the_void, "n")
+room_0603 = DoorNode([], 0, the_void, "w")
+room_0606 = DoorNode([], 0, the_void, "n")
+room_0607 = DoorNode([], 0, the_void, "n")
+room_0614 = DoorNode([], 0, the_void, "s")
+room_0617 = DoorNode([], 0, the_void, "n")
+room_0618 = DoorNode([], 0, the_void, "s")
+room_0619 = DoorNode([], 0, the_void, "n")
+room_0621 = DoorNode([], 0, the_void, "e")
+room_0624 = DoorNode([], 0, the_void, "e")
+room_0628 = DoorNode([], 0, the_void, "n")
+
+room_1604 = DoorNode([], 0, the_void, "w")
+room_1605 = DoorNode([], 0, the_void, "w")
+room_1606 = DoorNode([], 0, the_void, "w")
+room_1607 = DoorNode([], 0, the_void, "s")
+room_1608 = DoorNode([], 0, the_void, "s")
+room_1609 = DoorNode([], 0, the_void, "e")
+room_1610 = DoorNode([], 0, the_void, "w")
+room_1611 = DoorNode([], 0, the_void, "e")
+room_1612 = DoorNode([], 0, the_void, "e")
+room_1613 = DoorNode([], 0, the_void, "e")
+room_1601 = DoorNode([], 0, the_void, "s")
+room_1603 = DoorNode([], 0, the_void, "n")
+
 room_2601 = DoorNode([], 0, the_void, "e")
 room_2602 = DoorNode([], 0, the_void, "w")
 room_2603 = DoorNode([], 0, the_void, "e")
@@ -230,6 +293,21 @@ room_2621 = DoorNode([], 0, the_void, "s")
 room_2622 = DoorNode([], 0, the_void, "e")
 room_2623 = DoorNode([], 0, the_void, "e")
 room_2624 = DoorNode([], 0, the_void, "n")
+
+room_3601 = DoorNode([], 0, the_void, "w")
+room_3602 = DoorNode([], 0, the_void, "w")
+room_3604 = DoorNode([], 0, the_void, "w")
+room_3605 = DoorNode([], 0, the_void, "e")
+room_3606 = DoorNode([], 0, the_void, "n")
+room_3607 = DoorNode([], 0, the_void, "e")
+room_3608 = DoorNode([], 0, the_void, "s")
+room_3611 = DoorNode([], 0, the_void, "n")
+room_3617 = DoorNode([], 0, the_void, "e")
+room_3622 = DoorNode([], 0, the_void, "e")
+room_3623 = DoorNode([], 0, the_void, "e")
+room_3621 = DoorNode([], 0, the_void, "s")
+room_3624 = DoorNode([], 0, the_void, "s")
+room_3625 = DoorNode([], 0, the_void, "s")
 
 room_list = [
     room_1108,
@@ -351,6 +429,20 @@ room_list = [
     room_5403,
     room_5402,
     room_5401,
+    room_3601,
+    room_3602,
+    room_3604,
+    room_3605,
+    room_3606,
+    room_3607,
+    room_3608,
+    room_3611,
+    room_3617,
+    room_3622,
+    room_3623,
+    room_3621,
+    room_3624,
+    room_3625,
     room_2601,
     room_2602,
     room_2603,
@@ -371,7 +463,30 @@ room_list = [
     room_2621,
     room_2622,
     room_2623,
-    room_2624
+    room_2624,
+    room_1604,
+    room_1605,
+    room_1606,
+    room_1607,
+    room_1608,
+    room_1609,
+    room_1610,
+    room_1611,
+    room_1612,
+    room_1613,
+    room_1601,
+    room_1603,
+    room_0601,
+    room_0603,
+    room_0606,
+    room_0607,
+    room_0614,
+    room_0617,
+    room_0618,
+    room_0619,
+    room_0621,
+    room_0624,
+    room_0628
 ]
 
 
@@ -582,6 +697,36 @@ async def build_doors():
                                                                                             'w', 'w', 'w', 'w', 'w',
                                                                                             'e', 'w'])
 
+    await room_0601.set_info([atl1, atr1], 601, the_void, ["e", "w"])
+    await room_0603.set_info([stair11_f0, atl0], 603, the_void, ["s", "n"])
+    await room_0606.set_info([room_0607, atl0, aml0], 606, the_void, ["e", "w", "e"])
+    await room_0607.set_info([room_0606, atl0, aml0, abl0], 607, the_void, ["w", "w", "n", "n"])
+    await room_0614.set_info([aml0, abl0, abr0], 614, the_void, ["s", "s", "w"])
+    await room_0617.set_info([room_0618, room_0619, abl0, abr0], 617, the_void, ["n", "w", "e", "w"])
+    await room_0618.set_info([room_0617, room_0619, abl0, abr0], 618, the_void, ["e", "e", "e", "w"])
+    await room_0619.set_info([room_0617, room_0618, abl0, abr0], 619, the_void, ["e", "e", "e", "w"])
+    await room_0621.set_info([room_0624, abr0, amr0], 621, the_void, ["s", "n", "s"])
+    await room_0624.set_info([room_0621, abr0, amr0], 621, the_void, ["n", "n", "s"])
+    await room_0628.set_info([amr0, atr0], 628, the_void, ["w", "e"])
+
+    await room_1604.set_info([room_1605, room_1606, atl1, atr1], 1604, the_void, ["n", "n", "s", "n"])
+    await room_1605.set_info([room_1604, room_1606, atl1, atr1], 1605, the_void, ["s", "n", "s", "n"])
+    await room_1606.set_info([room_1604, room_1605, atl1, atr1], 1606, the_void, ["s", "s", "s", "n"])
+    await room_1607.set_info([room_1608, abl1, abr1], 1607, the_void, ["w", "e", "w"])
+    await room_1608.set_info([room_1607, abl1, abr1], 1608, the_void, ["e", "e", "w"])
+    await room_1609.set_info([room_1610, room_1611, room_1612, room_1613, abr1, atr1], 1609, the_void,
+                             ["s", "s", "s", "s", "n", "s"])
+    await room_1610.set_info([room_1609, room_1611, room_1612, room_1613, abr1, atr1], 1610, the_void,
+                             ["n", "w", "s", "s", "n", "s"])
+    await room_1611.set_info([room_1609, room_1610, room_1612, room_1613, abr1, atr1], 1611, the_void,
+                             ["n", "e", "s", "s", "n", "s"])
+    await room_1612.set_info([room_1609, room_1610, room_1611, room_1613, abr1, atr1], 1612, the_void,
+                             ["n", "n", "n", "s", "n", "s"])
+    await room_1613.set_info([room_1609, room_1610, room_1611, room_1613, abr1, atr1], 1613, the_void,
+                             ["n", "n", "n", "n", "n", "s"])
+    await room_1603.set_info([room_1601, af1, atr1], 1603, the_void, ["n", "e", "w"])
+    await room_1601.set_info([room_1603, af1, atr1, atl1], 1601, the_void, ["s", "s", "w", "e"])
+
     await room_2601.set_info([fr2, stair9_f2, atl2], 2601, the_void, ["s", "s", "n"])
     await room_2602.set_info([room_2603, room_2606, room_2607, room_2609, atl2, abl2], 2602, the_void,
                              ["w", "w", "n", "n", "s", "n"])
@@ -611,6 +756,25 @@ async def build_doors():
     await room_2623.set_info([amt2, amb2, atl2, room_2621], 2623, the_void, ["e", "n", "e", "n"])
     await room_2624.set_info([amb2, atl2], 2624, the_void, ["w", "e"])
 
+    await room_3601.set_info([atl3, amt3], 3601, the_void, ["w", "w"])
+    await room_3602.set_info([room_3604, room_3605, room_3607, atll3, abl3], 3602, the_void,
+                             ["n", "n", "n", "s", "n"])
+    await room_3604.set_info([room_3602, room_3605, room_3607, atll3, abl3], 3604, the_void,
+                             ["s", "w", "n", "s", "n"])
+    await room_3605.set_info([room_3602, room_3604, room_3607, atll3, abl3], 3605, the_void,
+                             ["s", "e", "n", "s", "n"])
+    await room_3607.set_info([room_3602, room_3604, room_3605, atll3, abl3], 3607, the_void,
+                             ["s", "s", "s", "s", "n"])
+    await room_3606.set_info([room_3608, abl3, stair14_f3], 3606, the_void, ["n", "w", "n"])
+    await room_3608.set_info([room_3606, abl3, stair14_f3], 3608, the_void, ["s", "w", "n"])
+    await room_3611.set_info([abl3, abr3], 3611, the_void, ["e", "w"])
+    await room_3617.set_info([room_3622, room_3623, abr3, atr3], 3617, the_void, ["s", "s", "n", "s"])
+    await room_3622.set_info([room_3617, room_3623, abr3, atr3], 3622, the_void, ["n", "s", "n", "s"])
+    await room_3623.set_info([room_3617, room_3622, atr3], 3622, the_void, ["n", "n", "n"])
+    await room_3621.set_info([room_3624, amb3, atr3], 3621, the_void, ["e", "e", "w"])
+    await room_3624.set_info([room_3621, amb3, atr3], 3624, the_void, ["w", "e", "w"])
+    await room_3625.set_info([atl3, amt3], 3625, the_void, ["e", "w"])
+
 
 async def build_school():
     await fr1.add_directions([br1, stair8_f1], the_void, stair9_f1, [fl1, stair1_f1])
@@ -629,12 +793,33 @@ async def build_school():
     await l4.add_directions(stair3_f4, r4, stair2_f4, the_void)
     await r4.add_directions(stair8_f4, the_void, stair9_f4, l4)
 
-    await atl2.add_directions(fr2, amt2, abl2, the_void)
-    await abl2.add_directions(atl2, abr2, the_void, the_void)
-    await abr2.add_directions(atr2, the_void, the_void, abl2)
+    await atl0.add_directions(stair11_f0, atr0, the_void, aml0)
+    await aml0.add_directions(the_void, atl0, abl0, the_void)
+    await abl0.add_directions(aml0, abr0, stair14_f0, the_void)
+    await abr0.add_directions(amr0, the_void, stair17_f0, abl0)
+    await amr0.add_directions(the_void, the_void, abr0, atr0)
+    await atr0.add_directions(the_void, amr0, the_void, atl0)
+
+    await af1.add_directions(stair11_f1, atr1, atl1, the_void)
+    await atl1.add_directions(the_void, af1, abl1, the_void)
+    await abl1.add_directions(atl1, abr1, stair14_f1, the_void)
+    await abr1.add_directions(atr1, the_void, stair17_f1, abl1)
+    await atr1.add_directions(the_void, the_void, abr1, af1)
+
+    await atl2.add_directions([fr2, stair11_f2], amt2, abl2, the_void)
+    await abl2.add_directions(atl2, abr2, stair14_f2, the_void)
+    await abr2.add_directions(atr2, the_void, stair17_f2, abl2)
     await atr2.add_directions(the_void, the_void, abr2, amb2)
     await amb2.add_directions(amt2, atr2, the_void, the_void)
     await amt2.add_directions(the_void, the_void, amb2, atl2)
+
+    await atl3.add_directions([r3, stair11_f3], amt3, the_void, atll3)
+    await atll3.add_directions(the_void, atl3, abl3, the_void)
+    await abl3.add_directions(atll3, abr3, stair14_f3, the_void)
+    await abr3.add_directions(atr3, the_void, stair17_f3, abl3)
+    await atr3.add_directions(the_void, the_void, abr3, amb3)
+    await amb3.add_directions(amt3, atr3, the_void, the_void)
+    await amt3.add_directions(the_void, the_void, amb3, atl3)
 
     await stair1_f1.add_directions(the_void, fr1, fc1, fl1, stair1_f2, the_void)
     await stair1_f2.add_directions(the_void, fr2, the_void, fl2, stair1_f3, stair1_f1)
@@ -668,5 +853,20 @@ async def build_school():
     await stair9_f3.add_directions(r3, the_void, the_void, the_void, stair9_f4, stair9_f2)
     await stair9_f4.add_directions(r4, the_void, the_void, the_void, stair9_f5, stair9_f3)
     await stair9_f5.add_directions(the_void, the_void, the_void, the_void, the_void, stair9_f4)
+
+    await stair11_f3.add_directions(the_void, the_void, atl3, the_void, the_void, stair11_f2)
+    await stair11_f2.add_directions(fr2, the_void, atl2, the_void, stair11_f3, stair11_f1)
+    await stair11_f1.add_directions(the_void, the_void, af1, the_void, stair11_f2, stair11_f0)
+    await stair11_f0.add_directions(the_void, the_void, atl0, the_void, stair11_f1, the_void)
+
+    await stair14_f3.add_directions(abl3, the_void, the_void, the_void, the_void, stair14_f2)
+    await stair14_f2.add_directions(abl2, the_void, the_void, the_void, stair14_f3, stair14_f1)
+    await stair14_f1.add_directions(abl1, the_void, the_void, the_void, stair14_f2, stair14_f0)
+    await stair14_f0.add_directions(abl0, the_void, the_void, the_void, stair14_f1, the_void)
+
+    await stair17_f3.add_directions(abr3, the_void, the_void, the_void, the_void, stair17_f2)
+    await stair17_f2.add_directions(abr2, the_void, the_void, the_void, stair17_f3, stair17_f1)
+    await stair17_f1.add_directions(abr1, the_void, the_void, the_void, stair17_f2, stair17_f0)
+    await stair17_f0.add_directions(abr0, the_void, the_void, the_void, stair17_f1, the_void)
 
     await build_doors()
