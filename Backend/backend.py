@@ -20,7 +20,7 @@ async def convert_to_direction(facing, path):
         from_node = path[i]
         to_node = path[i + 1]
 
-        if just_staired:
+        if just_staired and not isinstance(to_node, StairNode):
             just_staired = False
             if from_node in [stair3_f2, stair3_f3]:
                 if to_node in [n2e, n3e]:
@@ -190,4 +190,4 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('2602', '1607')))
+    print(asyncio.run(main('1311', '5102')))
