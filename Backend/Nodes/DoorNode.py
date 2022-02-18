@@ -22,8 +22,8 @@ async def connect_to_network(node, directions):
 
 
 class DoorNode(Node):
-    def __init__(self, connections: list, num: int, closest: Node, door_side: str):
-        super(DoorNode, self).__init__(connections)
+    def __init__(self, connections: list, num: int, closest: Node, door_side: str, coords=(0, 0)):
+        super(DoorNode, self).__init__(connections, coords)
         self.door_num = num
         self.closest_node = closest
         self.node_map = {}

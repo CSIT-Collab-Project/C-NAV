@@ -2,8 +2,9 @@ from __future__ import annotations
 
 
 class Node:
-    def __init__(self, connections: list):
+    def __init__(self, connections: list, coords: tuple = (0, 0)):
         self.connections = connections
+        self.coordinates = coords
         self.name = "Default Name"
 
     async def is_connected_to(self, target_node: Node) -> bool:

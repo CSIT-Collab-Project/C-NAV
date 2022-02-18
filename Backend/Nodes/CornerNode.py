@@ -3,13 +3,14 @@ from Backend.Nodes.Node import Node
 
 class CornerNode(Node):
     def __init__(self, connections, name,
+                 coords=(0, 0),
                  n: Node = None,
                  s: Node = None,
                  e: Node = None,
-                 w: Node = None
+                 w: Node = None,
                  ):
 
-        super(CornerNode, self).__init__(connections)
+        super(CornerNode, self).__init__(connections, coords)
 
         self.set_name(name)
 
