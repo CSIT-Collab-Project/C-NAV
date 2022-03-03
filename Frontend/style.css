@@ -38,9 +38,9 @@
 .fa-list-ul {
     cursor: pointer;
 }
-#current-icon {
+/* #current-icon {
     display: inline;
-}
+} */
 .main {
     margin-top: 60px;
 }
@@ -54,4 +54,8 @@
 }
 #table-btn-label{
     margin-top: 2px;
+}
+
+#location-input {
+    padding: 0px 15px 15px 15px;
 }

@@ -20,7 +20,8 @@ async function getDirections() {
         "enter stairs on right": "Enter stairs on right",
         "enter stairs on left": "Enter stairs on left",
         "exit left": "Exit the room to the left",
-        "exit right": "Exit the room to the right",
+        // update this -- turnleft is not correct
+        "exit right": ["Exit the room to the right", "turnleft"],
         "exit stairs left": "Exit the stairs to the left",
         "exit stairs right": "Exit the stairs to the right",
         "exit stairs straight": "Exit the stairs straight ahead",
@@ -51,13 +52,13 @@ async function getDirections() {
     directionTable(convertedDirections);
     document.getElementById("en-route-ui").style.display = "block";
   
-    let currentDirectionList = convertedDirections[currentDirectionNum]
-    currentDirection.innerHTML = currentDirectionList[0];
-    let icon = currentDirectionList[1];
+    currentDirection.innerHTML = convertedDirections[currentDirectionNum];
+    let icon = convertedDirections[currentDirectionNum][1];
     currentIcon.src = `/icon-${icon}`;
     let stepCount = 1;
     let stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
     currentDirection.appendChild(stepCountNode);
+    console.log(convertedDirections[currentDirectionNum]);
 
     nextStepBtn.addEventListener("click", () => {
         stepCount ++; 
