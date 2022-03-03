@@ -1,9 +1,46 @@
+from PIL import Image, ImageDraw
 import asyncio
 import json
 
 import Backend.Nodes.StairNode
 import Backend.Nodes.CornerNode
 from Node_Config.nodes import *
+
+WIDTH = 2000
+HEIGHT = 1659
+
+
+async def draw_path(node_list):
+    #im = Image.new('RGBA', (WIDTH, HEIGHT), (255, 255, 255, 0))
+    im = Image.open('test1.png')
+    im2 = Image.open('You are here.png')
+    im2 = im2.resize((50, 50))
+    draw = ImageDraw.Draw(im)
+    from_node = (0, 0)
+    to_node = (0, 0)
+    for i in range(len(node_list) - 1):
+        try:
+            from_node = node_list[i].coordinates
+            to_node = node_list[i + 1].coordinates
+
+            if i == 0:
+                thresh = 100
+                fn = lambda x : 255 if x > thresh else 0
+                im.paste(im2, (from_node[0] - 25, from_node[1] - 50), im2.convert("L").point(fn, mode='1'))
+
+            print(f"Drawing from {from_node} to {to_node}")
+
+            draw.line(((from_node[0], from_node[1]), (to_node[0], to_node[1])), fill=(255, 0, 0, 255), width=10)
+
+            if i == len(node_list) - 2:
+                print(to_node[0])
+                print(to_node[1])
+                draw.pieslice(((to_node[0] - 25, to_node[1] - 25), (to_node[0] + 25, to_node[1] + 25)), start=240, end=300, fill=(0, 255, 0, 255))
+
+        except AttributeError:
+            pass
+
+    im.save('map_path.png', quality=95)
 
 
 async def convert_to_direction(facing, path):
@@ -175,12 +212,15 @@ async def main(start_str, end_str):
                                                                          await go_to(start_loc, end_loc)])]
 
     visited_nodes = []
+    visited = [start_loc]
 
     for node in await go_to(start_loc, end_loc):
         if not isinstance(node, DoorNode):
             visited_nodes.append(node.name)
+            visited.append(node)
 
-    print(visited_nodes)
+    visited.append(end_loc)
+    await draw_path(visited)
 
     return await toJSON(directions)
 
@@ -190,4 +230,4 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('1311', '5102')))
+    print(asyncio.run(main('1311', '1109')))
