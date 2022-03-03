@@ -38,9 +38,10 @@
 .fa-list-ul {
     cursor: pointer;
 }
-/* #current-icon {
-    display: inline;
-} */
+#current-icon {
+    width: 80%;
+    padding: 20px;
+}
 .main {
     margin-top: 60px;
 }
