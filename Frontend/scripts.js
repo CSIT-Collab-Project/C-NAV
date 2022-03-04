@@ -10,9 +10,9 @@ async function getDirections() {
     const destination = document.getElementById("destination").value;
     const initialDirections = await requestDirections(currentRoom, destination);
     const directionDict = {
-        "left": ["Turn left at the next intersection", "turnleft"],
-        "right": ["Turn right at the next intersection", "turnright"],
-        "continue straight": "Continue straight through the next intersection",
+        "left": ["Turn left at the next intersection", "turn-left"],
+        "right": ["Turn right at the next intersection", "turn-right"],
+        "continue straight": ["Continue straight through the next intersection", "straight-arrow"],
         "room door is on the left": "Room door is on the left",
         "room door is on the right": "Room door is on the right",
         "room door is straight ahead": "Room door is straight ahead",
@@ -20,7 +20,7 @@ async function getDirections() {
         "enter stairs on right": "Enter stairs on right",
         "enter stairs on left": "Enter stairs on left",
         "exit left": "Exit the room to the left",
-        "exit right": "Exit the room to the right",
+        "exit right": ["Exit the room to the right", "curve-right"],
         "exit stairs left": "Exit the stairs to the left",
         "exit stairs right": "Exit the stairs to the right",
         "exit stairs straight": "Exit the stairs straight ahead",
@@ -33,8 +33,8 @@ async function getDirections() {
     const backStepBtn = document.getElementById("previous-direction");
     const currentIcon = document.getElementById("current-icon");
     const directionKeys = Object.keys(directionDict);
-    let convertedDirections = []
-    let currentDirectionNum = 0
+    let convertedDirections = [];
+    let currentDirectionNum = 0;
 
     for (item of initialDirections) {
         if (directionKeys.includes(item)) {
@@ -44,35 +44,41 @@ async function getDirections() {
             convertedDirections.push(item);
         }
     }
-
+    let currentDirectionText = convertedDirections[currentDirectionNum][0];
     // add error handling for if no directions are recieved
     document.getElementById("location-input").style.display = "none";
     bottomBar(currentRoom, destination, convertedDirections);
     directionTable(convertedDirections);
     document.getElementById("en-route-ui").style.display = "block";
   
-    let currentDirectionList = convertedDirections[currentDirectionNum]
-    currentDirection.innerHTML = currentDirectionList[0];
-    let icon = currentDirectionList[1];
+    currentDirection.innerHTML = currentDirectionText;
+    let icon = convertedDirections[currentDirectionNum][1];
     currentIcon.src = `/icon-${icon}`;
     let stepCount = 1;
     let stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
     currentDirection.appendChild(stepCountNode);
+    console.log(convertedDirections[currentDirectionNum]);
 
     nextStepBtn.addEventListener("click", () => {
         stepCount ++; 
-        currentDirection.innerHTML = convertedDirections[currentDirectionNum + 1];
+        currentDirectionNum ++;
+        currentDirectionText = convertedDirections[currentDirectionNum];
+        currentDirection.innerHTML = currentDirectionText;
         stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
         currentDirection.appendChild(stepCountNode);
-        currentDirectionNum ++;
+        let icon = convertedDirections[currentDirectionNum][1];
+        currentIcon.src = `/icon-${icon}`;
     });
 
     backStepBtn.addEventListener("click", () => {
         stepCount--;
-        currentDirection.innerHTML = convertedDirections[currentDirectionNum - 1];
+        currentDirectionNum --;
+        currentDirectionText = convertedDirections[currentDirectionNum]
+        currentDirection.innerHTML = currentDirectionText;
         stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
         currentDirection.appendChild(stepCountNode);
-        currentDirectionNum --;
+        let icon = convertedDirections[currentDirectionNum][1];
+        currentIcon.src = `/icon-${icon}`;
     });
     return convertedDirections;
 }

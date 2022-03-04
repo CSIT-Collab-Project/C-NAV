@@ -39,7 +39,8 @@
     cursor: pointer;
 }
 #current-icon {
-    display: inline;
+    width: 80%;
+    padding: 20px;
 }
 .main {
     margin-top: 60px;
@@ -54,4 +55,8 @@
 }
 #table-btn-label{
     margin-top: 2px;
+}
+
+#location-input {
+    padding: 0px 15px 15px 15px;
 }
