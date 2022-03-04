@@ -61,8 +61,8 @@ amt3 = CornerNode([], "3 Arts Building Middle Top 3rd")
 the_void = CornerNode([], "The endless void of nothingness and despair. "
                           "Nothing can enter, nothing can exit. Pure emptiness")
 
-stair1_f1 = StairNode([], "n", "1 Stair 1 1st Floor", (913, 839))
-stair1_f2 = StairNode([], "n", "2 Stair 1 2nd Floor")
+stair1_f1 = StairNode([], "n", "1 Stair 1 1st Floor", (907, 886))
+stair1_f2 = StairNode([], "n", "2 Stair 1 2nd Floor", (907, 886))
 stair1_f3 = StairNode([], "n", "3 Stair 1 3rd Floor")
 stair1_f4 = StairNode([], "n", "4 Stair 1 4th Floor")
 

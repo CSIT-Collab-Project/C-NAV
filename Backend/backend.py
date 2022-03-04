@@ -31,11 +31,6 @@ async def draw_path(node_list):
                 current_floor = int(node_list[i].name[0]) - 1
             to_node = node_list[i + 1].coordinates
 
-            if i == 0:
-                thresh = 100
-                fn = lambda x: 255 if x > thresh else 0
-                floor[current_floor].paste(im2, (from_node[0] - 25, from_node[1] - 50), im2.convert("L").point(fn, mode='1'))
-
             print(f"Drawing from {from_node} to {to_node}")
 
             if isinstance(node_list[i], StairNode) and isinstance(node_list[i + 1], StairNode):
@@ -43,8 +38,34 @@ async def draw_path(node_list):
                     floor[current_floor].paste(stair_up, (from_node[0] - 15, from_node[1] - 15), stair_up)
                 else:
                     floor[current_floor].paste(stair_down, (from_node[0] - 15, from_node[1] - 15), stair_down)
+            elif node_list[i] in [fl1, fl2] and node_list[i + 1] in [fr1, fr2]:
+                front_coords = (841, 905)
+
+                draw_floor[current_floor].line(((from_node[0], from_node[1]), (front_coords[0], front_coords[1])), fill=(255, 0, 0, 255), width=10)
+                draw_floor[current_floor].line(((front_coords[0], front_coords[1]), (to_node[0], to_node[1])), fill=(255, 0, 0, 255), width=10)
+
+            elif isinstance(node_list[i + 1], DoorNode) or isinstance(node_list[i], DoorNode):
+                hor_directions = {"n": 0, "s": 0, "e": -1, "w": 1}
+                vert_directions = {"n": 1, "s": -1, "e": 0, "w": 0}
+
+                if isinstance(node_list[i + 1], DoorNode):
+                    stop_coords = (to_node[0] + (25 * hor_directions[node_list[i + 1].door_side]),
+                                   to_node[1] + (25 * vert_directions[node_list[i + 1].door_side]))
+                else:
+                    stop_coords = (from_node[0] + (25 * hor_directions[node_list[i].door_side]),
+                                   from_node[1] + (25 * vert_directions[node_list[i].door_side]))
+
+                draw_floor[current_floor].line(((from_node[0], from_node[1]), (stop_coords[0], stop_coords[1])), fill=(255, 0, 0, 255), width=10)
+                draw_floor[current_floor].line(((stop_coords[0], stop_coords[1]), (to_node[0], to_node[1])), fill=(255, 0, 0, 255), width=10)
+
             else:
                 draw_floor[current_floor].line(((from_node[0], from_node[1]), (to_node[0], to_node[1])), fill=(255, 0, 0, 255), width=10)
+
+
+            if i == 0:
+                thresh = 100
+                fn = lambda x: 255 if x > thresh else 0
+                floor[current_floor].paste(im2, (from_node[0] - 25, from_node[1] - 50), im2.convert("L").point(fn, mode='1'))
 
             if i == len(node_list) - 2:
                 print(to_node[0])
@@ -245,4 +266,4 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('1311', '2202')))
+    print(asyncio.run(main('2207', '2312')))
