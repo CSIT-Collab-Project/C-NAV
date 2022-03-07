@@ -40,17 +40,21 @@
 }
 #current-icon {
     width: 80%;
+    max-width: 150px;
     padding: 20px;
+}
+#current-map {
+    width: 100%;
 }
 .main {
     margin-top: 60px;
 }
 #table-btn img {
     width: 40px;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
+    margin-top: -5px;
 }
 #table-btn {
-    margin-bottom: 10px;
     padding: 0;
 }
 #table-btn-label{
@@ -59,4 +63,10 @@
 
 #location-input {
     padding: 0px 15px 15px 15px;
+}
+.header {
+    z-index: 1000;
+}
+.ui .fixed-bottom {
+    z-index: 10;
 }

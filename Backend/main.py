@@ -27,12 +27,20 @@ def css():
 def js():
     return send_from_directory('../Frontend', 'scripts.js')
 
+@app.route('/icon-<iconname>')
+def icons(iconname):
+    return send_from_directory('../Frontend/icons', iconname+".png")
 
 @app.route('/directions-<start>-<end>')
 async def directions(start, end):
     directionjson = await main(start, end)
     print(directionjson)
     return directionjson
+
+@app.route('/map<floor>')
+def getMap(floor):
+    return send_from_directory('../Backend', f'map_path{int(floor) - 1}.png')
+
 
 
 if __name__ == '__main__':

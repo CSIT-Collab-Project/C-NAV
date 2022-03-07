@@ -13,13 +13,13 @@ async function getDirections() {
         "left": ["Turn left at the next intersection", "turn-left"],
         "right": ["Turn right at the next intersection", "turn-right"],
         "continue straight": ["Continue straight through the next intersection", "straight-arrow"],
-        "room door is on the left": "Room door is on the left",
-        "room door is on the right": "Room door is on the right",
-        "room door is straight ahead": "Room door is straight ahead",
-        "enter stairs straight ahead": "Enter stairs straight ahead",
+        "room door is on the left": ["Room door is on the left", "left-arrow"],
+        "room door is on the right": ["Room door is on the right", "right-arrow"],
+        "room door is straight ahead": ["Room door is straight ahead", "straight-arrow"],
+        "enter stairs straight ahead": ["Enter stairs straight ahead", "straight-arrow"],
         "enter stairs on right": "Enter stairs on right",
         "enter stairs on left": "Enter stairs on left",
-        "exit left": "Exit the room to the left",
+        "exit left": ["Exit the room to the left", "curve-left"],
         "exit right": ["Exit the room to the right", "curve-right"],
         "exit stairs left": "Exit the stairs to the left",
         "exit stairs right": "Exit the stairs to the right",
@@ -32,9 +32,11 @@ async function getDirections() {
     const nextStepBtn = document.getElementById("next-direction");
     const backStepBtn = document.getElementById("previous-direction");
     const currentIcon = document.getElementById("current-icon");
+    const currentMap = document.getElementById("current-map");
     const directionKeys = Object.keys(directionDict);
     let convertedDirections = [];
     let currentDirectionNum = 0;
+    let currentFloorNum = currentRoom[0];
 
     for (item of initialDirections) {
         if (directionKeys.includes(item)) {
@@ -54,6 +56,7 @@ async function getDirections() {
     currentDirection.innerHTML = currentDirectionText;
     let icon = convertedDirections[currentDirectionNum][1];
     currentIcon.src = `/icon-${icon}`;
+    currentMap.src = `/map${currentFloorNum}`;
     let stepCount = 1;
     let stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
     currentDirection.appendChild(stepCountNode);
@@ -68,9 +71,25 @@ async function getDirections() {
         currentDirection.appendChild(stepCountNode);
         let icon = convertedDirections[currentDirectionNum][1];
         currentIcon.src = `/icon-${icon}`;
+        if (currentDirectionText.includes("Go up")) {
+            currentFloorNum ++;
+            currentMap.src = `/map${currentFloorNum}`;
+        }
+        else if ((currentDirectionText.includes("Go down"))) {
+            currentFloorNum --;
+            currentMap.src = `/map${currentFloorNum}`;
+        }
     });
 
     backStepBtn.addEventListener("click", () => {
+        if (currentDirectionText.includes("Go up")) {
+            currentFloorNum --;
+            currentMap.src = `/map${currentFloorNum}`;
+        }
+        else if ((currentDirectionText.includes("Go down"))) {
+            currentFloorNum ++;
+            currentMap.src = `/map${currentFloorNum}`;
+        }
         stepCount--;
         currentDirectionNum --;
         currentDirectionText = convertedDirections[currentDirectionNum]
