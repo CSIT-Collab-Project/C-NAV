@@ -12,14 +12,14 @@ HEIGHT = 1659
 
 async def draw_path(node_list):
     #im = Image.new('RGBA', (WIDTH, HEIGHT), (255, 255, 255, 0))
-    floor = [Image.open('test1.png'), Image.open('test2.png')]
+    floor = [Image.open('test1.png'), Image.open('test2.png'), Image.open('test3.png')]
     im2 = Image.open('You are here.png')
     stair_up = Image.open('stair-up-hi.png')
     stair_down = Image.open('stair-down-hi.png')
     im2 = im2.resize((50, 50))
     stair_up = stair_up.resize((30, 30))
     stair_down = stair_down.resize((30, 30))
-    draw_floor = [ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[1])]
+    draw_floor = [ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[1]), ImageDraw.Draw(floor[2])]
     from_node = (0, 0)
     to_node = (0, 0)
     for i in range(len(node_list) - 1):
@@ -27,9 +27,17 @@ async def draw_path(node_list):
             from_node = node_list[i].coordinates
             if isinstance(node_list[i], DoorNode):
                 current_floor = int((node_list[i].door_num / 1000) - 1)
+            elif isinstance(node_list[i], StairwellNode):
+                if isinstance(node_list[i + 1], DoorNode):
+                    current_floor = int((node_list[i + 1].door_num / 1000) - 1)
+                else:
+                    current_floor = int(node_list[i + 1].name[0]) - 1
             else:
                 current_floor = int(node_list[i].name[0]) - 1
             to_node = node_list[i + 1].coordinates
+
+            if from_node == to_node:
+                continue
 
             print(f"Drawing from {from_node} to {to_node}")
 
@@ -266,4 +274,4 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('2207', '2312')))
+    print(asyncio.run(main('2202', '2134')))

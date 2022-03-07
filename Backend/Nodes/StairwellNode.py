@@ -6,4 +6,5 @@ class StairwellNode(Node):
         self.stairwell = stairwell
         self.rooms = rooms
         self.rooms.append(stairwell)
+        coords = self.stairwell.coordinates
         super(StairwellNode, self).__init__(self.rooms, coords)

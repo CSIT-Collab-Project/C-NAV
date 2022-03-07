@@ -5,7 +5,7 @@ class Node:
     def __init__(self, connections: list, coords: tuple = (0, 0)):
         self.connections = connections
         self.coordinates = coords
-        self.name = "Default Name"
+        self.name = "0Default Name"
 
     async def is_connected_to(self, target_node: Node) -> bool:
         return True if target_node in self.connections else False
