@@ -34,7 +34,9 @@
     display: none;
     margin: 10px;
 }
-
+#direction-table img {
+    max-width: 30px;
+}
 .fa-list-ul {
     cursor: pointer;
 }

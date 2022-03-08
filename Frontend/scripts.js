@@ -17,16 +17,22 @@ async function getDirections() {
         "room door is on the right": ["Room door is on the right", "right-arrow"],
         "room door is straight ahead": ["Room door is straight ahead", "straight-arrow"],
         "enter stairs straight ahead": ["Enter stairs straight ahead", "straight-arrow"],
-        "enter stairs on right": "Enter stairs on right",
-        "enter stairs on left": "Enter stairs on left",
+        "enter stairs on right": ["Enter stairs on right", "right-arrow"],
+        "enter stairs on left": ["Enter stairs on left", "left-arrow"],
         "exit left": ["Exit the room to the left", "curve-left"],
         "exit right": ["Exit the room to the right", "curve-right"],
-        "exit stairs left": "Exit the stairs to the left",
-        "exit stairs right": "Exit the stairs to the right",
-        "exit stairs straight": "Exit the stairs straight ahead",
-        "go up 1 floor": "Go up one floor",
-        "go down 1 floor": "Go down one floor",
-        "enter doors in stairwell": "Enter doors in stairwell"
+        "exit stairs left": ["Exit the stairs to the left", "curve-left"],
+        "exit stairs right": ["Exit the stairs to the right", "curve-right"],
+        "exit stairs straight": ["Exit the stairs straight ahead", "straight-arrow"],
+        "go up 1 floor": ["Go up one floor", " "],
+        "go down 1 floor": ["Go down one floor", " "],
+        "go up 2 floors": ["Go up two floors", " "],
+        "go down 2 floors": ["Go down two floors", " "],
+        "go up 3 floors": ["Go up three floors", " "],
+        "go down 3 floors": ["Go down three floors", " "],
+        "go up 4 floors": ["Go up four floors", " "],
+        "go down 4 floors": ["Go down four floors", " "],
+        "enter doors in stairwell": ["Enter doors in stairwell", " "]
     }
     const currentDirection = document.getElementById("current-direction");
     const nextStepBtn = document.getElementById("next-direction");
@@ -60,20 +66,23 @@ async function getDirections() {
     let stepCount = 1;
     let stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
     currentDirection.appendChild(stepCountNode);
-    console.log(convertedDirections[currentDirectionNum]);
 
     nextStepBtn.addEventListener("click", () => {
         stepCount ++; 
         currentDirectionNum ++;
-        currentDirectionText = convertedDirections[currentDirectionNum];
+        currentDirectionText = convertedDirections[currentDirectionNum][0];
         currentDirection.innerHTML = currentDirectionText;
         stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
         currentDirection.appendChild(stepCountNode);
         let icon = convertedDirections[currentDirectionNum][1];
         currentIcon.src = `/icon-${icon}`;
+        // FIX ISSUE WITH FLOORS AND MAPS - only goes up by one floor rn, needs to adjust the map based on how many floors you're going up
         if (currentDirectionText.includes("Go up")) {
-            currentFloorNum ++;
+            // if (currentDirectionText.includes("two")) {
+            //     currentFloorNum +=2;
+            // }
             currentMap.src = `/map${currentFloorNum}`;
+            currentFloorNum++;
         }
         else if ((currentDirectionText.includes("Go down"))) {
             currentFloorNum --;
@@ -92,7 +101,7 @@ async function getDirections() {
         }
         stepCount--;
         currentDirectionNum --;
-        currentDirectionText = convertedDirections[currentDirectionNum]
+        currentDirectionText = convertedDirections[currentDirectionNum][0]
         currentDirection.innerHTML = currentDirectionText;
         stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
         currentDirection.appendChild(stepCountNode);
@@ -180,25 +189,20 @@ function bottomBar(start, end, directionList) {
 }
 
 function directionTable(directionList) {
-    // add turning icons like on google maps next to the direction descriptions instead of numbers
-    // like arrows that point left, right, or straight
-    // also add those in the main display for the current direction
     const table = document.getElementById("direction-table");
-    let stepNum = 1
-     
+    // creates table with directions and icons that correspond
     for (item of directionList) {
-        // replace step numbers with the icons in this table
         const currentStepRow = document.createElement('tr');
         const currentStepCell = document.createElement('td');
-        const currentStepNumCell = document.createElement('td');
-        const currentStepDirection = document.createTextNode(item);
-        const currentStepNum = document.createTextNode(stepNum);
-        currentStepNumCell.appendChild(currentStepNum);
-        currentStepRow.appendChild(currentStepNumCell);
+        const currentIconCell = document.createElement('td');
+        const currentStepDirection = document.createTextNode(item[0]);
+        const currentIcon = document.createElement('img');
+        currentIcon.setAttribute('src', `/icon-${item[1]}`);
+        currentIconCell.appendChild(currentIcon);
+        currentStepRow.appendChild(currentIconCell);
         currentStepCell.appendChild(currentStepDirection);
         currentStepRow.appendChild(currentStepCell);
         table.appendChild(currentStepRow);
-        stepNum ++;
     }
 }
 
@@ -206,9 +210,9 @@ function zoneColor(roomNum) {
     const zoneNum = roomNum[1];
     const zoneColors = {
         '3' : '#122aff',
-        '2' : '#35e84a',
-        '4' : '#6ee4ff',
-        '1' : '#e62e2e',
+        '2' : '#1e7b1b',
+        '4' : '#5673ab',
+        '1' : '#1e4275',
         '5' : '#8f5f25',
         '6' : '#ed890e'
     }
