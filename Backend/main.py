@@ -41,8 +41,6 @@ async def directions(start, end):
 def getMap(floor):
     return send_from_directory('../Backend', f'map_path{int(floor) - 1}.png')
 
-
-
 if __name__ == '__main__':
     app.run(port=8080, debug=True)
     Database()
