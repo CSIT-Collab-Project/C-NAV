@@ -12,14 +12,14 @@ HEIGHT = 1659
 
 async def draw_path(node_list):
     # im = Image.new('RGBA', (WIDTH, HEIGHT), (255, 255, 255, 0))
-    floor = [Image.open('test1.png'), Image.open('test2.png'), Image.open('test3.png'), Image.open('test4.png')]
+    floor = [Image.open('test1.png'), Image.open('test2.png'), Image.open('test3.png'), Image.open('test4.png'), Image.open('test5.png')]
     im2 = Image.open('You are here.png')
     stair_up = Image.open('stair-up-hi.png')
     stair_down = Image.open('stair-down-hi.png')
     im2 = im2.resize((50, 50))
     stair_up = stair_up.resize((30, 30))
     stair_down = stair_down.resize((30, 30))
-    draw_floor = [ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[1]), ImageDraw.Draw(floor[2]), ImageDraw.Draw(floor[3])]
+    draw_floor = [ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[1]), ImageDraw.Draw(floor[2]), ImageDraw.Draw(floor[3]), ImageDraw.Draw(floor[4])]
     from_node = (0, 0)
     to_node = (0, 0)
     for i in range(len(node_list) - 1):
