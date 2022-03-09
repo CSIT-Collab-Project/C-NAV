@@ -5,9 +5,14 @@ async function requestDirections(start, end) {
     return directionsJson;
 }
 
+function goHome() {
+    document.getElementById("main-ui").style.display = 'none';
+    document.getElementById("location-input").style.display = 'block';
+}
 async function getDirections() {
     const currentRoom = document.getElementById("initial-location").value;
     const destination = document.getElementById("destination").value;
+    document.getElementById('location-input').reset();
     const initialDirections = await requestDirections(currentRoom, destination);
     const directionDict = {
         "left": ["Turn left at the next intersection", "turn-left"],
@@ -42,7 +47,7 @@ async function getDirections() {
     const directionKeys = Object.keys(directionDict);
     let convertedDirections = [];
     let currentDirectionNum = 0;
-    let currentFloorNum = currentRoom[0];
+    let currentFloorNum = parseInt(currentRoom[0]);
 
     for (item of initialDirections) {
         if (directionKeys.includes(item)) {
@@ -78,25 +83,67 @@ async function getDirections() {
         currentIcon.src = `/icon-${icon}`;
         // FIX ISSUE WITH FLOORS AND MAPS - only goes up by one floor rn, needs to adjust the map based on how many floors you're going up
         if (currentDirectionText.includes("Go up")) {
-            // if (currentDirectionText.includes("two")) {
-            //     currentFloorNum +=2;
-            // }
+            if (currentDirectionText.includes("two")) {
+                currentFloorNum += 2;
+            }
+            else if (currentDirectionText.includes("three")) {
+                currentFloorNum += 3;
+            }
+            else if (currentDirectionText.includes("four")) {
+                currentFloorNum += 4;
+            }
+            else {
+                currentFloorNum++;
+            }
             currentMap.src = `/map${currentFloorNum}`;
-            currentFloorNum++;
         }
         else if ((currentDirectionText.includes("Go down"))) {
-            currentFloorNum --;
+            if (currentDirectionText.includes("two")) {
+                currentFloorNum -= 2;
+            }
+            else if (currentDirectionText.includes("three")) {
+                currentFloorNum -= 3;
+            }
+            else if (currentDirectionText.includes("four")) {
+                currentFloorNum -= 4;
+            }
+            else {
+                currentFloorNum--;
+            }
             currentMap.src = `/map${currentFloorNum}`;
         }
     });
 
     backStepBtn.addEventListener("click", () => {
         if (currentDirectionText.includes("Go up")) {
-            currentFloorNum --;
+            if (currentDirectionText.includes("two")) {
+                currentFloorNum -= 2;
+                console.log(currentFloorNum);
+            }
+            else if (currentDirectionText.includes("three")) {
+                currentFloorNum -= 3;
+            }
+            else if (currentDirectionText.includes("four")) {
+                currentFloorNum -= 4;
+            }
+            else {
+                currentFloorNum--;
+            }
             currentMap.src = `/map${currentFloorNum}`;
         }
         else if ((currentDirectionText.includes("Go down"))) {
-            currentFloorNum ++;
+            if (currentDirectionText.includes("two")) {
+                currentFloorNum += 2;
+            }
+            else if (currentDirectionText.includes("three")) {
+                currentFloorNum += 3;
+            }
+            else if (currentDirectionText.includes("four")) {
+                currentFloorNum += 4;
+            }
+            else {
+                currentFloorNum++;
+            }
             currentMap.src = `/map${currentFloorNum}`;
         }
         stepCount--;
@@ -209,10 +256,10 @@ function directionTable(directionList) {
 function zoneColor(roomNum) {
     const zoneNum = roomNum[1];
     const zoneColors = {
-        '3' : '#122aff',
+        '3' : '#1e4275',
         '2' : '#1e7b1b',
         '4' : '#5673ab',
-        '1' : '#1e4275',
+        '1' : '#681c1c',
         '5' : '#8f5f25',
         '6' : '#ed890e'
     }
