@@ -1,7 +1,6 @@
 from pymongo import MongoClient
 import subprocess
-from Backend.Nodes.Node import Node
-from Backend.logger import logger
+from Backend.Logger.logger import logger
 
 
 class Database(object):
