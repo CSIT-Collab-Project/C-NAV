@@ -109,14 +109,14 @@ async def convert_to_direction(facing, path):
                     facing = "w"
                     continue
                 else:
-                    turn_order.append("through doors to left:")
+                    turn_order.append("through doors to left")
             elif from_node in [stair2_f2, stair2_f3]:
                 if to_node in [s2e, s3e]:
                     turn_order.append("exit stairs through doors to left")
                     facing = "w"
                     continue
                 else:
-                    turn_order.append("through doors on right:")
+                    turn_order.append("through doors to right")
         elif from_node in [stair3_f2, stair3_f3, stair2_f2, stair2_f3] and isinstance(to_node, CornerNode):
             turn_order.append("exit through doors across stairwell")
             continue
