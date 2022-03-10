@@ -2,7 +2,6 @@ from __future__ import annotations
 from Backend.Nodes.Node import Node
 from Backend.Nodes.CornerNode import CornerNode
 from Backend.Nodes.StairwellNode import StairwellNode
-from Backend.logger import logger
 
 
 async def create_door(connections: list, num: int, closest: Node, directions):
