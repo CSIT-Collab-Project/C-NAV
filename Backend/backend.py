@@ -1,6 +1,7 @@
 from PIL import Image, ImageDraw
 import asyncio
 import json
+import math
 
 import Backend.Nodes.StairNode
 import Backend.Nodes.CornerNode
@@ -22,6 +23,12 @@ async def draw_path(node_list):
     draw_floor = [ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[1]), ImageDraw.Draw(floor[2]), ImageDraw.Draw(floor[3]), ImageDraw.Draw(floor[4])]
     from_node = (0, 0)
     to_node = (0, 0)
+
+    top = math.inf
+    left = math.inf
+    bottom = -math.inf
+    right = - math.inf
+
     for i in range(len(node_list) - 1):
         try:
             from_node = node_list[i].coordinates
@@ -38,6 +45,15 @@ async def draw_path(node_list):
 
             if from_node == to_node:
                 continue
+
+            if from_node[0] < left:
+                left = max(from_node[0] - 75, 0)
+            if from_node[1] < top:
+                top = max(from_node[1] - 75, 0)
+            if from_node[0] > right:
+                right = min(from_node[0] + 75, 2000)
+            if from_node[1] > bottom:
+                bottom = min(from_node[1] + 75, 1659)
 
             print(f"Drawing from {from_node} to {to_node}")
 
@@ -69,7 +85,6 @@ async def draw_path(node_list):
             else:
                 draw_floor[current_floor].line(((from_node[0], from_node[1]), (to_node[0], to_node[1])), fill=(255, 0, 0, 255), width=10)
 
-
             if i == 0:
                 thresh = 100
                 fn = lambda x: 255 if x > thresh else 0
@@ -78,12 +93,23 @@ async def draw_path(node_list):
             if i == len(node_list) - 2:
                 print(to_node[0])
                 print(to_node[1])
+                if to_node[0] < left:
+                    left = max(to_node[0] - 75, 0)
+                if to_node[1] < top:
+                    top = max(to_node[1] - 75, 0)
+                if to_node[0] > right:
+                    right = min(to_node[0] + 75, 2000)
+                if to_node[1] > bottom:
+                    bottom = min(to_node[1] + 75, 1659)
                 draw_floor[current_floor].pieslice(((to_node[0] - 25, to_node[1] - 25), (to_node[0] + 25, to_node[1] + 25)), start=240, end=300, fill=(0, 255, 0, 255))
 
         except AttributeError:
             pass
 
     for i in range(len(floor)):
+        crop_rect = (left, top, right, bottom)
+        floor[i] = floor[i].crop(crop_rect)
+
         floor[i].save(f'map_path{i}.png', quality=95)
 
 
@@ -293,4 +319,5 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('1401', '5101')))
+    print(asyncio.run(main('1311', '1409')))
+
