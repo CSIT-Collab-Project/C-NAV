@@ -2,7 +2,6 @@ from __future__ import absolute_import
 from flask import Flask
 from flask.helpers import send_from_directory
 from backend import main
-from db.db import Database
 from Backend.Logger.logger import logger
 
 app = Flask(__name__)

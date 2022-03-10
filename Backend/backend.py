@@ -7,19 +7,21 @@ import Backend.Nodes.CornerNode
 from Node_Config.nodes import *
 
 WIDTH = 2000
-HEIGHT = 1659
+HEIGHT = 1659  # ಠ_ಠ le cringe
 
 
 async def draw_path(node_list):
     # im = Image.new('RGBA', (WIDTH, HEIGHT), (255, 255, 255, 0))
-    floor = [Image.open('test1.png'), Image.open('test2.png'), Image.open('test3.png'), Image.open('test4.png'), Image.open('test5.png')]
+    floor = [Image.open('test1.png'), Image.open('test2.png'), Image.open('test3.png'), Image.open('test4.png'),
+             Image.open('test5.png')]
     im2 = Image.open('You are here.png')
     stair_up = Image.open('stair-up-hi.png')
     stair_down = Image.open('stair-down-hi.png')
     im2 = im2.resize((50, 50))
     stair_up = stair_up.resize((30, 30))
     stair_down = stair_down.resize((30, 30))
-    draw_floor = [ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[1]), ImageDraw.Draw(floor[2]), ImageDraw.Draw(floor[3]), ImageDraw.Draw(floor[4])]
+    draw_floor = [ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[1]), ImageDraw.Draw(floor[2]),
+                  ImageDraw.Draw(floor[3]), ImageDraw.Draw(floor[4])]
     from_node = (0, 0)
     to_node = (0, 0)
     for i in range(len(node_list) - 1):
@@ -49,8 +51,10 @@ async def draw_path(node_list):
             elif node_list[i] in [fl1, fl2] and node_list[i + 1] in [fr1, fr2]:
                 front_coords = (841, 905)
 
-                draw_floor[current_floor].line(((from_node[0], from_node[1]), (front_coords[0], front_coords[1])), fill=(255, 0, 0, 255), width=10)
-                draw_floor[current_floor].line(((front_coords[0], front_coords[1]), (to_node[0], to_node[1])), fill=(255, 0, 0, 255), width=10)
+                draw_floor[current_floor].line(((from_node[0], from_node[1]), (front_coords[0], front_coords[1])),
+                                               fill=(255, 0, 0, 255), width=10)
+                draw_floor[current_floor].line(((front_coords[0], front_coords[1]), (to_node[0], to_node[1])),
+                                               fill=(255, 0, 0, 255), width=10)
 
             elif isinstance(node_list[i + 1], DoorNode) or isinstance(node_list[i], DoorNode):
                 hor_directions = {"n": 0, "s": 0, "e": -1, "w": 1}
@@ -63,22 +67,27 @@ async def draw_path(node_list):
                     stop_coords = (from_node[0] + (25 * hor_directions[node_list[i].door_side]),
                                    from_node[1] + (25 * vert_directions[node_list[i].door_side]))
 
-                draw_floor[current_floor].line(((from_node[0], from_node[1]), (stop_coords[0], stop_coords[1])), fill=(255, 0, 0, 255), width=10)
-                draw_floor[current_floor].line(((stop_coords[0], stop_coords[1]), (to_node[0], to_node[1])), fill=(255, 0, 0, 255), width=10)
+                draw_floor[current_floor].line(((from_node[0], from_node[1]), (stop_coords[0], stop_coords[1])),
+                                               fill=(255, 0, 0, 255), width=10)
+                draw_floor[current_floor].line(((stop_coords[0], stop_coords[1]), (to_node[0], to_node[1])),
+                                               fill=(255, 0, 0, 255), width=10)
 
             else:
-                draw_floor[current_floor].line(((from_node[0], from_node[1]), (to_node[0], to_node[1])), fill=(255, 0, 0, 255), width=10)
-
+                draw_floor[current_floor].line(((from_node[0], from_node[1]), (to_node[0], to_node[1])),
+                                               fill=(255, 0, 0, 255), width=10)
 
             if i == 0:
                 thresh = 100
                 fn = lambda x: 255 if x > thresh else 0
-                floor[current_floor].paste(im2, (from_node[0] - 25, from_node[1] - 50), im2.convert("L").point(fn, mode='1'))
+                floor[current_floor].paste(im2, (from_node[0] - 25, from_node[1] - 50),
+                                           im2.convert("L").point(fn, mode='1'))
 
             if i == len(node_list) - 2:
                 print(to_node[0])
                 print(to_node[1])
-                draw_floor[current_floor].pieslice(((to_node[0] - 25, to_node[1] - 25), (to_node[0] + 25, to_node[1] + 25)), start=240, end=300, fill=(0, 255, 0, 255))
+                draw_floor[current_floor].pieslice(
+                    ((to_node[0] - 25, to_node[1] - 25), (to_node[0] + 25, to_node[1] + 25)), start=240, end=300,
+                    fill=(0, 255, 0, 255))
 
         except AttributeError:
             pass
