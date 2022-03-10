@@ -198,21 +198,24 @@ async def convert_to_direction(facing, path):
     else:
         turn_order.append('room door is straight ahead')
 
-    for i in range(len(turn_order) - 1):
+    for i in range(len(turn_order) - 2):
         counter = 1
-        if turn_order[i] == 'go up 1 floor' and turn_order[i + 1] == turn_order[i]:
-            while turn_order[i + 1] == 'go up 1 floor':
-                turn_order.pop(i + 1)
-                counter += 1
+        try:
+            if turn_order[i] == 'go up 1 floor' and turn_order[i + 1] == turn_order[i]:
+                while turn_order[i + 1] == 'go up 1 floor':
+                    turn_order.pop(i + 1)
+                    counter += 1
 
-            turn_order[i] = f'go up {counter} floors'
+                turn_order[i] = f'go up {counter} floors'
 
-        elif turn_order[i] == 'go down 1 floor' and turn_order[i + 1] == turn_order[i]:
-            while turn_order[i + 1] == 'go down 1 floor':
-                turn_order.pop(i + 1)
-                counter += 1
+            elif turn_order[i] == 'go down 1 floor' and turn_order[i + 1] == turn_order[i]:
+                while turn_order[i + 1] == 'go down 1 floor':
+                    turn_order.pop(i + 1)
+                    counter += 1
 
-            turn_order[i] = f'go down {counter} floors'
+                turn_order[i] = f'go down {counter} floors'
+        except IndexError:
+            continue
 
     return turn_order
 
@@ -290,4 +293,4 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('1401', '3404')))
+    print(asyncio.run(main('1401', '5101')))
