@@ -6,10 +6,11 @@ async function requestDirections(start, end) {
 }
 
 function goHome() {
-    document.getElementById("main-ui").style.display = 'none';
-    document.getElementById("location-input").style.display = 'block';
+    window.location.reload();
 }
+
 async function getDirections() {
+    document.getElementById("main-ui").style.display = "block";
     const currentRoom = document.getElementById("initial-location").value;
     const destination = document.getElementById("destination").value;
     document.getElementById('location-input').reset();
@@ -37,7 +38,9 @@ async function getDirections() {
         "go down 3 floors": ["Go down three floors", " "],
         "go up 4 floors": ["Go up four floors", " "],
         "go down 4 floors": ["Go down four floors", " "],
-        "enter doors in stairwell": ["Enter doors in stairwell", " "]
+        "enter doors in stairwell": ["Enter doors in stairwell", " "],
+        "through doors to left" : ["Through doors to the left", " "],
+        "through doors to right" : ["Through doors to the right"]
     }
     const currentDirection = document.getElementById("current-direction");
     const nextStepBtn = document.getElementById("next-direction");

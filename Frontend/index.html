@@ -13,20 +13,67 @@
 
 <body>
     <div class="header">
-        <nav class="navbar navbar-dark bg-dark fixed-top">
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#" onclick=goHome()>CRLS Nav</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#" onclick=goHome()>Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn gform-btn" target="blank__" href="https://docs.google.com/forms/d/e/1FAIpQLSeasQy1ALX0X5L9yNBAFXESD12jQ1HBdHVyYsnSCd5s6uVlTQ/viewform">Report Bugs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn gform-btn" href="#">Feature Requests</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about">About this Project</a>
+                        </li>
+                        <!-- $indigo-600 -->
+                        <!-- <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled">Disabled</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form> -->
+                </div>
             </div>
         </nav>
+
+
+
     </div>
     <div class="main container" id="direction-form" style="display: block;">
         <form id="location-input" action="" class="flex-column flex-md-row">
-            <label class="fs-2" for="initial-location">Current Room Number</label>
+            <label class="" for="initial-location">Current Room Number</label>
             <input type="text" id="initial-location" class="form-control" placeholder="Current Room"
                 aria-describedby="basic-addon1">
             <button type="button" class="mt-2 btn btn-primary" id="next">Next</button>
             <div id="destination-form">
-                <label class="fs-2" for="destination">Destination Room Number</label>
+                <label class="" for="destination">Destination Room Number</label>
                 <input type="text" id="destination" class="form-control" placeholder="Destination"
                     aria-describedby="basic-addon1">
                 <button type="button" class="mt-2 btn btn-success" id="location-submit">Submit</button>
@@ -39,8 +86,11 @@
             <img src="" alt="" id="current-map">
             <img src="" alt="" id="current-icon">
             <h2 id="current-direction"></h2>
-            <button type="button" class="mt-2 btn btn-secondary" id="previous-direction">Back</button>
-            <button type="button" class="mt-2 btn btn-primary" id="next-direction">Next Direction</button>
+            <div id="nav-buttons" class="d-flex flex-row-reverse">
+                <button type="button" class="m-1 btn btn-primary" id="next-direction">Next Direction</button>
+                <button type="button" class="m-1 btn btn-secondary" id="previous-direction">Back</button>
+            </div>
+
             <div id="directions-table container">
                 <table id="direction-table">
                     <tr>
@@ -53,10 +103,10 @@
         <div class="info-bar" id="bottom-bar" style="display: none;">
             <nav class="navbar navbar-light bg-light">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#" onclick=goHome()>CRLS Nav</a>
+                    <!-- <a class="navbar-brand" href="#" onclick=goHome()>CRLS Nav</a> -->
                     <li class="nav-item">
-                        <p id="table-btn-label">Directions</p>
-                        <span id="table-btn"><img src="/icon-list" alt=""></span>
+                        <p id="steps-label">Steps Left</p>
+                        <p id="steps-id"></p>
                     </li>
                     <li class="nav-item">
                         <p id="start-label">From</p>
@@ -67,8 +117,8 @@
                         <p id="end-id"></p>
                     </li>
                     <li class="nav-item">
-                        <p id="steps-label">Steps Left</p>
-                        <p id="steps-id"></p>
+                        <p id="table-btn-label">Directions</p>
+                        <span id="table-btn"><img src="/icon-list" alt=""></span>
                     </li>
                 </div>
             </nav>

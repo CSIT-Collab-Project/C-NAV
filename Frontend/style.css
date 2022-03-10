@@ -13,6 +13,11 @@
 #location-input {
     display: flex;
 }
+.gform-btn {
+    background-color: #6610f2 !important;
+    color: white !important;
+    margin: 5px;
+}
 
 #bottom-bar {
     list-style-type: none;
@@ -46,7 +51,7 @@
     padding: 20px;
 }
 #current-map {
-    width: 100%;
+    width: 115%;
 }
 .main {
     margin-top: 60px;
@@ -71,4 +76,19 @@
 }
 .ui .fixed-bottom {
     z-index: 10;
+}
+p#steps-id {
+    text-align: center;
+    font-size: 1.4em;
+}
+#bottom-bar div.container-fluid p {
+    font-size: 1em;
+    text-align: center;
+}
+body {
+    font-size: 1.4em;
+}
+#location-input label {
+    font-size: 1.3em;
+    padding: 5px;
 }
