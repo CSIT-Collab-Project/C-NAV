@@ -34,7 +34,7 @@ def js():
 
 @app.route('/icon-<iconname>')
 def icons(iconname):
-    logger.info(icons)
+    logger.info('icons')
     return send_from_directory('../Frontend/Icons', iconname + ".png")
 
 
