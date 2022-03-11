@@ -51,7 +51,12 @@
     padding: 20px;
 }
 #current-map {
-    width: 115%;
+    /* object-fit: cover; */
+    max-width: 100%;
+}
+#map-container {
+    max-width: vw - 20px;
+    margin-top: 56px;
 }
 .main {
     margin-top: 60px;
@@ -91,4 +96,7 @@ body {
 #location-input label {
     font-size: 1.3em;
     padding: 5px;
+}
+#about-main {
+    margin-top: 60px;
 }

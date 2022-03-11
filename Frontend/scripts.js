@@ -6,7 +6,7 @@ async function requestDirections(start, end) {
 }
 
 function goHome() {
-    window.location.reload();
+    window.location = "/";
 }
 
 async function getDirections() {
