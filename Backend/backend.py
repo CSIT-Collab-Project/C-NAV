@@ -12,11 +12,12 @@ HEIGHT = 1659  # ಠ_ಠ le cringe
 
 async def draw_path(node_list):
     # im = Image.new('RGBA', (WIDTH, HEIGHT), (255, 255, 255, 0))
-    floor = [Image.open('test1.png'), Image.open('test2.png'), Image.open('test3.png'), Image.open('test4.png'),
-             Image.open('test5.png')]
-    im2 = Image.open('You are here.png')
-    stair_up = Image.open('stair-up-hi.png')
-    stair_down = Image.open('stair-down-hi.png')
+    floor = [Image.open('Maps/test1.png'), Image.open('Maps/test2.png'), Image.open('Maps/test3.png'), Image.open(
+        'Maps/test4.png'),
+             Image.open('Maps/test5.png')]
+    im2 = Image.open('Icons/You are here.png')
+    stair_up = Image.open('Icons/stair-up-hi.png')
+    stair_down = Image.open('Icons/stair-down-hi.png')
     im2 = im2.resize((50, 50))
     stair_up = stair_up.resize((30, 30))
     stair_down = stair_down.resize((30, 30))
