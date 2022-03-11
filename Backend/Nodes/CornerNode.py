@@ -1,5 +1,5 @@
 from Backend.Nodes.Node import Node
-
+from Backend.Logger.logger import logger
 
 class CornerNode(Node):
     def __init__(self, connections, name,
@@ -11,6 +11,8 @@ class CornerNode(Node):
                  ):
 
         super(CornerNode, self).__init__(connections, coords)
+
+        logger.info(f'CornerNode({connections}, {name}, {coords}, {n}, {s}, {e}, {w})')
 
         self.set_name(name)
 
@@ -29,12 +31,15 @@ class CornerNode(Node):
         self.door_map = {}
 
     async def get_turns(self) -> list:
+        logger.info('get_turns()')
         return [turn for turn in ['n', 's', 'e', 'w'] if not self.turn_map[turn]]
 
     async def get_node_to(self, direction: str) -> Node:
+        logger.info(f'get_node_to({direction})')
         return self.turn_map[direction]
 
     async def add_directions(self, n, e, s, w):
+        logger.info(f'add_directions({n}, {e}, {s}, {w})')
         nodes = []
 
         if isinstance(n, list):
