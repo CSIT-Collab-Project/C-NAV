@@ -1,3 +1,5 @@
+import random
+
 from PIL import Image, ImageDraw
 import asyncio
 import json
@@ -30,6 +32,9 @@ async def draw_path(node_list):
     left = math.inf
     bottom = -math.inf
     right = - math.inf
+
+    fill_color = (155, 9, 238, 255)
+    print(fill_color)
 
     for i in range(len(node_list) - 1):
         try:
@@ -67,8 +72,8 @@ async def draw_path(node_list):
             elif node_list[i] in [fl1, fl2] and node_list[i + 1] in [fr1, fr2]:
                 front_coords = (841, 905)
 
-                draw_floor[current_floor].line(((from_node[0], from_node[1]), (front_coords[0], front_coords[1])), fill=(255, 0, 0, 255), width=10)
-                draw_floor[current_floor].line(((front_coords[0], front_coords[1]), (to_node[0], to_node[1])), fill=(255, 0, 0, 255), width=10)
+                draw_floor[current_floor].line(((from_node[0], from_node[1]), (front_coords[0], front_coords[1])), fill=fill_color, width=10)
+                draw_floor[current_floor].line(((front_coords[0], front_coords[1]), (to_node[0], to_node[1])), fill=fill_color, width=10)
 
             elif isinstance(node_list[i + 1], DoorNode) or isinstance(node_list[i], DoorNode):
                 hor_directions = {"n": 0, "s": 0, "e": -1, "w": 1}
@@ -81,11 +86,11 @@ async def draw_path(node_list):
                     stop_coords = (from_node[0] + (25 * hor_directions[node_list[i].door_side]),
                                    from_node[1] + (25 * vert_directions[node_list[i].door_side]))
 
-                draw_floor[current_floor].line(((from_node[0], from_node[1]), (stop_coords[0], stop_coords[1])), fill=(255, 0, 0, 255), width=10)
-                draw_floor[current_floor].line(((stop_coords[0], stop_coords[1]), (to_node[0], to_node[1])), fill=(255, 0, 0, 255), width=10)
+                draw_floor[current_floor].line(((from_node[0], from_node[1]), (stop_coords[0], stop_coords[1])), fill=fill_color, width=10)
+                draw_floor[current_floor].line(((stop_coords[0], stop_coords[1]), (to_node[0], to_node[1])), fill=fill_color, width=10)
 
             else:
-                draw_floor[current_floor].line(((from_node[0], from_node[1]), (to_node[0], to_node[1])), fill=(255, 0, 0, 255), width=10)
+                draw_floor[current_floor].line(((from_node[0], from_node[1]), (to_node[0], to_node[1])), fill=fill_color, width=10)
 
             if i == 0:
                 thresh = 100
@@ -109,6 +114,24 @@ async def draw_path(node_list):
             pass
 
     for i in range(len(floor)):
+
+        #1080 x 1920
+        TARGET_WIDTH = 1080
+        TARGET_HEIGHT = 1920
+
+        crop_center = (((left + right) / 2), ((top + bottom) / 2))
+
+
+        left_over = max(TARGET_WIDTH / 2 - crop_center[0], 0)
+        right_over = max((TARGET_WIDTH / 2 + crop_center[0]) - WIDTH, 0)
+        top_over = max(TARGET_HEIGHT / 2 - crop_center[1], 0)
+        bottom_over = max((TARGET_HEIGHT / 2 + crop_center[1]) - HEIGHT, 0)
+
+        left = max(crop_center[0] - TARGET_WIDTH / 2 - right_over, 0)
+        right = min(crop_center[0] + TARGET_WIDTH / 2 + left_over, WIDTH)
+        top = max(crop_center[1] - TARGET_HEIGHT / 2 - top_over, 0)
+        bottom = min(crop_center[1] + TARGET_HEIGHT / 2 + bottom_over, HEIGHT)
+
         crop_rect = (left, top, right, bottom)
         floor[i] = floor[i].crop(crop_rect)
 
@@ -321,5 +344,5 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('1311', '1409')))
+    print(asyncio.run(main('1311', '3404')))
 
