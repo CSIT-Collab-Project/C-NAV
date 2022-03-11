@@ -4,7 +4,7 @@ import json
 
 import Backend.Nodes.StairNode
 import Backend.Nodes.CornerNode
-from Node_Config.nodes import *
+from Node Config.nodes import *
 
 WIDTH = 2000
 HEIGHT = 1659  # ಠ_ಠ le cringe
