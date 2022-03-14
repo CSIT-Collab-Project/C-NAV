@@ -16,15 +16,15 @@ HEIGHT = 1659
 async def draw_path(node_list):
     # im = Image.new('RGBA', (WIDTH, HEIGHT), (255, 255, 255, 0))
     floor = [Image.open('Maps/test1.png'), Image.open('Maps/test2.png'), Image.open('Maps/test3.png'), Image.open(
-        'Maps/test4.png'),
-             Image.open('Maps/test5.png')]
+        'Maps/test4.png'), Image.open('Maps/test5.png'), Image.open('Maps/test5.png'), Image.open('Maps/test5.png'),
+             Image.open('Maps/Arts2nd.png')]
     im2 = Image.open('Icons/You are here.png')
     stair_up = Image.open('Icons/stair-up-hi.png')
     stair_down = Image.open('Icons/stair-down-hi.png')
     im2 = im2.resize((50, 50))
     stair_up = stair_up.resize((30, 30))
     stair_down = stair_down.resize((30, 30))
-    draw_floor = [ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[1]), ImageDraw.Draw(floor[2]), ImageDraw.Draw(floor[3]), ImageDraw.Draw(floor[4])]
+    draw_floor = [ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[1]), ImageDraw.Draw(floor[2]), ImageDraw.Draw(floor[3]), ImageDraw.Draw(floor[4]), None, None, ImageDraw.Draw(floor[7])]
     from_node = (0, 0)
     to_node = (0, 0)
 
@@ -41,13 +41,26 @@ async def draw_path(node_list):
             from_node = node_list[i].coordinates
             if isinstance(node_list[i], DoorNode):
                 current_floor = int((node_list[i].door_num / 1000) - 1)
+                if (node_list[i].door_num / 100) % 10 == 6:
+                    current_floor += 5
+                    print("Arts")
             elif isinstance(node_list[i], StairwellNode):
                 if isinstance(node_list[i + 1], DoorNode):
                     current_floor = int((node_list[i + 1].door_num / 1000) - 1)
+                    if (node_list[i + 1].door_num / 100) % 10 == 6:
+                        current_floor += 5
+                        print("Arts")
                 else:
                     current_floor = int(node_list[i + 1].name[0]) - 1
+                    if "Arts" in node_list[i + 1].name:
+                        current_floor += 5
+                        print("Arts")
             else:
                 current_floor = int(node_list[i].name[0]) - 1
+                if "Arts" in node_list[i].name:
+                    current_floor += 5
+                    print("Arts")
+
             to_node = node_list[i + 1].coordinates
 
             if from_node == to_node:
@@ -344,5 +357,5 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('1311', '3404')))
+    print(asyncio.run(main('2202', '2603')))
 
