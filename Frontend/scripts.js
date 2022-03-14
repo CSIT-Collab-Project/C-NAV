@@ -13,7 +13,6 @@ async function getDirections() {
     document.getElementById("main-ui").style.display = "block";
     const currentRoom = document.getElementById("initial-location").value;
     const destination = document.getElementById("destination").value;
-    document.getElementById('location-input').reset();
     const initialDirections = await requestDirections(currentRoom, destination);
     const directionDict = {
         "left": ["Turn left at the next intersection", "turn-left"],
@@ -197,6 +196,9 @@ function bottomBar(start, end, directionList) {
         startRoom.style.color = 'white';
     }
     if (endZoneCall[0] === '3' || endZoneCall[0] === '1' || endZoneCall[0] === '5') {
+        endRoom.style.color = 'white';
+    }
+    else {
         endRoom.style.color = 'white';
     }
 
