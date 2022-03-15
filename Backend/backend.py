@@ -13,6 +13,15 @@ WIDTH = 2000
 HEIGHT = 1659
 
 
+async def is_arts(node):
+    if isinstance(node, DoorNode):
+        if (node.door_num / 100) % 10 == 6:
+            return True
+    else:
+        if "Arts" in node.name:
+            return True
+
+
 async def draw_path(node_list):
     # im = Image.new('RGBA', (WIDTH, HEIGHT), (255, 255, 255, 0))
     floor = [Image.open('Maps/test1.png'), Image.open('Maps/test2.png'), Image.open('Maps/test3.png'), Image.open(
@@ -37,29 +46,24 @@ async def draw_path(node_list):
     print(fill_color)
 
     for i in range(len(node_list) - 1):
+        from_arts = await is_arts(node_list[i])
+        to_arts = await is_arts(node_list[i + 1])
         try:
             from_node = node_list[i].coordinates
             if isinstance(node_list[i], DoorNode):
                 current_floor = int((node_list[i].door_num / 1000) - 1)
-                if (node_list[i].door_num / 100) % 10 == 6:
-                    current_floor += 5
-                    print("Arts")
             elif isinstance(node_list[i], StairwellNode):
                 if isinstance(node_list[i + 1], DoorNode):
                     current_floor = int((node_list[i + 1].door_num / 1000) - 1)
-                    if (node_list[i + 1].door_num / 100) % 10 == 6:
-                        current_floor += 5
-                        print("Arts")
                 else:
                     current_floor = int(node_list[i + 1].name[0]) - 1
-                    if "Arts" in node_list[i + 1].name:
-                        current_floor += 5
-                        print("Arts")
             else:
                 current_floor = int(node_list[i].name[0]) - 1
-                if "Arts" in node_list[i].name:
-                    current_floor += 5
-                    print("Arts")
+
+            if from_arts != to_arts:
+                continue
+            elif from_arts:
+                current_floor += 5
 
             to_node = node_list[i + 1].coordinates
 
@@ -357,5 +361,5 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('2202', '2603')))
+    print(asyncio.run(main('2202', '2313')))
 
