@@ -13,6 +13,10 @@ def login():
     logger.info('login')
     return send_from_directory('../Frontend', 'login.html')
 
+@app.route('/about')
+def about():
+    logger.info('about')
+    return send_from_directory('../Frontend', 'about.html')
 
 @app.route('/')
 def home():
@@ -50,6 +54,11 @@ async def directions(start, end):
 def getMap(floor):
     logger.info('getmap')
     return send_from_directory('../Backend', f'map_path{int(floor) - 1}.png')
+
+@app.route('/comic-sans')
+def comicsans():
+    logger.info('comic sans is ready for action')
+    return send_from_directory('../Backend', 'COMIC.ttf')
 
 
 if __name__ == '__main__':
