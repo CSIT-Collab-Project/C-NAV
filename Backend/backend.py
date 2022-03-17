@@ -34,6 +34,7 @@ async def draw_path(node_list):
     stair_up = stair_up.resize((30, 30))
     stair_down = stair_down.resize((30, 30))
     draw_floor = [ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[1]), ImageDraw.Draw(floor[2]), ImageDraw.Draw(floor[3]), ImageDraw.Draw(floor[4]), None, None, ImageDraw.Draw(floor[7])]
+    total_length = 0
     from_node = (0, 0)
     to_node = (0, 0)
 
@@ -80,6 +81,8 @@ async def draw_path(node_list):
                 bottom = min(from_node[1] + 75, 1659)
 
             print(f"Drawing from {from_node} to {to_node}")
+
+            total_length += abs(abs(to_node[0]) - abs(from_node[0])) + abs(abs(to_node[1]) - abs(from_node[1]))
 
             if isinstance(node_list[i], StairNode) and isinstance(node_list[i + 1], StairNode):
                 if int(node_list[i].name[0]) < int(node_list[i + 1].name[0]):
@@ -153,6 +156,9 @@ async def draw_path(node_list):
         floor[i] = floor[i].crop(crop_rect)
 
         floor[i].save(f'map_path{i}.png', quality=95)
+
+    print(f"Total Length: {total_length}")
+    return total_length
 
 
 async def convert_to_direction(facing, path):
