@@ -5,6 +5,14 @@ async function requestDirections(start, end) {
     return directionsJson;
 }
 
+window.addEventListener("load", aprilFools);
+function aprilFools() {
+    const date = new Date();
+    if (date.getMonth() === 7 && date.getDay() === 1) {
+        document.body.style.fontFamily = "Comic Sans MS";
+    }
+}
+
 function goHome() {
     window.location = "/";
 }

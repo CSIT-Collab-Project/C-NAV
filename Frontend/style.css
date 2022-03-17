@@ -1,10 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&family=Roboto&display=swap');
 
-@font-face {
-    font-family: comic-sans;
-    src: url('/comic-sans');
-}
-
 body {
     font-family: Nunito, sans-serif;
     font-size: 1.4em;
