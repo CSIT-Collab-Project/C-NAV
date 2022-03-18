@@ -4,7 +4,10 @@ from PIL import Image, ImageDraw
 import asyncio
 import json
 import math
+import path
+import sys
 
+sys.path.append(path.Path(__file__).abspath().parent.parent)
 import Backend.Nodes.StairNode
 import Backend.Nodes.CornerNode
 from Node_Config.nodes import *
@@ -33,7 +36,8 @@ async def draw_path(node_list):
     im2 = im2.resize((50, 50))
     stair_up = stair_up.resize((30, 30))
     stair_down = stair_down.resize((30, 30))
-    draw_floor = [ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[1]), ImageDraw.Draw(floor[2]), ImageDraw.Draw(floor[3]), ImageDraw.Draw(floor[4]), None, None, ImageDraw.Draw(floor[7])]
+    draw_floor = [ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[1]), ImageDraw.Draw(floor[2]),
+                  ImageDraw.Draw(floor[3]), ImageDraw.Draw(floor[4]), None, None, ImageDraw.Draw(floor[7])]
     total_length = 0
     from_node = (0, 0)
     to_node = (0, 0)
@@ -92,8 +96,10 @@ async def draw_path(node_list):
             elif node_list[i] in [fl1, fl2] and node_list[i + 1] in [fr1, fr2]:
                 front_coords = (841, 905)
 
-                draw_floor[current_floor].line(((from_node[0], from_node[1]), (front_coords[0], front_coords[1])), fill=fill_color, width=10)
-                draw_floor[current_floor].line(((front_coords[0], front_coords[1]), (to_node[0], to_node[1])), fill=fill_color, width=10)
+                draw_floor[current_floor].line(((from_node[0], from_node[1]), (front_coords[0], front_coords[1])),
+                                               fill=fill_color, width=10)
+                draw_floor[current_floor].line(((front_coords[0], front_coords[1]), (to_node[0], to_node[1])),
+                                               fill=fill_color, width=10)
 
             elif isinstance(node_list[i + 1], DoorNode) or isinstance(node_list[i], DoorNode):
                 hor_directions = {"n": 0, "s": 0, "e": -1, "w": 1}
@@ -106,16 +112,20 @@ async def draw_path(node_list):
                     stop_coords = (from_node[0] + (25 * hor_directions[node_list[i].door_side]),
                                    from_node[1] + (25 * vert_directions[node_list[i].door_side]))
 
-                draw_floor[current_floor].line(((from_node[0], from_node[1]), (stop_coords[0], stop_coords[1])), fill=fill_color, width=10)
-                draw_floor[current_floor].line(((stop_coords[0], stop_coords[1]), (to_node[0], to_node[1])), fill=fill_color, width=10)
+                draw_floor[current_floor].line(((from_node[0], from_node[1]), (stop_coords[0], stop_coords[1])),
+                                               fill=fill_color, width=10)
+                draw_floor[current_floor].line(((stop_coords[0], stop_coords[1]), (to_node[0], to_node[1])),
+                                               fill=fill_color, width=10)
 
             else:
-                draw_floor[current_floor].line(((from_node[0], from_node[1]), (to_node[0], to_node[1])), fill=fill_color, width=10)
+                draw_floor[current_floor].line(((from_node[0], from_node[1]), (to_node[0], to_node[1])),
+                                               fill=fill_color, width=10)
 
             if i == 0:
                 thresh = 100
                 fn = lambda x: 255 if x > thresh else 0
-                floor[current_floor].paste(im2, (from_node[0] - 25, from_node[1] - 50), im2.convert("L").point(fn, mode='1'))
+                floor[current_floor].paste(im2, (from_node[0] - 25, from_node[1] - 50),
+                                           im2.convert("L").point(fn, mode='1'))
 
             if i == len(node_list) - 2:
                 print(to_node[0])
@@ -128,19 +138,19 @@ async def draw_path(node_list):
                     right = min(to_node[0] + 75, 2000)
                 if to_node[1] > bottom:
                     bottom = min(to_node[1] + 75, 1659)
-                draw_floor[current_floor].pieslice(((to_node[0] - 25, to_node[1] - 25), (to_node[0] + 25, to_node[1] + 25)), start=240, end=300, fill=(0, 255, 0, 255))
+                draw_floor[current_floor].pieslice(
+                    ((to_node[0] - 25, to_node[1] - 25), (to_node[0] + 25, to_node[1] + 25)), start=240, end=300,
+                    fill=(0, 255, 0, 255))
 
         except AttributeError:
             pass
 
     for i in range(len(floor)):
-
-        #1080 x 1920
+        # 1080 x 1920
         TARGET_WIDTH = 1080
         TARGET_HEIGHT = 1920
 
         crop_center = (((left + right) / 2), ((top + bottom) / 2))
-
 
         left_over = max(TARGET_WIDTH / 2 - crop_center[0], 0)
         right_over = max((TARGET_WIDTH / 2 + crop_center[0]) - WIDTH, 0)
@@ -368,4 +378,3 @@ async def toJSON(directions: list):
 
 if __name__ == '__main__':
     print(asyncio.run(main('2202', '2313')))
-

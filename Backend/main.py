@@ -1,7 +1,11 @@
 from __future__ import absolute_import
+import path
+import sys
 from flask import Flask
 from flask.helpers import send_from_directory
 from run import main
+
+sys.path.append(path.Path(__file__).abspath().parent.parent)
 from Backend.Logger.logger import logger
 
 app = Flask(__name__)
@@ -13,10 +17,12 @@ def login():
     logger.info('login')
     return send_from_directory('../Frontend', 'login.html')
 
+
 @app.route('/about')
 def about():
     logger.info('about')
     return send_from_directory('../Frontend', 'about.html')
+
 
 @app.route('/')
 def home():
@@ -59,4 +65,3 @@ def getMap(floor):
 if __name__ == '__main__':
     logger.info('run')
     app.run(port=8080, debug=True)
-

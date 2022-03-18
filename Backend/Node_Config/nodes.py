@@ -1,3 +1,7 @@
+import path
+import sys
+
+sys.path.append(path.Path(__file__).abspath().parent.parent.parent)
 from Backend.Nodes.CornerNode import CornerNode
 from Backend.Nodes.DoorNode import DoorNode
 from Backend.Nodes.StairNode import StairNode

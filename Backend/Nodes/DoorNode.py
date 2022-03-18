@@ -1,4 +1,8 @@
 from __future__ import annotations
+import path
+import sys
+
+sys.path.append(path.Path(__file__).abspath().parent.parent.parent)
 from Backend.Nodes.Node import Node
 from Backend.Nodes.CornerNode import CornerNode
 from Backend.Nodes.StairwellNode import StairwellNode
