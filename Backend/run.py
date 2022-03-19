@@ -1,5 +1,3 @@
-import random
-
 from PIL import Image, ImageDraw
 import asyncio
 import json
