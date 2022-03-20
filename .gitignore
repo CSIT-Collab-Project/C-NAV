@@ -1,0 +1,3 @@
+__pycache__
+Logs/*.log
+Backend/map_path*.png
