@@ -1,7 +1,11 @@
 from __future__ import absolute_import
+import path
+import sys
 from flask import Flask
 from flask.helpers import send_from_directory
-from backend import main
+from run import main
+
+sys.path.append(path.Path(__file__).abspath().parent.parent)
 from Backend.Logger.logger import logger
 
 app = Flask(__name__)
@@ -13,10 +17,12 @@ def login():
     logger.info('login')
     return send_from_directory('../Frontend', 'login.html')
 
+
 @app.route('/about')
 def about():
     logger.info('about')
     return send_from_directory('../Frontend', 'about.html')
+
 
 @app.route('/')
 def home():
@@ -55,13 +61,7 @@ def getMap(floor):
     logger.info('getmap')
     return send_from_directory('../Backend', f'map_path{int(floor) - 1}.png')
 
-@app.route('/comic-sans')
-def comicsans():
-    logger.info('comic sans is ready for action')
-    return send_from_directory('../Backend', 'COMIC.ttf')
-
 
 if __name__ == '__main__':
     logger.info('run')
     app.run(port=8080, debug=True)
-

@@ -1,4 +1,9 @@
 from __future__ import annotations
+
+import path
+import sys
+
+sys.path.append(path.Path(__file__).abspath().parent.parent.parent)
 from Backend.Logger.logger import logger
 
 

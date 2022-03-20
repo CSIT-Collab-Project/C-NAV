@@ -1,10 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&family=Roboto&display=swap');
 
-@font-face {
-    font-family: comic-sans;
-    src: url('/comic-sans');
-}
-
 body {
     font-family: Nunito, sans-serif;
     font-size: 1.4em;
@@ -62,15 +57,12 @@ body {
     width: 80%;
     max-width: 150px;
     padding: 20px;
-    position: absolute;
-    top: 50%;
 }
 #current-map {
     max-width: 100%;
 }
 #map-container {
-    max-width: vw - 20px;
-    margin-top: 56px;
+    margin-bottom: -30%;
 }
 .main {
     margin-top: 60px;
@@ -115,4 +107,7 @@ p#steps-id {
 }
 #about-main a {
     color: #6610f2;
+}
+#main-ui {
+    z-index: -1000;
 }
