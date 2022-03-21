@@ -12,7 +12,7 @@ escape = '\u001b[0m'
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-file = logging.FileHandler('Logs/C-Nav.log')
+file = logging.FileHandler('Backend/Logs/C-Nav.log')
 file.setLevel(logging.DEBUG)
 file.setFormatter(logging.Formatter(
     f'%(asctime)s [%(levelname)s] - (%(filename)s) - "%(message)s"', f'%m/%d - %H:%M:%S'))
