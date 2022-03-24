@@ -61,6 +61,9 @@ def getMap(floor):
     logger.info('getmap')
     return send_from_directory('../Backend', f'map_path{int(floor) - 1}.png')
 
+def run():
+    logger.info('run')
+    app.run(port=8080, debug=True)
 
 def run():
     logger.info('run')
