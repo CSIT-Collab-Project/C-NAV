@@ -3,7 +3,7 @@ import path
 import sys
 from flask import Flask
 from flask.helpers import send_from_directory
-from run import main
+from Backend.run import main
 
 sys.path.append(path.Path(__file__).abspath().parent.parent)
 from Backend.Logger.logger import logger
@@ -61,6 +61,9 @@ def getMap(floor):
     logger.info('getmap')
     return send_from_directory('../Backend', f'map_path{int(floor) - 1}.png')
 
+def run():
+    logger.info('run')
+    app.run(port=8080, debug=True)
 
 if __name__ == '__main__':
     logger.info('run')

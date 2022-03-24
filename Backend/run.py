@@ -8,7 +8,7 @@ import sys
 sys.path.append(path.Path(__file__).abspath().parent.parent)
 import Backend.Nodes.StairNode
 import Backend.Nodes.CornerNode
-from Node_Config.Dev.nodes import *
+from Backend.Node_Config.Dev.nodes import *
 
 WIDTH = 2000
 HEIGHT = 1659
