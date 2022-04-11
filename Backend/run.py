@@ -16,11 +16,11 @@ HEIGHT = 1659
 
 async def is_arts(node):
     if isinstance(node, DoorNode):
-        if (node.door_num / 100) % 10 == 6:
+        if int((node.door_num / 100) % 10) == 6:
             return True
-    else:
-        if "Arts" in node.name:
-            return True
+    elif "Arts" in node.name:
+        return True
+    return False
 
 
 async def draw_path(node_list):
@@ -44,7 +44,8 @@ async def draw_path(node_list):
     stair_down = stair_down.resize((30, 30))
     dest = dest.resize((50, 50))
     draw_floor = [ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[1]), ImageDraw.Draw(floor[2]),
-                  ImageDraw.Draw(floor[3]), ImageDraw.Draw(floor[4]), None, None, ImageDraw.Draw(floor[7])]
+                  ImageDraw.Draw(floor[3]), ImageDraw.Draw(floor[4]), ImageDraw.Draw(floor[0]),
+                  ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[7])]
     total_length = 0
     from_node = (0, 0)
     to_node = (0, 0)
@@ -58,8 +59,10 @@ async def draw_path(node_list):
     print(fill_color)
 
     for i in range(len(node_list) - 1):
+        print(node_list[i + 1].name)
         from_arts = await is_arts(node_list[i])
         to_arts = await is_arts(node_list[i + 1])
+        print(to_arts)
         try:
             from_node = node_list[i].coordinates
             if isinstance(node_list[i], DoorNode):
@@ -386,4 +389,4 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('2202', '2313')))
+    print(asyncio.run(main('2202', '2601')))
