@@ -26,19 +26,19 @@ async def is_arts(node):
 async def draw_path(node_list):
     # im = Image.new('RGBA', (WIDTH, HEIGHT), (255, 255, 255, 0))
     floor = [
-        Image.open('Maps/test1.png'),
-        Image.open('Maps/test2.png'),
-        Image.open('Maps/test3.png'),
-        Image.open('Maps/test4.png'),
-        Image.open('Maps/test5.png'),
-        Image.open('Maps/test5.png'),
-        Image.open('Maps/test5.png'),
-        Image.open('Maps/Arts2nd.png')
+        Image.open('Backend/Maps/test1.png'),
+        Image.open('Backend/Maps/test2.png'),
+        Image.open('Backend/Maps/test3.png'),
+        Image.open('Backend/Maps/test4.png'),
+        Image.open('Backend/Maps/test5.png'),
+        Image.open('Backend/Maps/test5.png'),
+        Image.open('Backend/Maps/test5.png'),
+        Image.open('Backend/Maps/Arts2nd.png')
     ]
-    im2 = Image.open('Icons/You are here.png')
-    stair_up = Image.open('Icons/stair-up-hi.png')
-    stair_down = Image.open('Icons/stair-down-hi.png')
-    dest = Image.open('Icons/destination.png')
+    im2 = Image.open('Backend/Icons/You are here.png')
+    stair_up = Image.open('Backend/Icons/stair-up-hi.png')
+    stair_down = Image.open('Backend/Icons/stair-down-hi.png')
+    dest = Image.open('Backend/Icons/destination.png')
     im2 = im2.resize((50, 50))
     stair_up = stair_up.resize((30, 30))
     stair_down = stair_down.resize((30, 30))
