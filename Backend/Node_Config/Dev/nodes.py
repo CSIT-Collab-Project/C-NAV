@@ -499,7 +499,7 @@ async def build_doors():
     await room_1401.set_info([fl1, fr1, room_1409, room_1402, stair1_f1], 1401, fc1, ["e", "w", "w", "w", "e"])
     await room_1402.set_info([fl1, fr1, room_1401, room_1409, stair1_f1], 1402, fc1, ["e", "w", "e", "w", "e"])
     await room_1409.set_info([fl1, fr1, room_1401, room_1402, stair1_f1], 1409, fr1, ["e", "w", "e", "e", "e"])
-    await room_1202.set_info([fl1, bl1, room_1108, stair3_f1], 1202, fl1, ["n", "s", "n", "n"])
+    await room_1202.set_info([fl1, bl1, room_1108, stair3_f1, stair5_f1], 1202, fl1, ["n", "s", "n", "n", "s"])
     await room_1225.set_info([bl1, br1, room_1223, room_1224, room_1228], 1225, bc1, ["e", "w", "e", "e", "w"])
     await room_1228.set_info([bl1, br1, room_1223, room_1224, room_1225], 1228, bc1, ["e", "n", "e", "e", "e"])
     await room_1223.set_info([bl1, br1, room_1224, room_1225, room_1228], 1223, bl1, ["e", "w", "w", "w", "w"])
@@ -589,9 +589,12 @@ async def build_doors():
     await room_2405.set_info([room_2112, room_2110, room_2109, room_2106, room_2104, room_2101, stair1_f2, room_2403,
                               fl2, fr2], 2405, fl2, ['e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'w'])
 
-    await room_2212.set_info([room_2202, room_2201, bl2, fl2, stair3_f2], 2212, bl2, ['n', 'n', 's', 'n', 'n'])
-    await room_2202.set_info([room_2212, room_2201, bl2, fl2, stair3_f2], 2202, bl2, ['s', 'n', 's', 'n', 'n'])
-    await room_2201.set_info([room_2212, room_2202, bl2, fl2, stair3_f2], 2201, bl2, ['s', 's', 's', 'n', 'n'])
+    await room_2212.set_info([room_2202, room_2201, bl2, fl2, stair3_f2, stair5_f2], 2212, bl2, ['n', 'n', 's', 'n',
+                                                                                                 'n', 's'])
+    await room_2202.set_info([room_2212, room_2201, bl2, fl2, stair3_f2, stair5_f2], 2202, bl2, ['s', 'n', 's', 'n',
+                                                                                                 'n', 's'])
+    await room_2201.set_info([room_2212, room_2202, bl2, fl2, stair3_f2, stair5_f2], 2201, bl2, ['s', 's', 's', 'n',
+                                                                                                 'n', 's'])
 
     await room_2119.set_info([fl2, stair2_f2], 2119, fl2, ['s', 'e'])
 

@@ -8,7 +8,7 @@ import sys
 sys.path.append(path.Path(__file__).abspath().parent.parent)
 import Backend.Nodes.StairNode
 import Backend.Nodes.CornerNode
-from Node_Config.Dev.nodes import *
+from Backend.Node_Config.Dev.nodes import *
 
 WIDTH = 2000
 HEIGHT = 1659
@@ -16,11 +16,11 @@ HEIGHT = 1659
 
 async def is_arts(node):
     if isinstance(node, DoorNode):
-        if (node.door_num / 100) % 10 == 6:
+        if int((node.door_num / 100) % 10) == 6:
             return True
-    else:
-        if "Arts" in node.name:
-            return True
+    elif "Arts" in node.name:
+        return True
+    return False
 
 
 async def draw_path(node_list):
@@ -38,11 +38,14 @@ async def draw_path(node_list):
     im2 = Image.open('Backend/Icons/You are here.png')
     stair_up = Image.open('Backend/Icons/stair-up-hi.png')
     stair_down = Image.open('Backend/Icons/stair-down-hi.png')
+    dest = Image.open('Backend/Icons/destination.png')
     im2 = im2.resize((50, 50))
     stair_up = stair_up.resize((30, 30))
     stair_down = stair_down.resize((30, 30))
+    dest = dest.resize((50, 50))
     draw_floor = [ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[1]), ImageDraw.Draw(floor[2]),
-                  ImageDraw.Draw(floor[3]), ImageDraw.Draw(floor[4]), None, None, ImageDraw.Draw(floor[7])]
+                  ImageDraw.Draw(floor[3]), ImageDraw.Draw(floor[4]), ImageDraw.Draw(floor[0]),
+                  ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[7])]
     total_length = 0
     from_node = (0, 0)
     to_node = (0, 0)
@@ -56,8 +59,10 @@ async def draw_path(node_list):
     print(fill_color)
 
     for i in range(len(node_list) - 1):
+        print(node_list[i + 1].name)
         from_arts = await is_arts(node_list[i])
         to_arts = await is_arts(node_list[i + 1])
+        print(to_arts)
         try:
             from_node = node_list[i].coordinates
             if isinstance(node_list[i], DoorNode):
@@ -143,9 +148,11 @@ async def draw_path(node_list):
                     right = min(to_node[0] + 75, 2000)
                 if to_node[1] > bottom:
                     bottom = min(to_node[1] + 75, 1659)
-                draw_floor[current_floor].pieslice(
-                    ((to_node[0] - 25, to_node[1] - 25), (to_node[0] + 25, to_node[1] + 25)), start=240, end=300,
-                    fill=(0, 255, 0, 255))
+
+                thresh = 100
+                fn = lambda x: 255 if x < thresh else 0
+                floor[current_floor].paste(dest, (to_node[0] - 25, to_node[1] - 50),
+                                           dest.convert("L").point(fn, mode='1'))
 
         except AttributeError:
             pass
@@ -170,7 +177,7 @@ async def draw_path(node_list):
         crop_rect = (left, top, right, bottom)
         floor[i] = floor[i].crop(crop_rect)
 
-        floor[i].save(f'Backend/map_path{i}.png', quality=95)
+        floor[i].save(f'map_path{i}.png', quality=95)
 
     print(f"Total Length: {total_length}")
     return total_length
@@ -382,4 +389,4 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('2202', '2313')))
+    print(asyncio.run(main('2202', '2601')))
