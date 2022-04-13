@@ -3,5 +3,5 @@
 Usage:
 ```sh
 pip install -r requirements.txt
-python Backend/server.py
+python3 main.py
 ```
