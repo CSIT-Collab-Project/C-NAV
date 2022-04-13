@@ -1,4 +1,4 @@
-from Backend import server
+import server
 from waitress import serve
 
 if __name__ == '__main__':

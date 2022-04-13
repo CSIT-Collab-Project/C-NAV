@@ -16,32 +16,32 @@ def create_app():
     @app.route('/login')
     def login():
         logger.info('login')
-        return send_from_directory('../Frontend', 'login.html')
+        return send_from_directory('Frontend', 'login.html')
 
     @app.route('/about')
     def about():
         logger.info('about')
-        return send_from_directory('../Frontend', 'about.html')
+        return send_from_directory('Frontend', 'about.html')
 
     @app.route('/')
     def home():
         logger.info('home')
-        return send_from_directory('../Frontend', 'index.html')
+        return send_from_directory('Frontend', 'index.html')
 
     @app.route('/style.css')
     def css():
         logger.info('css')
-        return send_from_directory('../Frontend', 'style.css')
+        return send_from_directory('Frontend', 'style.css')
 
     @app.route('/scripts.js')
     def js():
         logger.info('js')
-        return send_from_directory('../Frontend', 'scripts.js')
+        return send_from_directory('Frontend', 'scripts.js')
 
     @app.route('/icon-<iconname>')
     def icons(iconname):
         logger.info('icons')
-        return send_from_directory('../Frontend/icons', iconname + ".png")
+        return send_from_directory('Frontend/icons', iconname + ".png")
 
     @app.route('/directions-<start>-<end>')
     async def directions(start, end):
