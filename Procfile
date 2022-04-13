@@ -1,1 +1,1 @@
-web: waitress-serve --call "server:create_app"
+web: python3 main.py
