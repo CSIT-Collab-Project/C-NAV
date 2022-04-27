@@ -458,4 +458,4 @@ async def toJSON(directions: list):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(main('2202', '2601')))
+    print(asyncio.run(main('1311', '1225')))
