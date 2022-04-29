@@ -20,5 +20,5 @@ stream = logging.StreamHandler()
 stream.setLevel(logging.DEBUG)
 stream.setFormatter(logging.Formatter(
     f'{red}[%(levelname)s] {white}-{escape} {magenta}(%(filename)s) {blue}at %(asctime)s {white}- {red}"%(message)s"', f'%H:%M:%S'))
-# logger.addHandler(file)
-# logger.addHandler(stream)
+logger.addHandler(file)
+logger.addHandler(stream)
