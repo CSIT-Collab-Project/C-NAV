@@ -416,6 +416,7 @@ async def main(start_str, end_str):
     :param end_str: String representing ending room
     :return: List of human-readable instructions from start to end
     """
+    logger.info(f"main({start_str}, {end_str})")
     start_loc = None
     end_loc = None
 

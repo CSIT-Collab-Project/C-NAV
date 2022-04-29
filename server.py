@@ -45,7 +45,7 @@ def create_app():
 
     @app.route('/directions-<start>-<end>')
     async def directions(start, end):
-        logger.info('directions')
+        logger.info(f'directions({start}, {end})')
         directionjson = await main(start, end)
         print(directionjson)
         return directionjson
