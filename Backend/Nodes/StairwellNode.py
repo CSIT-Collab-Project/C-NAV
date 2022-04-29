@@ -8,7 +8,7 @@ from Backend.Logger.logger import logger
 
 class StairwellNode(Node):
     def __init__(self, stairwell, rooms, coords=(0, 0)):
-        logger.info(f'StairwellNode({stairwell}, {rooms}, {coords})')
+        # logger.info(f'StairwellNode({stairwell}, {rooms}, {coords})')
         self.stairwell = stairwell
         self.rooms = rooms
         self.rooms.append(stairwell)

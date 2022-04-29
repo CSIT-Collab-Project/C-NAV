@@ -7,6 +7,7 @@ import sys
 import Backend.Nodes.StairNode
 import Backend.Nodes.CornerNode
 from Backend.Node_Config.Dev.nodes import *
+from Logger.logger import logger
 
 sys.path.append(path.Path(__file__).abspath().parent.parent)
 
@@ -29,6 +30,7 @@ async def is_arts(node):
 
 
 async def draw_path(node_list):
+    logger.info(f"draw_path({node_list})")
     """
     Takes path and draws on proper maps; crops maps to fit phone screen
     :param node_list: List of visited nodes in order from start to end
@@ -385,6 +387,7 @@ async def go_to(start, end):
     :param end: Final Node
     :return: List of nodes corresponding to the shortest path from start->end
     """
+    logger.info(f"go_to({start}, {end})")
     visited = []
     queue = [[start]]
 
