@@ -800,18 +800,24 @@ async def build_doors():
 
 
 async def build_school():
-    await fr1.add_directions([br1, stair8_f1], the_void, stair9_f1, [fl1, stair1_f1])
-    await fl1.add_directions([bl1, stair3_f1], [fr1, stair1_f1], stair2_f1, the_void)
-    await br1.add_directions(stair6_f1, the_void, [fr1, stair8_f1], bl1)
-    await bl1.add_directions(stair5_f1, br1, [fl1, stair3_f1], the_void)
+    await fr1.add_directions([stair8_f1, br1], the_void, stair9_f1, [stair1_f1, fl1])
+    await fl1.add_directions([stair3_f1, bl1], [stair1_f1, fr1], stair2_f1, the_void)
+    await br1.add_directions(stair6_f1, the_void, [stair8_f1, fr1], bl1)
+    await bl1.add_directions(stair5_f1, br1, [stair3_f1, fl1], the_void)
 
-    await fr2.add_directions([br2, stair8_f2], the_void, [stair9_f2, atl2], fl2)
-    await fl2.add_directions([bl2, stair3_f2], fr2, stair2_f2, the_void)
-    await br2.add_directions(stair6_f2, the_void, [fr2, stair9_f2], bl2)
-    await bl2.add_directions(stair5_f2, br2, [fl2, stair3_f2], the_void)
+    await fr2.add_directions([stair8_f2, br2], the_void, [stair9_f2, atl2], fl2)
+    await fl2.add_directions([stair3_f2, bl2], fr2, stair2_f2, the_void)
+    await br2.add_directions(stair6_f2, the_void, [stair9_f2, fr2], bl2)
+    await bl2.add_directions(stair5_f2, br2, [stair3_f2, fl2], the_void)
+
+    await n2e.add_directions(the_void, stair3_f2, s2e, the_void)
+    await s2e.add_directions(n2e, stair2_f2, the_void, the_void)
 
     await l3.add_directions(stair3_f3, r3, stair2_f3, the_void)
     await r3.add_directions(stair8_f3, the_void, stair9_f3, l3)
+
+    await n3e.add_directions(the_void, stair3_f3, s3e, the_void)
+    await s3e.add_directions(n3e, stair2_f3, the_void, the_void)
 
     await l4.add_directions(stair3_f4, r4, stair2_f4, the_void)
     await r4.add_directions(stair8_f4, the_void, stair9_f4, l4)
@@ -829,14 +835,14 @@ async def build_school():
     await abr1.add_directions(atr1, the_void, stair17_f1, abl1)
     await atr1.add_directions(the_void, the_void, abr1, af1)
 
-    await atl2.add_directions([fr2, stair11_f2], amt2, abl2, the_void)
+    await atl2.add_directions([stair11_f2, fr2], amt2, abl2, the_void)
     await abl2.add_directions(atl2, abr2, stair14_f2, the_void)
     await abr2.add_directions(atr2, the_void, stair17_f2, abl2)
     await atr2.add_directions(the_void, the_void, abr2, amb2)
     await amb2.add_directions(amt2, atr2, the_void, the_void)
     await amt2.add_directions(the_void, the_void, amb2, atl2)
 
-    await atl3.add_directions([r3, stair11_f3], amt3, the_void, atll3)
+    await atl3.add_directions([stair11_f3, r3], amt3, the_void, atll3)
     await atll3.add_directions(the_void, atl3, abl3, the_void)
     await abl3.add_directions(atll3, abr3, stair14_f3, the_void)
     await abr3.add_directions(atr3, the_void, stair17_f3, abl3)
