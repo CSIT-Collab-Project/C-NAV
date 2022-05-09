@@ -665,11 +665,11 @@ async def build_doors():
 
     await room_3121.set_info([room_3120, room_3119, room_3118, room_3122, n3e, s3e], 3121, n3e,
                              ["n", "n", "n", "w", "w", "n"])
-    await room_3120.set_info([room_3121, room_3119, room_3118, n3e, s3e], 3121, n3e,
+    await room_3120.set_info([room_3121, room_3119, room_3118, n3e, s3e], 3120, n3e,
                              ["s", "n", "n", "s", "n"])
-    await room_3119.set_info([room_3121, room_3120, room_3118, n3e, s3e], 3121, n3e,
+    await room_3119.set_info([room_3121, room_3120, room_3118, n3e, s3e], 3119, n3e,
                              ["s", "s", "n", "s", "n"])
-    await room_3118.set_info([room_3121, room_3120, room_3119, n3e, s3e], 3121, n3e,
+    await room_3118.set_info([room_3121, room_3120, room_3119, n3e, s3e], 3118, n3e,
                              ["s", "s", "s", "s", "n"])
     await room_3122.set_info([room_3121, n3e], 3122, n3e, ["e", "s"])
     await room_3117.set_info([s3e], 3117, s3e, ["n"])
