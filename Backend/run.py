@@ -396,6 +396,7 @@ async def go_to(start, end):
         if not (isinstance(queue[-1], DoorNode) and isinstance(queue[0], DoorNode)):
             current_path = queue.pop(0)
             current_pos = current_path[-1]
+            logger.info(f"Current search node: {current_pos.name}")
             visited.append(current_pos)
 
             if isinstance(current_pos, DoorNode) and current_pos.door_num == end.door_num:
@@ -406,6 +407,7 @@ async def go_to(start, end):
                 if connection not in visited:
                     new_path = list(current_path)
                     new_path.append(connection)
+                    visited.append(connection)
                     queue.append(new_path)
 
 
