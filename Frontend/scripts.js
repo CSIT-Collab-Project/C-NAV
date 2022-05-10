@@ -8,7 +8,7 @@ async function requestDirections(start, end) {
 window.addEventListener("load", aprilFools);
 function aprilFools() {
     const date = new Date();
-    if (date.getMonth() === 7 && date.getDay() === 1) {
+    if (date.getMonth() === 4 && date.getDay() === 1) {
         document.body.style.fontFamily = "Comic Sans MS";
     }
 }
@@ -77,7 +77,7 @@ async function getDirections() {
     bottomBar(currentRoom, destination, convertedDirections);
     directionTable(convertedDirections);
     document.getElementById("en-route-ui").style.display = "block";
-  
+
     currentDirection.innerHTML = currentDirectionText;
     let icon = convertedDirections[currentDirectionNum][1];
     currentIcon.src = `/icon-${icon}`;
@@ -87,7 +87,7 @@ async function getDirections() {
     currentDirection.appendChild(stepCountNode);
 
     nextStepBtn.addEventListener("click", () => {
-        stepCount ++; 
+        stepCount ++;
         currentDirectionNum ++;
         currentDirectionText = convertedDirections[currentDirectionNum][0];
         currentDirection.innerHTML = currentDirectionText;
@@ -172,8 +172,13 @@ async function getDirections() {
     return convertedDirections;
 }
 
-document.getElementById("location-submit").addEventListener("click", getDirections);
+const submitBtn = document.getElementById("location-submit")
+submitBtn.addEventListener("click", submitDirections);
 
+function submitDirections() {
+    submitBtn.removeEventListener("click", submitDirections);
+    getDirections();
+}
 
 const destinationForm = document.getElementById("destination-form");
 const nextBtn = document.getElementById("next");
