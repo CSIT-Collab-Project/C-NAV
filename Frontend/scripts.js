@@ -18,6 +18,7 @@ function goHome() {
 }
 
 async function getDirections() {
+    document.getElementById("loader").style.display = "block";
     document.getElementById("main-ui").style.display = "block";
     const currentRoom = document.getElementById("initial-location").value;
     const destination = document.getElementById("destination").value;
@@ -37,6 +38,9 @@ async function getDirections() {
         "exit stairs left": ["Exit the stairs to the left", "curve-left"],
         "exit stairs right": ["Exit the stairs to the right", "curve-right"],
         "exit stairs straight": ["Exit the stairs straight ahead", "straight-arrow"],
+        "exit stairs through doors to right": ["Exit stairs through doors to right", "right-arrow"],
+        "exit stairs through doors to left":["Exit stairs through doors to left", "left-arrow"],
+        "exit through doors across stairwell": ["Exit stairs through doors across stairwell", "straight-arrow"],
         "go up 1 floor": ["Go up one floor", " "],
         "go down 1 floor": ["Go down one floor", " "],
         "go up 2 floors": ["Go up two floors", " "],
