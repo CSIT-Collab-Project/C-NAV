@@ -21,7 +21,7 @@ function goHome() {
 }
 
 async function getDirections() {
-    document.getElementById("loader").style.display = "block";
+    // document.getElementById("loader").style.display = "block";
     document.getElementById("main-ui").style.display = "block";
     const currentRoom = document.getElementById("initial-location").value;
     const destination = document.getElementById("destination").value;
