@@ -5,16 +5,16 @@ async function requestDirections(start, end) {
     return directionsJson;
 }
 
-window.addEventListener("load", aprilFools);
-function aprilFools() {
-    const date = new Date();
-    if (date.getMonth() === 4 && date.getDay() === 1) {
-        document.body.style.fontFamily = "Comic Sans MS";
-    }
-    else {
-        document.body.style.fontFamily = "Nunito";
-    }
-}
+// window.addEventListener("load", aprilFools);
+// function aprilFools() {
+//     const date = new Date();
+//     if (date.getMonth() === 4 && date.getDay() === 1) {
+//         document.body.style.fontFamily = "Comic Sans MS";
+//     }
+//     else {
+//         document.body.style.fontFamily = "Nunito";
+//     }
+// }
 
 function goHome() {
     window.location = "/";
