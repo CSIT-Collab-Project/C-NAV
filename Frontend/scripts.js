@@ -11,6 +11,9 @@ function aprilFools() {
     if (date.getMonth() === 4 && date.getDay() === 1) {
         document.body.style.fontFamily = "Comic Sans MS";
     }
+    else {
+        document.body.style.fontFamily = "Nunito";
+    }
 }
 
 function goHome() {
