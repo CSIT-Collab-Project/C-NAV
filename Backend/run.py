@@ -38,13 +38,13 @@ async def draw_path(node_list):
     """
     # Defines map img files
     floor = [
-        Image.open('Backend/Maps/test1.png'),
-        Image.open('Backend/Maps/test2.png'),
-        Image.open('Backend/Maps/test3.png'),
-        Image.open('Backend/Maps/test4.png'),
-        Image.open('Backend/Maps/test5.png'),
-        Image.open('Backend/Maps/test5.png'),
-        Image.open('Backend/Maps/test5.png'),
+        Image.open('Backend/Maps/floor1.png'),
+        Image.open('Backend/Maps/floor2.png'),
+        Image.open('Backend/Maps/floor3.png'),
+        Image.open('Backend/Maps/floor4.png'),
+        Image.open('Backend/Maps/floor5.png'),
+        Image.open('Backend/Maps/floor5.png'),
+        Image.open('Backend/Maps/floor5.png'),
         Image.open('Backend/Maps/Arts2nd.png')
     ]
 
