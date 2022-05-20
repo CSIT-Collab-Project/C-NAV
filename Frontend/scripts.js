@@ -26,6 +26,11 @@ async function getDirections() {
     const currentRoom = document.getElementById("initial-location").value;
     const destination = document.getElementById("destination").value;
     const initialDirections = await requestDirections(currentRoom, destination);
+    if (initialDirections[0].includes("Error")) {
+        window.alert("Unknown Room");
+        submitBtn.addEventListener("click", submitDirections);
+        return ["Error"];
+    }
     const directionDict = {
         "left": ["Turn left at the next intersection", "turn-left"],
         "right": ["Turn right at the next intersection", "turn-right"],
