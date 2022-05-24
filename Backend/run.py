@@ -1,3 +1,4 @@
+import copy
 from PIL import Image, ImageDraw
 import asyncio
 import json
@@ -13,6 +14,8 @@ sys.path.append(path.Path(__file__).abspath().parent.parent)
 
 WIDTH = 2000
 HEIGHT = 1659
+
+full_path = []
 
 
 async def is_arts(node):
@@ -411,6 +414,13 @@ async def go_to(start, end):
                     queue.append(new_path)
 
 
+async def draw_step(step):
+    part_path = copy.deepcopy(full_path)
+    for i in range(step):
+        part_path.pop(0)
+    await draw_path(part_path)
+
+
 async def main(start_str, end_str):
     """
     Run entire pathfinding system
@@ -421,6 +431,7 @@ async def main(start_str, end_str):
     logger.info(f"main({start_str}, {end_str})")
     start_loc = None
     end_loc = None
+    global full_path
 
     opp_directions = {'n': 's', 'e': 'w', 's': 'n', 'w': 'e'}
     await build_school()
@@ -438,9 +449,10 @@ async def main(start_str, end_str):
         return await toJSON(['Error'])
 
     # Create list of human-readable directions given start and end point
+    full_path = await go_to(start_loc, end_loc)
     directions = [direction for direction in await convert_to_direction(opp_directions[start_loc.door_side],
                                                                         [direction for direction in
-                                                                         await go_to(start_loc, end_loc)])]
+                                                                         full_path])]
 
     visited_nodes = []
     visited = [start_loc]
