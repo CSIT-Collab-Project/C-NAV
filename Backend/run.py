@@ -1,4 +1,6 @@
 import copy
+import re
+
 from PIL import Image, ImageDraw
 import asyncio
 import json
@@ -428,6 +430,10 @@ async def main(start_str, end_str):
     :param end_str: String representing ending room
     :return: List of human-readable instructions from start to end
     """
+
+    start_str = re.sub("[^0-9]", "", start_str)
+    end_str = re.sub("[^0-9]", "", end_str)
+
     logger.info(f"main({start_str}, {end_str})")
     start_loc = None
     end_loc = None
