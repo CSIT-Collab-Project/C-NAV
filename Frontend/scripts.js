@@ -60,7 +60,6 @@ async function getDirections() {
     const nextStepBtn = document.getElementById("next-direction");
     const backStepBtn = document.getElementById("previous-direction");
     const currentIcon = document.getElementById("current-icon");
-    const currentMap = document.getElementById("current-map");
     const directionKeys = Object.keys(directionDict);
     let convertedDirections = [];
     let currentDirectionNum = 0;
@@ -83,9 +82,9 @@ async function getDirections() {
 
     currentDirection.innerHTML = currentDirectionText;
     let icon = convertedDirections[currentDirectionNum][1];
-    currentIcon.src = `/icon-${icon}`;
-    currentMap.src = `/map${currentFloorNum}`;
     let stepCount = 1;
+    currentIcon.src = `/icon-${icon}`;
+    setMap(currentFloorNum, stepCount);
     let stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
     currentDirection.appendChild(stepCountNode);
 
@@ -112,7 +111,7 @@ async function getDirections() {
             else {
                 currentFloorNum++;
             }
-            currentMap.src = `/map${currentFloorNum}`;
+            setMap(currentFloorNum, stepCount);
         }
         else if ((currentDirectionText.includes("Go down"))) {
             if (currentDirectionText.includes("two")) {
@@ -127,7 +126,7 @@ async function getDirections() {
             else {
                 currentFloorNum--;
             }
-            currentMap.src = `/map${currentFloorNum}`;
+            setMap(currentFloorNum, stepCount);
         }
     });
 
@@ -146,7 +145,7 @@ async function getDirections() {
             else {
                 currentFloorNum--;
             }
-            currentMap.src = `/map${currentFloorNum}`;
+            setMap(currentFloorNum, stepCount);
         }
         else if ((currentDirectionText.includes("Go down"))) {
             if (currentDirectionText.includes("two")) {
@@ -161,7 +160,7 @@ async function getDirections() {
             else {
                 currentFloorNum++;
             }
-            currentMap.src = `/map${currentFloorNum}`;
+            setMap(currentFloorNum, stepCount);
         }
         stepCount--;
         currentDirectionNum --;
@@ -173,6 +172,11 @@ async function getDirections() {
         currentIcon.src = `/icon-${icon}`;
     });
     return convertedDirections;
+}
+
+function setMap(currentFloor, currentStep) {
+    const currentMap = document.getElementById("current-map");
+    currentMap.src = `/map${currentFloor}-${currentStep}`;
 }
 
 const submitBtn = document.getElementById("location-submit")
