@@ -26,6 +26,11 @@ async function getDirections() {
     const currentRoom = document.getElementById("initial-location").value;
     const destination = document.getElementById("destination").value;
     const initialDirections = await requestDirections(currentRoom, destination);
+    if (initialDirections[0].includes("Error")) {
+        window.alert("Unknown Room");
+        submitBtn.addEventListener("click", submitDirections);
+        return ["Error"];
+    }
     const directionDict = {
         "left": ["Turn left at the next intersection", "turn-left"],
         "right": ["Turn right at the next intersection", "turn-right"],
@@ -187,13 +192,13 @@ function submitDirections() {
     getDirections();
 }
 
-const destinationForm = document.getElementById("destination-form");
-const nextBtn = document.getElementById("next");
-destinationForm.style.display = "none";
-nextBtn.addEventListener("click", () => {
-    destinationForm.style.display = "block";
-    nextBtn.style.display = "none";
-});
+//const destinationForm = document.getElementById("destination-form");
+//const nextBtn = document.getElementById("next");
+//destinationForm.style.display = "none";
+//nextBtn.addEventListener("click", () => {
+//    destinationForm.style.display = "block";
+//    nextBtn.style.display = "none";
+//});
 
 function bottomBar(start, end, directionList) {
     const bottomHUD = document.getElementById("bottom-bar");
