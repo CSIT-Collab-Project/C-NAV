@@ -434,6 +434,9 @@ async def main(start_str, end_str):
     start_str = re.sub("[^0-9]", "", start_str)
     end_str = re.sub("[^0-9]", "", end_str)
 
+    if len(start_str) < 1 or len(end_str) < 1:
+        return await toJSON(['Error'])
+
     logger.info(f"main({start_str}, {end_str})")
     start_loc = None
     end_loc = None
