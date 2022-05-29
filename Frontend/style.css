@@ -18,9 +18,7 @@ body {
     width: 100%;
 }
 
-#location-input {
-    display: flex;
-}
+
 .gform-btn {
     background-color: #6610f2 !important;
     color: white !important;
@@ -59,11 +57,9 @@ body {
     padding: 20px;
 }
 #current-map {
-    max-width: 100%;
+    max-width: 95%;
 }
-#map-container {
-    margin-bottom: -30%;
-}
+
 .main {
     margin-top: 60px;
 }
