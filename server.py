@@ -40,8 +40,8 @@ def create_app():
 
     @app.route('/icon-<iconname>')
     def icons(iconname):
-        logger.info('icons')
-        return send_from_directory('Frontend/icons', f"{iconname}.png")
+        logger.info('Icons')
+        return send_from_directory('Frontend/Icons', f"{iconname}.png")
 
     @app.route('/directions-<start>-<end>')
     async def directions(start, end):
