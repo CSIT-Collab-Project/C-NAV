@@ -210,6 +210,8 @@ function bottomBar(start, end, directionList) {
     startRoom.style.background = startZoneColor;
     endRoom.style.background = endZoneColor;
     startRoom.style.color = 'white';
+    endRoom.style.color = 'white';
+
 
     document.getElementById("steps-id").innerHTML = remainingSteps;
    
