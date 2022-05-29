@@ -420,7 +420,11 @@ async def draw_step(step):
     part_path = copy.deepcopy(full_path)
     for i in range(step):
         part_path.pop(0)
-    await draw_path(part_path)
+    pathDrawn = await draw_path(part_path)
+    if pathDrawn >= 0:
+        return True
+    else:
+        return False
 
 
 async def main(start_str, end_str):
