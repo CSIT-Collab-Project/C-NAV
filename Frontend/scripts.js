@@ -209,15 +209,7 @@ function bottomBar(start, end, directionList) {
     endRoom.innerHTML = end;
     startRoom.style.background = startZoneColor;
     endRoom.style.background = endZoneColor;
-    if (startZoneCall[0] === '3' || startZoneCall[0] === '1' || startZoneCall[0] === '5') {
-        startRoom.style.color = 'white';
-    }
-    if (endZoneCall[0] === '3' || endZoneCall[0] === '1' || endZoneCall[0] === '5') {
-        endRoom.style.color = 'white';
-    }
-    else {
-        endRoom.style.color = 'white';
-    }
+    startRoom.style.color = 'white';
 
     document.getElementById("steps-id").innerHTML = remainingSteps;
    
