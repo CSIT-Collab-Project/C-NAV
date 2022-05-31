@@ -183,9 +183,9 @@ async function getDirections() {
 async function getMap(stepCount, floor) {
     let redrawMap = await fetch(`/mapredraw${stepCount}`);
     const currentMap = document.getElementById("current-map");
-    if (redrawMap = "True") {
-        currentMap.src = `/map${floor}`;
-    }
+    currentMap.src = `/map${floor}-${stepCount}`;
+    // if (redrawMap == "True") {
+    // }
 }
 
 const submitBtn = document.getElementById("location-submit")

@@ -51,15 +51,17 @@ def create_app():
         print(directionjson)
         return directionjson
 
-    @app.route('/map<floor>')
-    def getMap(floor):
+    @app.route('/map<floor>-<step>')
+    def getMap(floor, step):
         logger.info('getmap')
+        shit = step
         return send_from_directory('', f'map_path{int(floor) - 1}.png')
     
     @app.route('/mapredraw<step>')
     async def drawMap(step):
         logger.info('redraw map')
-        return await draw_step(int(step))
+        worked = await draw_step(int(step) - 1)
+        return str(worked)
 
 
     return app
