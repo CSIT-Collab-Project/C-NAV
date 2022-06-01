@@ -117,7 +117,6 @@ async function getDirections() {
             else {
                 currentFloorNum++;
             }
-            getMap(stepCount, currentFloorNum);
         }
         else if ((currentDirectionText.includes("Go down"))) {
             if (currentDirectionText.includes("two")) {
@@ -132,8 +131,8 @@ async function getDirections() {
             else {
                 currentFloorNum--;
             }
-            getMap(stepCount, currentFloorNum);
         }
+        getMap(stepCount, currentFloorNum);
     });
 
     backStepBtn.addEventListener("click", () => {
@@ -153,7 +152,6 @@ async function getDirections() {
             else {
                 currentFloorNum--;
             }
-            getMap(stepCount, currentFloorNum);
         }
         else if ((currentDirectionText.includes("Go down"))) {
             if (currentDirectionText.includes("two")) {
@@ -168,7 +166,6 @@ async function getDirections() {
             else {
                 currentFloorNum++;
             }
-            getMap(stepCount, currentFloorNum);
         }
         currentDirectionNum--;
         currentDirectionText = convertedDirections[currentDirectionNum][0]
@@ -177,6 +174,7 @@ async function getDirections() {
         currentDirection.appendChild(stepCountNode);
         let icon = convertedDirections[currentDirectionNum][1];
         currentIcon.src = `/icon-${icon}`;
+        getMap(stepCount, currentFloorNum);
     });
     return convertedDirections;
 }
@@ -185,8 +183,6 @@ async function getMap(stepCount, floor) {
     let redrawMap = await fetch(`/mapredraw${stepCount}`);
     const currentMap = document.getElementById("current-map");
     currentMap.src = `/map${floor}-${stepCount}`;
-    // if (redrawMap == "True") {
-    // }
 }
 
 const submitBtn = document.getElementById("location-submit")
