@@ -78,6 +78,15 @@ async def draw_path(node_list):
     right = - math.inf
     fill_color = (155, 9, 238, 255)
 
+    if len(node_list) == 0:
+        # Extracts floor number from node
+        current_floor = int((node_list[0].door_num / 1000) - 1)
+
+        thresh = 100
+        fn = lambda x: 255 if x < thresh else 0
+        floor[current_floor].paste(dest, (node_list[0].coordinates[0] - 25, node_list[0].coordinates[1] - 50),
+                                   dest.convert("L").point(fn, mode='1'))
+
     # Iterates over each node in path
     for i in range(len(node_list) - 1):
 
@@ -419,13 +428,8 @@ async def go_to(start, end):
 async def draw_step(step):
     part_path = copy.deepcopy(full_path)
     for i in range(step):
-        if len(part_path):
-            part_path.pop(0)
-    pathDrawn = await draw_path(part_path)
-    if pathDrawn >= 0:
-        return True
-    else:
-        return False
+        part_path.pop(0)
+    await draw_path(part_path)
 
 
 async def main(start_str, end_str):
