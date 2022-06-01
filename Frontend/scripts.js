@@ -86,11 +86,11 @@ async function getDirections() {
     directionTable(convertedDirections);
     document.getElementById("en-route-ui").style.display = "block";
 
+    let stepCount = 1;
     currentDirection.innerHTML = currentDirectionText;
     let icon = convertedDirections[currentDirectionNum][1];
     currentIcon.src = `/icon-${icon}`;
-    currentMap.src = `/map${currentFloorNum}`;
-    let stepCount = 1;
+    getMap(stepCount, currentFloorNum);
     let stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
     currentDirection.appendChild(stepCountNode);
 
@@ -137,6 +137,8 @@ async function getDirections() {
     });
 
     backStepBtn.addEventListener("click", () => {
+        stepCount--;
+        console.log(stepCount);
         if (currentDirectionText.includes("Go up")) {
             if (currentDirectionText.includes("two")) {
                 currentFloorNum -= 2;
@@ -168,7 +170,6 @@ async function getDirections() {
             }
             getMap(stepCount, currentFloorNum);
         }
-        stepCount--;
         currentDirectionNum--;
         currentDirectionText = convertedDirections[currentDirectionNum][0]
         currentDirection.innerHTML = currentDirectionText;
