@@ -192,14 +192,6 @@ function submitDirections() {
     getDirections();
 }
 
-//const destinationForm = document.getElementById("destination-form");
-//const nextBtn = document.getElementById("next");
-//destinationForm.style.display = "none";
-//nextBtn.addEventListener("click", () => {
-//    destinationForm.style.display = "block";
-//    nextBtn.style.display = "none";
-//});
-
 function bottomBar(start, end, directionList) {
     const bottomHUD = document.getElementById("bottom-bar");
     const numofSteps = directionList.length - 1;
