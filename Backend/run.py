@@ -78,6 +78,8 @@ async def draw_path(node_list):
     right = - math.inf
     fill_color = (155, 9, 238, 255)
 
+    print(node_list)
+
     if len(node_list) == 1:
         # Extracts floor number from node
         current_floor = int((node_list[0].door_num / 1000) - 1)
