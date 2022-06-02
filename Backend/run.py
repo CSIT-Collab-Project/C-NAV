@@ -93,6 +93,9 @@ async def draw_path(node_list):
         right = min(node_list[0].coordinates[0] + 75, 2000)
         bottom = min(node_list[0].coordinates[1] + 75, 1659)
 
+    if len(node_list) < 1:
+        return 0
+
     # Iterates over each node in path
     for i in range(len(node_list) - 1):
         # Checks for building of from and to node
@@ -432,6 +435,9 @@ async def go_to(start, end):
 
 async def draw_step(step):
     part_path = copy.deepcopy(full_path)
+    for i in range(len(part_path) - 1):
+        if isinstance(part_path[i], StairwellNode):
+            part_path.pop(i)
     for i in range(step):
         part_path.pop(0)
     await draw_path(part_path)
