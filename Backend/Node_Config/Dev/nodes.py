@@ -7,8 +7,6 @@ from Backend.Nodes.DoorNode import DoorNode
 from Backend.Nodes.StairNode import StairNode
 from Backend.Nodes.StairwellNode import StairwellNode
 
-# !!!!!!!!!!!!!!!!!!!!! Add 3610
-
 fc1 = CornerNode([], "1 Front Center 1st")
 fr1 = CornerNode([], "1 Front Right 1st", (1288, 1001))
 fl1 = CornerNode([], "1 Front Left 1st", (422, 1001))
@@ -96,7 +94,7 @@ stair8_f4 = StairNode([], "e", "4 Stair 8 4th Floor", (1273, 848))
 
 stair9_f1 = StairNode([], "e", "1 Stair 9 1st Floor", (1324, 1186))
 stair9_f2 = StairNode([], "e", "2 Stair 9 2nd Floor", (1272, 1058))
-stair9_f3 = StairNode([], "e", "3 Stair 9 3rd Floor", (1272, 1058))
+stair9_f3 = StairNode([], "e", "3 Stair 9 3rd Floor", (1316, 1146))
 stair9_f4 = StairNode([], "e", "4 Stair 9 4th Floor", (1317, 1154))
 stair9_f5 = StairNode([], "e", "5 Stair 9 5th Floor", (1272, 1058))
 
