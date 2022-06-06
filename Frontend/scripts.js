@@ -47,20 +47,22 @@ async function getDirections() {
         "exit stairs right": ["Exit the stairs to the right", "curve-right"],
         "exit stairs straight": ["Exit the stairs straight ahead", "straight-arrow"],
         "exit stairs through doors to right": ["Exit stairs through doors to right", "right-arrow"],
-        "exit stairs through doors to left":["Exit stairs through doors to left", "left-arrow"],
+        "exit stairs through doors to left": ["Exit stairs through doors to left", "left-arrow"],
         "exit through doors across stairwell": ["Exit stairs through doors across stairwell", "straight-arrow"],
-        "go up 1 floor": ["Go up one floor", " "],
-        "go down 1 floor": ["Go down one floor", " "],
-        "go up 2 floors": ["Go up two floors", " "],
-        "go down 2 floors": ["Go down two floors", " "],
-        "go up 3 floors": ["Go up three floors", " "],
-        "go down 3 floors": ["Go down three floors", " "],
-        "go up 4 floors": ["Go up four floors", " "],
-        "go down 4 floors": ["Go down four floors", " "],
+        "exit to stairwell": ["Exit to stairwell", ""],
+        "go up 1 floor": ["Go up one floor", ""],
+        "go down 1 floor": ["Go down one floor", ""],
+        "go up 2 floors": ["Go up two floors", ""],
+        "go down 2 floors": ["Go down two floors", ""],
+        "go up 3 floors": ["Go up three floors", ""],
+        "go down 3 floors": ["Go down three floors", ""],
+        "go up 4 floors": ["Go up four floors", ""],
+        "go down 4 floors": ["Go down four floors", ""],
         "enter doors in stairwell": ["Enter doors in stairwell", " "],
-        "through doors to left" : ["Through doors to the left", " "],
-        "through doors to right" : ["Through doors to the right"]
+        "through doors to left": ["Through doors to the left", " "],
+        "through doors to right": ["Through doors to the right"]
     }
+    const badDirections = ["Exit the stairs to the left", "Exit the stairs to the right", "Exit the stairs straight ahead", "Exit stairs through doors to right", "Exit stairs through doors to left", "Exit stairs through doors across stairwell", "Exit to stairwell", "Enter doors in stairwell"];
     const currentDirection = document.getElementById("current-direction");
     const nextStepBtn = document.getElementById("next-direction");
     const backStepBtn = document.getElementById("previous-direction");
@@ -85,19 +87,24 @@ async function getDirections() {
     directionTable(convertedDirections);
     document.getElementById("en-route-ui").style.display = "block";
 
+    let stepCount = 1;
+    let nodeStepCount = 1;
     currentDirection.innerHTML = currentDirectionText;
     let icon = convertedDirections[currentDirectionNum][1];
-    let stepCount = 1;
     currentIcon.src = `/icon-${icon}`;
-    setMap(currentFloorNum, stepCount);
+    getMap(nodeStepCount, currentFloorNum);
     let stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
     currentDirection.appendChild(stepCountNode);
 
     nextStepBtn.addEventListener("click", () => {
-        stepCount ++;
-        currentDirectionNum ++;
+        currentDirectionNum++;
         currentDirectionText = convertedDirections[currentDirectionNum][0];
         currentDirection.innerHTML = currentDirectionText;
+        stepCount++;
+        const nonIterableDirection = !(currentDirectionText.includes("Exit the stair") || currentDirectionText.includes("Exit to stairwell")) || currentDirectionText.includes("Enter doors in stairwell");
+        if (nonIterableDirection) {
+            nodeStepCount++;
+        }
         stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
         currentDirection.appendChild(stepCountNode);
         let icon = convertedDirections[currentDirectionNum][1];
@@ -116,7 +123,6 @@ async function getDirections() {
             else {
                 currentFloorNum++;
             }
-            setMap(currentFloorNum, stepCount);
         }
         else if ((currentDirectionText.includes("Go down"))) {
             if (currentDirectionText.includes("two")) {
@@ -131,8 +137,8 @@ async function getDirections() {
             else {
                 currentFloorNum--;
             }
-            setMap(currentFloorNum, stepCount);
         }
+        getMap(nodeStepCount, currentFloorNum);
     });
 
     backStepBtn.addEventListener("click", () => {
@@ -150,7 +156,6 @@ async function getDirections() {
             else {
                 currentFloorNum--;
             }
-            setMap(currentFloorNum, stepCount);
         }
         else if ((currentDirectionText.includes("Go down"))) {
             if (currentDirectionText.includes("two")) {
@@ -165,23 +170,28 @@ async function getDirections() {
             else {
                 currentFloorNum++;
             }
-            setMap(currentFloorNum, stepCount);
         }
         stepCount--;
-        currentDirectionNum --;
+        const nonIterableDirection = !(currentDirectionText.includes("Exit the stair") || currentDirectionText.includes("Exit to stairwell")) || currentDirectionText.includes("Enter doors in stairwell");
+        if (nonIterableDirection) {
+            nodeStepCount--;
+        }
+        currentDirectionNum--;
         currentDirectionText = convertedDirections[currentDirectionNum][0]
         currentDirection.innerHTML = currentDirectionText;
         stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
         currentDirection.appendChild(stepCountNode);
         let icon = convertedDirections[currentDirectionNum][1];
         currentIcon.src = `/icon-${icon}`;
+        getMap(stepCount, currentFloorNum);
     });
     return convertedDirections;
 }
 
-function setMap(currentFloor, currentStep) {
+async function getMap(stepCount, floor) {
+    let redrawMap = await fetch(`/mapredraw${stepCount}`);
     const currentMap = document.getElementById("current-map");
-    currentMap.src = `/map${currentFloor}-${currentStep}`;
+    currentMap.src = `/map${floor}-${stepCount}`;
 }
 
 const submitBtn = document.getElementById("location-submit")
@@ -213,18 +223,12 @@ function bottomBar(start, end, directionList) {
     endRoom.innerHTML = end;
     startRoom.style.background = startZoneColor;
     endRoom.style.background = endZoneColor;
-    if (startZoneCall[0] === '3' || startZoneCall[0] === '1' || startZoneCall[0] === '5') {
-        startRoom.style.color = 'white';
-    }
-    if (endZoneCall[0] === '3' || endZoneCall[0] === '1' || endZoneCall[0] === '5') {
-        endRoom.style.color = 'white';
-    }
-    else {
-        endRoom.style.color = 'white';
-    }
+    startRoom.style.color = 'white';
+    endRoom.style.color = 'white';
+
 
     document.getElementById("steps-id").innerHTML = remainingSteps;
-   
+
     nextStepBtn.addEventListener("click", () => {
         remainingSteps -= 1;
         document.getElementById("steps-id").innerHTML = remainingSteps;
@@ -282,14 +286,14 @@ function directionTable(directionList) {
 function zoneColor(roomNum) {
     const zoneNum = roomNum[1];
     const zoneColors = {
-        '3' : '#1e4275',
-        '2' : '#1e7b1b',
-        '4' : '#5673ab',
-        '1' : '#681c1c',
-        '5' : '#8f5f25',
-        '6' : '#ed890e'
+        '3': '#1e4275',
+        '2': '#1e7b1b',
+        '4': '#5673ab',
+        '1': '#681c1c',
+        '5': '#8f5f25',
+        '6': '#ed890e'
     }
     if (Object.keys(zoneColors).includes(zoneNum)) {
         return [zoneNum, zoneColors[zoneNum]];
-    }   
+    }
 }
