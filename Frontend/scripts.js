@@ -177,7 +177,6 @@ async function getDirections() {
         if (nonIterableDirection) {
             nodeStepCount--;
         }
-        console.log(nonIterableDirection);
         currentDirectionNum--;
         currentDirectionText = convertedDirections[currentDirectionNum][0]
         currentDirection.innerHTML = currentDirectionText;
