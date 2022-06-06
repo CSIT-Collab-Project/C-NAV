@@ -78,6 +78,8 @@ async def draw_path(node_list):
     right = - math.inf
     fill_color = (155, 9, 238, 255)
 
+    print(node_list)
+
     if len(node_list) == 1:
         # Extracts floor number from node
         current_floor = int((node_list[0].door_num / 1000) - 1)
@@ -89,8 +91,12 @@ async def draw_path(node_list):
         left = max(node_list[0].coordinates[0] - 75, 0)
         top = max(node_list[0].coordinates[1] - 75, 0)
         right = min(node_list[0].coordinates[0] + 75, 2000)
-        bottom = min(node_    # Iterates over each node in path
-                     
+        bottom = min(node_list[0].coordinates[1] + 75, 1659)
+
+    if len(node_list) < 1:
+        return 0
+
+    # Iterates over each node in path
     for i in range(len(node_list) - 1):
         # Checks for building of from and to node
         from_arts = await is_arts(node_list[i])
@@ -429,6 +435,9 @@ async def go_to(start, end):
 
 async def draw_step(step):
     part_path = copy.deepcopy(full_path)
+    for i in range(len(part_path) - 1):
+        if isinstance(part_path[i], StairwellNode):
+            part_path.pop(i)
     for i in range(step):
         part_path.pop(0)
     await draw_path(part_path)
