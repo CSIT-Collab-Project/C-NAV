@@ -122,7 +122,7 @@ async def draw_path(node_list):
             if from_arts != to_arts:
                 continue
             elif from_arts:
-                current_floor += 5
+                current_floor += 6
 
             # Don't draw to yourself
             if from_node == to_node:

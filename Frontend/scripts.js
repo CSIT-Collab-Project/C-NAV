@@ -80,7 +80,6 @@ async function getDirections() {
         }
     }
     let currentDirectionText = convertedDirections[currentDirectionNum][0];
-    // add error handling for if no directions are recieved
     document.getElementById("location-input").style.display = "none";
     bottomBar(currentRoom, destination, convertedDirections);
     directionTable(convertedDirections);
@@ -103,7 +102,6 @@ async function getDirections() {
         currentDirection.appendChild(stepCountNode);
         let icon = convertedDirections[currentDirectionNum][1];
         currentIcon.src = `/icon-${icon}`;
-        // FIX ISSUE WITH FLOORS AND MAPS - only goes up by one floor rn, needs to adjust the map based on how many floors you're going up
         if (currentDirectionText.includes("Go up")) {
             if (currentDirectionText.includes("two")) {
                 currentFloorNum += 2;
