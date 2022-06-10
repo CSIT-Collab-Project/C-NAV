@@ -6,6 +6,41 @@ body {
     font-weight: 400;
 }
 
+@media screen and (min-width: 1200px) {
+    #map-container {
+        max-width: 95%;
+    }
+    #current-map {
+        max-width: 70%;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    #map-container {
+        max-width: 90%;
+    }
+    #current-map{
+        max-width: 95%;
+    }
+}
+@media screen and (max-width: 768px) {
+    #map-container {
+        max-width: 90%;
+    }
+    #current-map{
+        max-width: 95%;
+    }
+    #nav-buttons {
+        margin-top: -130px;
+    }
+}
+
+
+#nav-buttons button {
+    height: 60px;
+}
+
+
 #login-content {
     text-align: center;
     margin-top: 20px;
@@ -14,11 +49,13 @@ body {
 .main {
     align-self: center;
 }
+
 #location-submit {
     width: 100%;
 }
-
-
+#direction-form {
+    margin-top: 95px;
+}
 .gform-btn {
     background-color: #6610f2 !important;
     color: white !important;
@@ -56,13 +93,12 @@ body {
     max-width: 150px;
     padding: 20px;
 }
-#current-map {
+/* #current-map {
     max-width: 95%;
-}
+} */
 
-.main {
-    margin-top: 60px;
-}
+
+
 #table-btn img {
     width: 40px;
     margin-bottom: 30px;
@@ -106,6 +142,7 @@ p#steps-id {
 }
 #main-ui {
     z-index: -1000;
+    margin-bottom: 127px;
 }
 
 .loader {
