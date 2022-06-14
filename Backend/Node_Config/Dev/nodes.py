@@ -66,36 +66,36 @@ the_void = CornerNode([], "The endless void of nothingness and despair. "
                           "Nothing can enter, nothing can exit. Pure emptiness")
 
 stair1_f1 = StairNode([], "n", "1 Stair 1 1st Floor", (916, 968))
-stair1_f2 = StairNode([], "n", "2 Stair 1 2nd Floor", (907, 886))
+stair1_f2 = StairNode([], "n", "2 Stair 1 2nd Floor", (917, 968))
 stair1_f3 = StairNode([], "n", "3 Stair 1 3rd Floor", (918, 968))
 stair1_f4 = StairNode([], "n", "4 Stair 1 4th Floor", (950, 886))
 
 stair2_f1 = StairNode([], "w", "1 Stair 2 1st Floor", (394, 1171))
-stair2_f2 = StairNode([], "w", "2 Stair 2 2nd Floor", (418, 930))
+stair2_f2 = StairNode([], "w", "2 Stair 2 2nd Floor", (395, 1143))
 stair2_f3 = StairNode([], "w", "3 Stair 2 3rd Floor", (396, 1143))
 stair2_f4 = StairNode([], "w", "4 Stair 2 4th Floor", (418, 930))
 stair2_f5 = StairNode([], "w", "5 Stair 2 5th Floor", (418, 930))
 
 stair3_f1 = StairNode([], "w", "1 Stair 3 1st Floor", (389, 821))
-stair3_f2 = StairNode([], "w", "2 Stair 3 2nd Floor", (527, 662))
+stair3_f2 = StairNode([], "w", "2 Stair 3 2nd Floor", (394, 861))
 stair3_f3 = StairNode([], "w", "3 Stair 3 3rd Floor", (394, 858))
 stair3_f4 = StairNode([], "w", "4 Stair 3 4th Floor", (507, 694))
 
 stair5_f1 = StairNode([], "n", "1 Stair 5 1st Floor", (407, 477))
-stair5_f2 = StairNode([], "n", "2 Stair 5 2nd Floor", (651, 344))
+stair5_f2 = StairNode([], "n", "2 Stair 5 2nd Floor", (407, 480))
 
 stair6_f1 = StairNode([], "n", "1 Stair 6 1st Floor", (1305, 479))
-stair6_f2 = StairNode([], "n", "2 Stair 6 2nd Floor", (1255, 449))
+stair6_f2 = StairNode([], "n", "2 Stair 6 2nd Floor", (1305, 479))
 
 stair8_f1 = StairNode([], "e", "1 Stair 8 1st Floor", (1324, 820))
-stair8_f2 = StairNode([], "e", "2 Stair 8 2nd Floor", (1272, 848))
+stair8_f2 = StairNode([], "e", "2 Stair 8 2nd Floor", (1324, 820))
 stair8_f3 = StairNode([], "e", "3 Stair 8 3rd Floor", (1324, 820))
 stair8_f4 = StairNode([], "e", "4 Stair 8 4th Floor", (1273, 848))
 
 stair9_f1 = StairNode([], "e", "1 Stair 9 1st Floor", (1324, 1186))
-stair9_f2 = StairNode([], "e", "2 Stair 9 2nd Floor", (1272, 1058))
-stair9_f3 = StairNode([], "e", "3 Stair 9 3rd Floor", (1316, 1146))
-stair9_f4 = StairNode([], "e", "4 Stair 9 4th Floor", (1317, 1154))
+stair9_f2 = StairNode([], "e", "2 Stair 9 2nd Floor", (1324, 1186))
+stair9_f3 = StairNode([], "e", "3 Stair 9 3rd Floor", (1324, 1186))
+stair9_f4 = StairNode([], "e", "4 Stair 9 4th Floor", (1324, 1186))
 stair9_f5 = StairNode([], "e", "5 Stair 9 5th Floor", (1272, 1058))
 
 stair11_f0 = StairNode([], "e", "Stair 11 Basement")
