@@ -53,15 +53,8 @@ def create_app():
 
     @app.route('/map<floor>-<step>')
     def getMap(floor, step):
+        step = int(step) - 1
         logger.info('getmap')
-        shit = step
-        return send_from_directory('', f'map_path{int(floor) - 1}.png')
-    
-    @app.route('/mapredraw<step>')
-    async def drawMap(step):
-        logger.info('redraw map')
-        worked = await draw_step(int(step) - 1)
-        return str(worked)
-
-
+        return send_from_directory('', f'map_path{int(floor) - 1}-step{step}.png')
+        
     return app
