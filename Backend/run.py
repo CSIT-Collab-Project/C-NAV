@@ -41,17 +41,6 @@ async def draw_path(node_list):
     :param node_list: List of visited nodes in order from start to end
     :return: Pixel length of drawn path
     """
-    # Defines map img files
-    floor = [
-        Image.open('Backend/Maps/floor1.png'),
-        Image.open('Backend/Maps/floor2.png'),
-        Image.open('Backend/Maps/floor3.png'),
-        Image.open('Backend/Maps/floor4.png'),
-        Image.open('Backend/Maps/floor5.png'),
-        Image.open('Backend/Maps/floor5.png'),
-        Image.open('Backend/Maps/floor5.png'),
-        Image.open('Backend/Maps/Arts2nd.png')
-    ]
 
     # Defines icon files
     im2 = Image.open('Backend/Icons/You are here.png')
@@ -65,11 +54,6 @@ async def draw_path(node_list):
     stair_down = stair_down.resize((30, 30))
     dest = dest.resize((50, 50))
 
-    # Creates ImageDraw objects to draw on
-    draw_floor = [ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[1]), ImageDraw.Draw(floor[2]),
-                  ImageDraw.Draw(floor[3]), ImageDraw.Draw(floor[4]), ImageDraw.Draw(floor[0]),
-                  ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[7])]
-
     # Starting values for variables
     total_length = 0
     top = math.inf
@@ -78,142 +62,167 @@ async def draw_path(node_list):
     right = - math.inf
     fill_color = (155, 9, 238, 255)
 
-    if len(node_list) == 0:
-        # Extracts floor number from node
-        current_floor = int((node_list[0].door_num / 1000) - 1)
+    for step in range(len(node_list)):
+        # Defines map img files
+        floor = [
+            Image.open('Backend/Maps/floor1.png'),
+            Image.open('Backend/Maps/floor2.png'),
+            Image.open('Backend/Maps/floor3.png'),
+            Image.open('Backend/Maps/floor4.png'),
+            Image.open('Backend/Maps/floor5.png'),
+            Image.open('Backend/Maps/floor5.png'),
+            Image.open('Backend/Maps/floor5.png'),
+            Image.open('Backend/Maps/Arts2nd.png')
+        ]
 
-        thresh = 100
-        fn = lambda x: 255 if x < thresh else 0
-        floor[current_floor].paste(dest, (node_list[0].coordinates[0] - 25, node_list[0].coordinates[1] - 50),
-                                   dest.convert("L").point(fn, mode='1'))
+        # Creates ImageDraw objects to draw on
+        draw_floor = [ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[1]), ImageDraw.Draw(floor[2]),
+                      ImageDraw.Draw(floor[3]), ImageDraw.Draw(floor[4]), ImageDraw.Draw(floor[0]),
+                      ImageDraw.Draw(floor[0]), ImageDraw.Draw(floor[7])]
 
-    # Iterates over each node in path
-    for i in range(len(node_list) - 1):
-
-        # Checks for building of from and to node
-        from_arts = await is_arts(node_list[i])
-        to_arts = await is_arts(node_list[i + 1])
-
-        try:
-            # Get coordinates of from and to nodes
-            from_node = node_list[i].coordinates
-            to_node = node_list[i + 1].coordinates
-
+        current_list = await draw_step(step)
+        if len(current_list) == 1:
             # Extracts floor number from node
-            if isinstance(node_list[i], DoorNode):
-                current_floor = int((node_list[i].door_num / 1000) - 1)
-            elif isinstance(node_list[i], StairwellNode):
-                if isinstance(node_list[i + 1], DoorNode):
-                    current_floor = int((node_list[i + 1].door_num / 1000) - 1)
+            current_floor = int((current_list[0].door_num / 1000) - 1)
+
+            thresh = 100
+            fn = lambda x: 255 if x < thresh else 0
+            floor[current_floor].paste(dest, (current_list[0].coordinates[0] - 25, current_list[0].coordinates[1] - 50),
+                                       dest.convert("L").point(fn, mode='1'))
+            left = max(current_list[0].coordinates[0] - 75, 0)
+            top = max(current_list[0].coordinates[1] - 75, 0)
+            right = min(current_list[0].coordinates[0] + 75, 2000)
+            bottom = min(current_list[0].coordinates[1] + 75, 1659)
+
+        if len(current_list) < 1:
+            return 0
+
+        # Iterates over each node in path
+        for i in range(len(current_list) - 1):
+            # Checks for building of from and to node
+            from_arts = await is_arts(current_list[i])
+            to_arts = await is_arts(current_list[i + 1])
+
+            try:
+                # Get coordinates of from and to nodes
+                from_node = current_list[i].coordinates
+                to_node = current_list[i + 1].coordinates
+
+                # Extracts floor number from node
+                if isinstance(current_list[i], DoorNode):
+                    current_floor = int((current_list[i].door_num / 1000) - 1)
+                elif isinstance(current_list[i], StairwellNode):
+                    if isinstance(current_list[i + 1], DoorNode):
+                        current_floor = int((current_list[i + 1].door_num / 1000) - 1)
+                    else:
+                        current_floor = int(current_list[i + 1].name[0]) - 1
                 else:
-                    current_floor = int(node_list[i + 1].name[0]) - 1
-            else:
-                current_floor = int(node_list[i].name[0]) - 1
+                    current_floor = int(current_list[i].name[0]) - 1
 
-            # Skip drawing from main -> arts and vice-versa
-            if from_arts != to_arts:
-                continue
-            elif from_arts:
-                current_floor += 5
+                # Skip drawing from main -> arts and vice-versa
+                if from_arts != to_arts:
+                    continue
+                elif from_arts:
+                    current_floor += 6
 
-            # Don't draw to yourself
-            if from_node == to_node:
-                continue
+                # Don't draw to yourself
+                if from_node == to_node:
+                    continue
 
-            # Get most extreme node coordinates in each direction
-            if from_node[0] < left:
-                left = max(from_node[0] - 75, 0)
-            if from_node[1] < top:
-                top = max(from_node[1] - 75, 0)
-            if from_node[0] > right:
-                right = min(from_node[0] + 75, 2000)
-            if from_node[1] > bottom:
-                bottom = min(from_node[1] + 75, 1659)
+                # Get most extreme node coordinates in each direction
+                if from_node[0] < left:
+                    left = max(from_node[0] - 75, 0)
+                if from_node[1] < top:
+                    top = max(from_node[1] - 75, 0)
+                if from_node[0] > right:
+                    right = min(from_node[0] + 75, 2000)
+                if from_node[1] > bottom:
+                    bottom = min(from_node[1] + 75, 1659)
 
-            # Keep track of path length in pixels to help choose the shortest path
-            total_length += abs(abs(to_node[0]) - abs(from_node[0])) + abs(abs(to_node[1]) - abs(from_node[1]))
+                # Keep track of path length in pixels to help choose the shortest path
+                total_length += abs(abs(to_node[0]) - abs(from_node[0])) + abs(abs(to_node[1]) - abs(from_node[1]))
 
-            # Changes floor when travelling on stairs
-            if isinstance(node_list[i], StairNode) and isinstance(node_list[i + 1], StairNode):
-                if int(node_list[i].name[0]) < int(node_list[i + 1].name[0]):
-                    floor[current_floor].paste(stair_up, (from_node[0] - 15, from_node[1] - 15), stair_up)
+                # Changes floor when travelling on stairs
+                if isinstance(current_list[i], StairNode) and isinstance(current_list[i + 1], StairNode):
+                    if int(current_list[i].name[0]) < int(current_list[i + 1].name[0]):
+                        floor[current_floor].paste(stair_up, (from_node[0] - 15, from_node[1] - 15), stair_up)
+                    else:
+                        floor[current_floor].paste(stair_down, (from_node[0] - 15, from_node[1] - 15), stair_down)
+
+                # Handle front bend !!!REMOVE ONCE UPDATED MAP IS ADDED!!!
+                elif current_list[i] in [fl1, fl2] and current_list[i + 1] in [fr1, fr2]:
+                    front_coords = (841, 905)
+
+                    draw_floor[current_floor].line(((from_node[0], from_node[1]), (front_coords[0], front_coords[1])),
+                                                   fill=fill_color, width=10)
+                    draw_floor[current_floor].line(((front_coords[0], front_coords[1]), (to_node[0], to_node[1])),
+                                                   fill=fill_color, width=10)
+
+                # Enter door from center of hallway rather than a direct path
+                elif isinstance(current_list[i + 1], DoorNode) or isinstance(current_list[i], DoorNode):
+                    hor_directions = {"n": 0, "s": 0, "e": -1, "w": 1}
+                    vert_directions = {"n": 1, "s": -1, "e": 0, "w": 0}
+
+                    if isinstance(current_list[i + 1], DoorNode):
+                        stop_coords = (to_node[0] + (25 * hor_directions[current_list[i + 1].door_side]),
+                                       to_node[1] + (25 * vert_directions[current_list[i + 1].door_side]))
+                    else:
+                        stop_coords = (from_node[0] + (25 * hor_directions[current_list[i].door_side]),
+                                       from_node[1] + (25 * vert_directions[current_list[i].door_side]))
+
+                    draw_floor[current_floor].line(((from_node[0], from_node[1]), (stop_coords[0], stop_coords[1])),
+                                                   fill=fill_color, width=10)
+                    draw_floor[current_floor].line(((stop_coords[0], stop_coords[1]), (to_node[0], to_node[1])),
+                                                   fill=fill_color, width=10)
+
+                # Draw normally between nodes
                 else:
-                    floor[current_floor].paste(stair_down, (from_node[0] - 15, from_node[1] - 15), stair_down)
+                    draw_floor[current_floor].line(((from_node[0], from_node[1]), (to_node[0], to_node[1])),
+                                                   fill=fill_color, width=10)
 
-            # Handle front bend !!!REMOVE ONCE UPDATED MAP IS ADDED!!!
-            elif node_list[i] in [fl1, fl2] and node_list[i + 1] in [fr1, fr2]:
-                front_coords = (841, 905)
+                # Make current location marker's background transparent and add to first node
+                if i == 0:
+                    thresh = 100
+                    fn = lambda x: 255 if x > thresh else 0
+                    floor[current_floor].paste(im2, (from_node[0] - 25, from_node[1] - 50),
+                                               im2.convert("L").point(fn, mode='1'))
 
-                draw_floor[current_floor].line(((from_node[0], from_node[1]), (front_coords[0], front_coords[1])),
-                                               fill=fill_color, width=10)
-                draw_floor[current_floor].line(((front_coords[0], front_coords[1]), (to_node[0], to_node[1])),
-                                               fill=fill_color, width=10)
+                # Make destination pin's background transparent and add to last node
+                if i == len(current_list) - 2:
+                    thresh = 100
+                    fn = lambda x: 255 if x < thresh else 0
+                    floor[current_floor].paste(dest, (to_node[0] - 25, to_node[1] - 50),
+                                               dest.convert("L").point(fn, mode='1'))
 
-            # Enter door from center of hallway rather than a direct path
-            elif isinstance(node_list[i + 1], DoorNode) or isinstance(node_list[i], DoorNode):
-                hor_directions = {"n": 0, "s": 0, "e": -1, "w": 1}
-                vert_directions = {"n": 1, "s": -1, "e": 0, "w": 0}
+            # Don't die if path does weird things
+            except AttributeError:
+                pass
 
-                if isinstance(node_list[i + 1], DoorNode):
-                    stop_coords = (to_node[0] + (25 * hor_directions[node_list[i + 1].door_side]),
-                                   to_node[1] + (25 * vert_directions[node_list[i + 1].door_side]))
-                else:
-                    stop_coords = (from_node[0] + (25 * hor_directions[node_list[i].door_side]),
-                                   from_node[1] + (25 * vert_directions[node_list[i].door_side]))
+        # Crop maps to proper dimensions for phone screen
+        for i in range(len(floor)):
+            # Set target dimensions
+            target_width = 1080
+            target_height = 1920
 
-                draw_floor[current_floor].line(((from_node[0], from_node[1]), (stop_coords[0], stop_coords[1])),
-                                               fill=fill_color, width=10)
-                draw_floor[current_floor].line(((stop_coords[0], stop_coords[1]), (to_node[0], to_node[1])),
-                                               fill=fill_color, width=10)
+            # Find center of nodes
+            crop_center = (((left + right) / 2), ((top + bottom) / 2))
 
-            # Draw normally between nodes
-            else:
-                draw_floor[current_floor].line(((from_node[0], from_node[1]), (to_node[0], to_node[1])),
-                                               fill=fill_color, width=10)
+            # If edge goes over map edge, shift to compensate
+            left_over = max(target_width / 2 - crop_center[0], 0)
+            right_over = max((target_width / 2 + crop_center[0]) - WIDTH, 0)
+            top_over = max(target_height / 2 - crop_center[1], 0)
+            bottom_over = max((target_height / 2 + crop_center[1]) - HEIGHT, 0)
 
-            # Make current location marker's background transparent and add to first node
-            if i == 0:
-                thresh = 100
-                fn = lambda x: 255 if x > thresh else 0
-                floor[current_floor].paste(im2, (from_node[0] - 25, from_node[1] - 50),
-                                           im2.convert("L").point(fn, mode='1'))
+            left = max(crop_center[0] - target_width / 2 - right_over, 0)
+            right = min(crop_center[0] + target_width / 2 + left_over, WIDTH)
+            top = max(crop_center[1] - target_height / 2 - top_over, 0)
+            bottom = min(crop_center[1] + target_height / 2 + bottom_over, HEIGHT)
 
-            # Make destination pin's background transparent and add to last node
-            if i == len(node_list) - 2:
-                thresh = 100
-                fn = lambda x: 255 if x < thresh else 0
-                floor[current_floor].paste(dest, (to_node[0] - 25, to_node[1] - 50),
-                                           dest.convert("L").point(fn, mode='1'))
+            crop_rect = (left, top, right, bottom)
+            floor[i] = floor[i].crop(crop_rect)
 
-        # Don't die if path does weird things
-        except AttributeError:
-            pass
-
-    # Crop maps to proper dimensions for phone screen
-    for i in range(len(floor)):
-        # Set target dimensions
-        target_width = 1080
-        target_height = 1920
-
-        # Find center of nodes
-        crop_center = (((left + right) / 2), ((top + bottom) / 2))
-
-        # If edge goes over map edge, shift to compensate
-        left_over = max(target_width / 2 - crop_center[0], 0)
-        right_over = max((target_width / 2 + crop_center[0]) - WIDTH, 0)
-        top_over = max(target_height / 2 - crop_center[1], 0)
-        bottom_over = max((target_height / 2 + crop_center[1]) - HEIGHT, 0)
-
-        left = max(crop_center[0] - target_width / 2 - right_over, 0)
-        right = min(crop_center[0] + target_width / 2 + left_over, WIDTH)
-        top = max(crop_center[1] - target_height / 2 - top_over, 0)
-        bottom = min(crop_center[1] + target_height / 2 + bottom_over, HEIGHT)
-
-        crop_rect = (left, top, right, bottom)
-        floor[i] = floor[i].crop(crop_rect)
-
-        # Save drawn / cropped map
-        floor[i].save(f'map_path{i}.png', quality=95)
+            # Save drawn / cropped map
+            floor[i].save(f'map_path{i}-step{step}.png', quality=95)
 
     # Return final length of path
     print(f"Total Length: {total_length}")
@@ -414,7 +423,6 @@ async def go_to(start, end):
             visited.append(current_pos)
 
             if isinstance(current_pos, DoorNode) and current_pos.door_num == end.door_num:
-                print(current_path)
                 return current_path
 
             for connection in current_pos.connections:
@@ -427,9 +435,13 @@ async def go_to(start, end):
 
 async def draw_step(step):
     part_path = copy.deepcopy(full_path)
+    for i in range(len(part_path) - 1):
+        if isinstance(part_path[i], StairwellNode):
+            part_path.pop(i)
     for i in range(step):
         part_path.pop(0)
-    await draw_path(part_path)
+    print(f"Part Path:{part_path}")
+    return part_path
 
 
 async def main(start_str, end_str):

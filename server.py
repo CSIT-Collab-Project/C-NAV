@@ -4,6 +4,7 @@ import sys
 from flask import Flask
 from flask.helpers import send_from_directory
 from Backend.run import main
+from Backend.run import draw_step
 
 sys.path.append(path.Path(__file__).abspath().parent.parent)
 from Backend.Logger.logger import logger
@@ -50,9 +51,10 @@ def create_app():
         print(directionjson)
         return directionjson
 
-    @app.route('/map<floor>')
-    def getMap(floor):
+    @app.route('/map<floor>-<step>')
+    def getMap(floor, step):
+        step = int(step) - 1
         logger.info('getmap')
-        return send_from_directory('', f'map_path{int(floor) - 1}.png')
-
+        return send_from_directory('', f'map_path{int(floor) - 1}-step{step}.png')
+        
     return app
