@@ -10,14 +10,18 @@ from Backend.Logger.logger import logger
 
 
 async def create_door(connections: list, num: int, closest: Node, directions):
+    # --------------------
     logger.info(f'create door({connections}, {num}, {closest}, {directions})')
+    # --------------------
     door = DoorNode(connections, num, closest)
     await connect_to_network(door, directions)
     return door
 
 
 async def connect_to_network(node, directions):
+    # --------------------
     logger.info(f'connect_to_network({node}, {directions})')
+    # --------------------
     opp_directions = {'n': 's', 'e': 'w', 's': 'n', 'w': 'e'}
     for i in range(len(node.connections)):
         await node.connections[i].add_connections([node])
@@ -30,21 +34,27 @@ async def connect_to_network(node, directions):
 class DoorNode(Node):
     def __init__(self, connections: list, num: int, closest: Node, door_side: str, coords=(0, 0)):
         super(DoorNode, self).__init__(connections, coords)
+        # --------------------
         logger.info(f'DoorNode({connections}, {num}, {closest}, {door_side}, {coords})')
+        # --------------------
         self.door_num = num
         self.closest_node = closest
         self.node_map = {}
         self.door_side = door_side
 
     async def set_info(self, connections, num, closest, directions):
+        # --------------------
         logger.info(f'set_info({connections}, {num}, {closest}, {directions})')
+        # --------------------
         self.connections = connections
         self.door_num = num
         self.closest_node = closest
         await connect_to_network(self, directions)
 
     async def in_same_hall(self, checkNode):
+        # --------------------
         logger.info(f'in_same_hall({checkNode})')
+        # --------------------
         self_corner_list = set()
         check_corner_list = set()
         for connection in self.connections:

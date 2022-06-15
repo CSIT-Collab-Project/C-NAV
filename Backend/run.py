@@ -385,7 +385,7 @@ async def main(start_str, end_str):
 
 
 async def toJSON(directions: list):
-    return json.dumps(directions, indent=2)
+    return json.dumps(directions, indent=4)
 
 
 if __name__ == '__main__':

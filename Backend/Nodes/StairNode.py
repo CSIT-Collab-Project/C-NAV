@@ -14,7 +14,9 @@ class StairNode(Node):
                  e: Node = None,
                  w: Node = None):
         super(StairNode, self).__init__(connections, coords)
+        # --------------------
         logger.info(f'StairNode({connections}, {door_side}, {name}, {coords}, {upstairs}, {downstairs}, {n}, {s}, {e}, {w})')
+        # --------------------
         self.set_name(name)
         self.upstairs = upstairs
         self.downstairs = downstairs
@@ -26,18 +28,15 @@ class StairNode(Node):
         self.node_map = {n: 'n', s: 's', e: 'e', w: 'w'}
 
     async def add_directions(self, n, e, s, w, u, d):
+        # --------------------
         logger.info(f'add_directions({n}, {e}, {s}, {w}, {u}, {d})')
+        # --------------------
         self.north_node = n
-
         self.east_node = e
-
         self.south_node = s
-
         self.west_node = w
-
         self.upstairs = u
         self.downstairs = d
-
         nodes = []
 
         if isinstance(n, list):
