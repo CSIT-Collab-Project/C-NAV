@@ -8,7 +8,7 @@ import sys
 sys.path.append(path.Path(__file__).abspath().parent.parent)
 import Backend.Nodes.StairNode
 import Backend.Nodes.CornerNode
-from Backend.Node_Config.Dev.nodes import *
+from Backend.Node_Config.Dev.Nodes.nodes import *
 
 WIDTH = 2000
 HEIGHT = 1659
@@ -75,7 +75,7 @@ async def draw_path(node_list):
             else:
                 current_floor = int(node_list[i].name[0]) - 1
 
-            if from_arts != to_arts:
+            if from_arts is not to_arts:
                 continue
             elif from_arts:
                 current_floor += 5
