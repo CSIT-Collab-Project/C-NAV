@@ -21,14 +21,19 @@ function goHome() {
 }
 
 async function getDirections() {
-    // document.getElementById("loader").style.display = "block";
+    const loader =  document.getElementById("loader")
+    document.getElementById("loader").style.display = "block";
+    document.getElementById("location-input").style.display = "none";
     document.getElementById("main-ui").style.display = "block";
     const currentRoom = document.getElementById("initial-location").value;
     const destination = document.getElementById("destination").value;
     const initialDirections = await requestDirections(currentRoom, destination);
+    document.getElementById("loader").style.display = "none";
     if (initialDirections[0].includes("Error")) {
         window.alert("Unknown Room");
         submitBtn.addEventListener("click", submitDirections);
+        document.getElementById("location-input").style.display = "block";
+        loader.style.display = "none";
         return ["Error"];
     }
     const directionDict = {
@@ -81,7 +86,6 @@ async function getDirections() {
         }
     }
     let currentDirectionText = convertedDirections[currentDirectionNum][0];
-    document.getElementById("location-input").style.display = "none";
     bottomBar(currentRoom, destination, convertedDirections);
     directionTable(convertedDirections);
     document.getElementById("en-route-ui").style.display = "block";
