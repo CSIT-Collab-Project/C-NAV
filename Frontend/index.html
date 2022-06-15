@@ -47,16 +47,24 @@
     </div>
     <div class="main container" id="direction-form" style="display: block;">
         <form id="location-input" action="" class="flex-column flex-md-row">
-            <label class="" for="initial-location">Current Room Number</label>
-            <input type="text" id="initial-location" class="form-control" placeholder="Current Room"
+            <label class="" for="initial-location">Current Room</label>
+            <input type="text" id="initial-location" class="form-control" placeholder="Current Room Number"
                 aria-describedby="basic-addon1">
-            <!-- <button type="button" class="mt-2 btn btn-primary" id="next">Next</button> -->
-                <label class="" for="destination">Destination Room Number</label>
-                <input type="text" id="destination" class="form-control" placeholder="Destination"
+                <label class="" for="destination">Destination Room</label>
+                <input type="text" id="destination" class="form-control" placeholder="Destination Room Number"
                     aria-describedby="basic-addon1">
                 <button type="button" class="mt-2 btn btn-success" id="location-submit">Submit</button>
         </form>
-        <div class="loader" id="loader"></div>
+        <div id="loading">
+            <div class="loader" id="loader"></div>
+            <span id="dots">
+                <p id="loading-text"></p>
+                <span>.</span>
+                <span>.</span>
+                <span>.</span>
+            </span>
+        </div>
+
     </div>
 
     <div class="ui fixed-bottom" id="main-ui">
