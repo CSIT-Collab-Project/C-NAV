@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&family=Roboto&display=swap');
 
 body {
-    font-family: Nunito, sans-serif;
+    /* font-family: Nunito, sans-serif; */
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Ubuntu, Roboto, sans-serif;
     font-size: 1.4em;
     font-weight: 400;
 }
@@ -74,6 +75,7 @@ body {
     display: none;
     padding: 10px;
 }
+
 #previous-direction {
     display: none;
 }
@@ -82,12 +84,15 @@ body {
     display: none;
     margin: 10px;
 }
+
 #direction-table img {
     max-width: 30px;
 }
+
 .fa-list-ul {
     cursor: pointer;
 }
+
 #current-icon {
     width: 80%;
     max-width: 150px;
@@ -104,26 +109,32 @@ body {
     margin-bottom: 30px;
     margin-top: -5px;
 }
+
 #table-btn {
     padding: 0;
 }
-#table-btn-label{
+
+#table-btn-label {
     margin-top: 2px;
 }
 
 #location-input {
     padding: 0px 15px 15px 15px;
 }
+
 .header {
     z-index: 1000;
 }
+
 .ui .fixed-bottom {
     z-index: 10;
 }
+
 p#steps-id {
     text-align: center;
     font-size: 1.4em;
 }
+
 #bottom-bar div.container-fluid p {
     font-size: 1em;
     text-align: center;
@@ -133,29 +144,153 @@ p#steps-id {
     font-size: 1.3em;
     padding: 5px;
 }
+
 #about-main {
     margin-top: 70px;
     font-size: 0.8em;
 }
+
 #about-main a {
     color: #6610f2;
 }
+
 #main-ui {
     z-index: -1000;
     margin-bottom: 127px;
 }
 
+/* animations */
 .loader {
     display: none;
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
+    border: 16px solid #f3f3f3;
+    /* Light grey */
+    border-top: 16px solid #3498db;
+    /* Blue */
     border-radius: 50%;
-    width: 120px;
-    height: 120px;
+    width: 170px;
+    height: 170px;
     animation: spin 2s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+    margin: auto;
+    margin-top: 50%;
+    animation-name: juneLoader;
+    -webkit-animation-name: juneLoader;
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+    animation-duration: 3s;
+    -webkit-animation-duration: 3s;
+}
+
+@keyframes loader {
+    0% {
+        border-top: 16px solid purple;
+        transform: rotate(0deg);
+    }
+
+    25% {
+        border-top: 16px solid black;
+    }
+
+    50% {
+        transform: rotate(360deg);
+    }
+
+    75% {
+        border-top: 16px solid grey;
+    }
+
+    100% {
+        border-top: 16px solid white;
+        transform: rotate(720deg);
+    }
+}
+
+@keyframes juneLoader {
+    0% {
+        border-top: 16px solid red;
+        transform: rotate(0deg);
+    }
+
+    16% {
+        border-top: 16px solid orange;
+    }
+
+    32% {
+        border-top: 16px solid yellow;
+    }
+
+    48% {
+        border-top: 16px solid green;
+    }
+
+    50% {
+        transform: rotate(360deg);
+    }
+
+    64% {
+        border-top: 16px solid blue;
+    }
+
+    80% {
+        border-top: 16px solid indigo;
+    }
+
+    /* 75% { border-top: 16px solid purple; } */
+    100% {
+        border-top: 16px solid violet;
+        transform: rotate(720deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#dots {
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+    /* margin-right: 10%; */
+    display: none;
+    justify-content: center;
+}
+
+#loader {
+    margin-bottom: 10px;
+}
+
+#dots :nth-child(2) {
+    animation-delay: 0.0s;
+    animation-name: fadeIn;
+    animation-iteration-count: infinite;
+    animation-duration: 0.5s;
+}
+
+#dots :nth-child(3) {
+    animation-delay: 0.6s;
+    animation-name: fadeIn;
+    animation-iteration-count: infinite;
+    animation-duration: 0.5s;
+}
+
+#dots :nth-child(4) {
+    animation-delay: 1.2s;
+    animation-name: fadeIn;
+    animation-iteration-count: infinite;
+    animation-duration: 0.5s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 100%;
+    }
+}

@@ -20,15 +20,38 @@ function goHome() {
     window.location = "/";
 }
 
+function loadingScreen() {
+    const loader =  document.getElementById("loader");
+    const loadTextEle = document.getElementById("loading-text");
+    const dots = document.getElementById("dots");
+    const loadingPhrases = ["Fetching the quickest path", "Calculating your way", "Searching through the nodes", "Making sure you're not late"];
+    loader.style.display = "block";
+    loadTextEle.style.display = "inline";
+    const randIndex = Math.floor(Math.random() * loadingPhrases.length);
+    loadTextEle.innerHTML = loadingPhrases[randIndex];
+    dots.style.display = "flex";
+
+}
+
+function loaderClose() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("loading").style.display = "none";
+}
+
 async function getDirections() {
-    // document.getElementById("loader").style.display = "block";
+    loadingScreen();
+    document.getElementById("location-input").style.display = "none";
     document.getElementById("main-ui").style.display = "block";
     const currentRoom = document.getElementById("initial-location").value;
     const destination = document.getElementById("destination").value;
     const initialDirections = await requestDirections(currentRoom, destination);
+    loaderClose();
+    console.log(initialDirections);
     if (initialDirections[0].includes("Error")) {
         window.alert("Unknown Room");
         submitBtn.addEventListener("click", submitDirections);
+        document.getElementById("location-input").style.display = "block";
+        loaderClose();
         return ["Error"];
     }
     const directionDict = {
@@ -81,8 +104,6 @@ async function getDirections() {
         }
     }
     let currentDirectionText = convertedDirections[currentDirectionNum][0];
-    // add error handling for if no directions are recieved
-    document.getElementById("location-input").style.display = "none";
     bottomBar(currentRoom, destination, convertedDirections);
     directionTable(convertedDirections);
     document.getElementById("en-route-ui").style.display = "block";
@@ -109,7 +130,6 @@ async function getDirections() {
         currentDirection.appendChild(stepCountNode);
         let icon = convertedDirections[currentDirectionNum][1];
         currentIcon.src = `/icon-${icon}`;
-        // FIX ISSUE WITH FLOORS AND MAPS - only goes up by one floor rn, needs to adjust the map based on how many floors you're going up
         if (currentDirectionText.includes("Go up")) {
             if (currentDirectionText.includes("two")) {
                 currentFloorNum += 2;
@@ -189,7 +209,6 @@ async function getDirections() {
 }
 
 async function getMap(stepCount, floor) {
-    let redrawMap = await fetch(`/mapredraw${stepCount}`);
     const currentMap = document.getElementById("current-map");
     currentMap.src = `/map${floor}-${stepCount}`;
 }
