@@ -38,11 +38,15 @@ function loaderClose() {
 }
 
 async function getDirections() {
-    loadingScreen();
-    document.getElementById("location-input").style.display = "none";
-    document.getElementById("main-ui").style.display = "block";
     const currentRoom = document.getElementById("initial-location").value;
     const destination = document.getElementById("destination").value;
+    if ((currentRoom == "") || destination == "") {
+        window.alert("Please enter two valid room numbers");
+        return;
+    }
+    document.getElementById("location-input").style.display = "none";
+    document.getElementById("main-ui").style.display = "block";
+    loadingScreen();
     const initialDirections = await requestDirections(currentRoom, destination);
     loaderClose();
     console.log(initialDirections);
@@ -125,7 +129,7 @@ async function getDirections() {
         if (nonIterableDirection) {
             nodeStepCount++;
         }
-        stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
+        stepCountNode = document.createTextNode(`(${stepCount} of ${convertedDirections.length})`);
         currentDirection.appendChild(stepCountNode);
         let icon = convertedDirections[currentDirectionNum][1];
         currentIcon.src = `/icon-${icon}`;
@@ -164,7 +168,6 @@ async function getDirections() {
         if (currentDirectionText.includes("Go up")) {
             if (currentDirectionText.includes("two")) {
                 currentFloorNum -= 2;
-                console.log(currentFloorNum);
             }
             else if (currentDirectionText.includes("three")) {
                 currentFloorNum -= 3;
@@ -216,7 +219,7 @@ const submitBtn = document.getElementById("location-submit")
 submitBtn.addEventListener("click", submitDirections);
 
 function submitDirections() {
-    submitBtn.removeEventListener("click", submitDirections);
+    // submitBtn.removeEventListener("click", submitDirections);
     getDirections();
 }
 
