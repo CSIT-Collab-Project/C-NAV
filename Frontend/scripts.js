@@ -4,17 +4,16 @@ async function requestDirections(start, end) {
         .then(response => response.json());
     return directionsJson;
 }
-
-// window.addEventListener("load", aprilFools);
-// function aprilFools() {
-//     const date = new Date();
-//     if (date.getMonth() === 4 && date.getDay() === 1) {
-//         document.body.style.fontFamily = "Comic Sans MS";
-//     }
-//     else {
-//         document.body.style.fontFamily = "Nunito";
-//     }
-// }
+const date = new Date();
+window.addEventListener("load", aprilFools);
+function aprilFools() {
+    if (date.getMonth() + 1 === 4 && date.getDate() === 1) {
+        document.body.style.fontFamily = "Comic Sans MS";
+    }
+    else {
+        document.body.style.fontFamily = "Nunito";
+    }
+}
 
 function goHome() {
     window.location = "/";
