@@ -125,8 +125,8 @@ async function getDirections() {
         currentDirectionText = convertedDirections[currentDirectionNum][0];
         currentDirection.innerHTML = currentDirectionText;
         stepCount++;
-        const nonIterableDirection = !(currentDirectionText.includes("Exit the stair") || currentDirectionText.includes("Exit to stairwell")) || currentDirectionText.includes("Enter doors in stairwell");
-        if (nonIterableDirection) {
+        const nonIterableDirection = (currentDirectionText.includes("Exit the stair") || currentDirectionText.includes("Exit to stairwell")) || currentDirectionText.includes("Enter doors in stairwell") || currentDirectionText.includes("Through doors to");
+        if (!nonIterableDirection) {
             nodeStepCount++;
         }
         stepCountNode = document.createTextNode(`(${stepCount} of ${convertedDirections.length})`);
@@ -136,12 +136,15 @@ async function getDirections() {
         if (currentDirectionText.includes("Go up")) {
             if (currentDirectionText.includes("two")) {
                 currentFloorNum += 2;
+                nodeStepCount += 2 - 1;
             }
             else if (currentDirectionText.includes("three")) {
                 currentFloorNum += 3;
+                nodeStepCount += 3 - 1;
             }
             else if (currentDirectionText.includes("four")) {
                 currentFloorNum += 4;
+                nodeStepCount += 4 - 1;
             }
             else {
                 currentFloorNum++;
@@ -150,12 +153,15 @@ async function getDirections() {
         else if ((currentDirectionText.includes("Go down"))) {
             if (currentDirectionText.includes("two")) {
                 currentFloorNum -= 2;
+                nodeStepCount  -= 2 - 1;
             }
             else if (currentDirectionText.includes("three")) {
                 currentFloorNum -= 3;
+                nodeStepCount -= 3-1;
             }
             else if (currentDirectionText.includes("four")) {
                 currentFloorNum -= 4;
+                nodeStepCount -= 4-1;
             }
             else {
                 currentFloorNum--;
@@ -168,12 +174,16 @@ async function getDirections() {
         if (currentDirectionText.includes("Go up")) {
             if (currentDirectionText.includes("two")) {
                 currentFloorNum -= 2;
+                nodeStepCount  -= 2 - 1;
             }
             else if (currentDirectionText.includes("three")) {
                 currentFloorNum -= 3;
+                nodeStepCount -= 3-1;
+
             }
             else if (currentDirectionText.includes("four")) {
                 currentFloorNum -= 4;
+                nodeStepCount -= 4-1;
             }
             else {
                 currentFloorNum--;
@@ -182,20 +192,23 @@ async function getDirections() {
         else if ((currentDirectionText.includes("Go down"))) {
             if (currentDirectionText.includes("two")) {
                 currentFloorNum += 2;
+                nodeStepCount += 2 - 1;
             }
             else if (currentDirectionText.includes("three")) {
                 currentFloorNum += 3;
+                nodeStepCount += 3 - 1;
             }
             else if (currentDirectionText.includes("four")) {
                 currentFloorNum += 4;
+                nodeStepCount += 4 - 1;
             }
             else {
                 currentFloorNum++;
             }
         }
         stepCount--;
-        const nonIterableDirection = !(currentDirectionText.includes("Exit the stair") || currentDirectionText.includes("Exit to stairwell")) || currentDirectionText.includes("Enter doors in stairwell");
-        if (nonIterableDirection) {
+        const nonIterableDirection = (currentDirectionText.includes("Exit the stair") || currentDirectionText.includes("Exit to stairwell")) || currentDirectionText.includes("Enter doors in stairwell") || currentDirectionText.includes("Through doors to");
+        if (!nonIterableDirection) {
             nodeStepCount--;
         }
         currentDirectionNum--;
@@ -205,7 +218,7 @@ async function getDirections() {
         currentDirection.appendChild(stepCountNode);
         let icon = convertedDirections[currentDirectionNum][1];
         currentIcon.src = `/icon-${icon}`;
-        getMap(stepCount, currentFloorNum);
+        getMap(nodeStepCount, currentFloorNum);
     });
     return convertedDirections;
 }
