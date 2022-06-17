@@ -4,17 +4,16 @@ async function requestDirections(start, end) {
         .then(response => response.json());
     return directionsJson;
 }
-
-// window.addEventListener("load", aprilFools);
-// function aprilFools() {
-//     const date = new Date();
-//     if (date.getMonth() === 4 && date.getDay() === 1) {
-//         document.body.style.fontFamily = "Comic Sans MS";
-//     }
-//     else {
-//         document.body.style.fontFamily = "Nunito";
-//     }
-// }
+const date = new Date();
+window.addEventListener("load", aprilFools);
+function aprilFools() {
+    if (date.getMonth() + 1 === 4 && date.getDate() === 1) {
+        document.body.style.fontFamily = "Comic Sans MS";
+    }
+    else {
+        document.body.style.fontFamily = "Nunito";
+    }
+}
 
 function goHome() {
     window.location = "/";
@@ -39,11 +38,15 @@ function loaderClose() {
 }
 
 async function getDirections() {
-    loadingScreen();
-    document.getElementById("location-input").style.display = "none";
-    document.getElementById("main-ui").style.display = "block";
     const currentRoom = document.getElementById("initial-location").value;
     const destination = document.getElementById("destination").value;
+    if ((currentRoom == "") || destination == "") {
+        window.alert("Please enter two valid room numbers");
+        return;
+    }
+    document.getElementById("location-input").style.display = "none";
+    document.getElementById("main-ui").style.display = "block";
+    loadingScreen();
     const initialDirections = await requestDirections(currentRoom, destination);
     loaderClose();
     console.log(initialDirections);
@@ -122,23 +125,26 @@ async function getDirections() {
         currentDirectionText = convertedDirections[currentDirectionNum][0];
         currentDirection.innerHTML = currentDirectionText;
         stepCount++;
-        const nonIterableDirection = !(currentDirectionText.includes("Exit the stair") || currentDirectionText.includes("Exit to stairwell")) || currentDirectionText.includes("Enter doors in stairwell");
-        if (nonIterableDirection) {
+        const nonIterableDirection = (currentDirectionText.includes("Exit the stair") || currentDirectionText.includes("Exit to stairwell")) || currentDirectionText.includes("Enter doors in stairwell") || currentDirectionText.includes("Through doors to");
+        if (!nonIterableDirection) {
             nodeStepCount++;
         }
-        stepCountNode = document.createTextNode(` (${stepCount} of ${convertedDirections.length})`);
+        stepCountNode = document.createTextNode(`(${stepCount} of ${convertedDirections.length})`);
         currentDirection.appendChild(stepCountNode);
         let icon = convertedDirections[currentDirectionNum][1];
         currentIcon.src = `/icon-${icon}`;
         if (currentDirectionText.includes("Go up")) {
             if (currentDirectionText.includes("two")) {
                 currentFloorNum += 2;
+                nodeStepCount += 2 - 1;
             }
             else if (currentDirectionText.includes("three")) {
                 currentFloorNum += 3;
+                nodeStepCount += 3 - 1;
             }
             else if (currentDirectionText.includes("four")) {
                 currentFloorNum += 4;
+                nodeStepCount += 4 - 1;
             }
             else {
                 currentFloorNum++;
@@ -147,12 +153,15 @@ async function getDirections() {
         else if ((currentDirectionText.includes("Go down"))) {
             if (currentDirectionText.includes("two")) {
                 currentFloorNum -= 2;
+                nodeStepCount  -= 2 - 1;
             }
             else if (currentDirectionText.includes("three")) {
                 currentFloorNum -= 3;
+                nodeStepCount -= 3-1;
             }
             else if (currentDirectionText.includes("four")) {
                 currentFloorNum -= 4;
+                nodeStepCount -= 4-1;
             }
             else {
                 currentFloorNum--;
@@ -165,13 +174,16 @@ async function getDirections() {
         if (currentDirectionText.includes("Go up")) {
             if (currentDirectionText.includes("two")) {
                 currentFloorNum -= 2;
-                console.log(currentFloorNum);
+                nodeStepCount  -= 2 - 1;
             }
             else if (currentDirectionText.includes("three")) {
                 currentFloorNum -= 3;
+                nodeStepCount -= 3-1;
+
             }
             else if (currentDirectionText.includes("four")) {
                 currentFloorNum -= 4;
+                nodeStepCount -= 4-1;
             }
             else {
                 currentFloorNum--;
@@ -180,20 +192,23 @@ async function getDirections() {
         else if ((currentDirectionText.includes("Go down"))) {
             if (currentDirectionText.includes("two")) {
                 currentFloorNum += 2;
+                nodeStepCount += 2 - 1;
             }
             else if (currentDirectionText.includes("three")) {
                 currentFloorNum += 3;
+                nodeStepCount += 3 - 1;
             }
             else if (currentDirectionText.includes("four")) {
                 currentFloorNum += 4;
+                nodeStepCount += 4 - 1;
             }
             else {
                 currentFloorNum++;
             }
         }
         stepCount--;
-        const nonIterableDirection = !(currentDirectionText.includes("Exit the stair") || currentDirectionText.includes("Exit to stairwell")) || currentDirectionText.includes("Enter doors in stairwell");
-        if (nonIterableDirection) {
+        const nonIterableDirection = (currentDirectionText.includes("Exit the stair") || currentDirectionText.includes("Exit to stairwell")) || currentDirectionText.includes("Enter doors in stairwell") || currentDirectionText.includes("Through doors to");
+        if (!nonIterableDirection) {
             nodeStepCount--;
         }
         currentDirectionNum--;
@@ -203,7 +218,7 @@ async function getDirections() {
         currentDirection.appendChild(stepCountNode);
         let icon = convertedDirections[currentDirectionNum][1];
         currentIcon.src = `/icon-${icon}`;
-        getMap(stepCount, currentFloorNum);
+        getMap(nodeStepCount, currentFloorNum);
     });
     return convertedDirections;
 }
@@ -215,9 +230,14 @@ async function getMap(stepCount, floor) {
 
 const submitBtn = document.getElementById("location-submit")
 submitBtn.addEventListener("click", submitDirections);
+document.querySelector("body").addEventListener('keypress', function(event) {
+    if(event.key === "Enter") {
+        submitDirections();
+    }
+});
 
 function submitDirections() {
-    submitBtn.removeEventListener("click", submitDirections);
+    // submitBtn.removeEventListener("click", submitDirections);
     getDirections();
 }
 

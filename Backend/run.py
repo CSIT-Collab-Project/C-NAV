@@ -149,15 +149,6 @@ async def draw_path(node_list):
                     else:
                         floor[current_floor].paste(stair_down, (from_node[0] - 15, from_node[1] - 15), stair_down)
 
-                # Handle front bend !!!REMOVE ONCE UPDATED MAP IS ADDED!!!
-                elif current_list[i] in [fl1, fl2] and current_list[i + 1] in [fr1, fr2]:
-                    front_coords = (841, 905)
-
-                    draw_floor[current_floor].line(((from_node[0], from_node[1]), (front_coords[0], front_coords[1])),
-                                                   fill=fill_color, width=10)
-                    draw_floor[current_floor].line(((front_coords[0], front_coords[1]), (to_node[0], to_node[1])),
-                                                   fill=fill_color, width=10)
-
                 # Enter door from center of hallway rather than a direct path
                 elif isinstance(current_list[i + 1], DoorNode) or isinstance(current_list[i], DoorNode):
                     hor_directions = {"n": 0, "s": 0, "e": -1, "w": 1}
