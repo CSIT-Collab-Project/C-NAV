@@ -23,7 +23,7 @@ function loadingScreen() {
     const loader =  document.getElementById("loader");
     const loadTextEle = document.getElementById("loading-text");
     const dots = document.getElementById("dots");
-    const loadingPhrases = ["Fetching the quickest path", "Calculating your way", "Searching through the nodes", "Making sure you're not late"];
+    const loadingPhrases = ["When you come to a fork in the road, take it. - Yogi Berra", "You can't use an old map to explore a new world - Albert Einstein", "Fetching the quickest path", "Calculating your way", "Searching through the nodes", "Making sure you're not late"];
     loader.style.display = "block";
     loadTextEle.style.display = "inline";
     const randIndex = Math.floor(Math.random() * loadingPhrases.length);
