@@ -142,6 +142,9 @@ room_1226 = DoorNode([], 0, the_void, 'w')
 room_1227 = DoorNode([], 0, the_void, 'w')
 room_1204 = DoorNode([], 0, the_void, 'w', (223, 506))
 
+mbr1 = DoorNode([], 0, the_void, "w", (1255, 725))
+fbr1 = DoorNode([], 0, the_void, "e", (457, 726))
+
 # Testing
 room_1234 = DoorNode([], 0, the_void, "e")
 
@@ -196,6 +199,9 @@ room_2132 = DoorNode([], 0, the_void, "w", (237, 1138))
 room_2133 = DoorNode([], 0, the_void, "s", (132, 1017))
 room_2134 = DoorNode([], 0, the_void, "n", (132, 986))
 
+mbr2 = DoorNode([], 0, the_void, "w", (1250, 728))
+fbr2 = DoorNode([], 0, the_void, "e", (461, 725))
+
 room_3124 = DoorNode([], 0, the_void, "e", (463, 890))
 room_3111 = DoorNode([], 0, the_void, "s", (445, 1189))
 room_3103 = DoorNode([], 0, the_void, "n", (673, 967))
@@ -218,6 +224,9 @@ room_3118 = DoorNode([], 0, the_void, "w", (237, 1061))
 room_3117 = DoorNode([], 0, the_void, "n", (295, 1105))
 room_3122 = DoorNode([], 0, the_void, "s", (295, 898))
 
+mbr3 = DoorNode([], 0, the_void, "w", (1249, 785))
+fbr3 = DoorNode([], 0, the_void, "e", (463, 784))
+
 room_4111 = DoorNode([], 0, the_void, "s", (445, 1153))
 room_4117 = DoorNode([], 0, the_void, "w", (396, 1089))
 room_4118 = DoorNode([], 0, the_void, "w", (396, 1002))
@@ -237,6 +246,9 @@ room_4405 = DoorNode([], 0, the_void, "s", (1137, 1034))
 room_4410 = DoorNode([], 0, the_void, "e", (1316, 787))
 room_4406 = DoorNode([], 0, the_void, "s", (1313, 1201))
 
+mbr4 = DoorNode([], 0, the_void, "w", (1238, 776))
+fbr4 = DoorNode([], 0, the_void, "e", (472, 776))
+
 room_5101 = DoorNode([], 0, the_void, "s", (728, 1045))
 room_5102 = DoorNode([], 0, the_void, "n", (712, 967))
 room_5103 = DoorNode([], 0, the_void, "s", (788, 1045))
@@ -247,6 +259,9 @@ room_5404 = DoorNode([], 0, the_void, "n", (982, 967))
 room_5403 = DoorNode([], 0, the_void, "s", (937, 1045))
 room_5402 = DoorNode([], 0, the_void, "n", (1011, 967))
 room_5401 = DoorNode([], 0, the_void, "s", (996, 1045))
+
+mbr5 = DoorNode([], 0, the_void, "w")
+fbr5 = DoorNode([], 0, the_void, "e")
 
 # Arts Building
 
@@ -527,6 +542,9 @@ async def build_doors():
     await room_1312.set_info([bl1, br1, room_1311, room_1223, room_1224, room_1225, room_1228], 1312, br1,
                              ["e", "w", "e", "e", "e", "e", "e"])
 
+    await mbr1.set_info([br1, fr1, stair8_f1], 1, fr1, ["s", "n", "n"])
+    await fbr1.set_info([fl1, bl1, stair3_f1, room_1202], 2, fl1, ["n", "s", "n", "n"])
+
     await room_1107.set_info([fl1, room_1109], 1107, fl1, ["s", "n"])
     await room_1109.set_info([fl1, room_1107, stair2_f1], 1109, fl1, ["s", "s", "e"])
     await room_1420.set_info([fr1, stair9_f1], 1420, fr1, ["s", "s"])
@@ -616,6 +634,9 @@ async def build_doors():
     await room_2201.set_info([room_2212, room_2202, bl2, fl2, stair3_f2, stair5_f2], 2201, bl2, ['s', 's', 's', 'n',
                                                                                                  'n', 's'])
 
+    await mbr2.set_info([br2, fr2, stair8_f2], 1, fr2, ["s", "n", "n"])
+    await fbr2.set_info([fl1, bl1, stair3_f2, room_2201, room_2202], 2, fr2, ["n", "s", "n", "n", "s"])
+
     await room_2119.set_info([fl2, stair2_f2], 2119, fl2, ['s', 'e'])
 
     sw8_f2 = StairwellNode(stair8_f2, [])
@@ -675,6 +696,9 @@ async def build_doors():
     await room_3122.set_info([room_3121, n3e], 3122, n3e, ["e", "s"])
     await room_3117.set_info([s3e], 3117, s3e, ["n"])
 
+    await mbr3.set_info([r3, stair8_f3], 1, the_void, ["n", "n"])
+    await fbr3.set_info([l3, stair3_f3], 2, the_void, ["n", "n"])
+
     await room_4111.set_info([room_4117, room_4118, room_4119, room_4120, room_4121, room_4122, stair2_f4, stair3_f4,
                               l4], 4111, l4, ['s', 's', 's', 's', 's', 's', 'e', 's', 's'])
     await room_4117.set_info([room_4111, room_4118, room_4119, room_4120, room_4121, room_4122, stair2_f4, stair3_f4,
@@ -711,6 +735,9 @@ async def build_doors():
 
     await room_4410.set_info([stair8_f4, r4], 4410, r4, ['n', 'n'])
     await room_4406.set_info([r3, stair9_f4], 4406, r4, ['s', 's'])
+
+    await mbr4.set_info([r4, stair8_f4, room_4410], 1, the_void, ["n", "n", "w"])
+    await fbr4.set_info([l4, stair3_f4, room_4121], 2, the_void, ["n", "n", "e"])
 
     await room_5102.set_info([room_5101, room_5104, room_5103, room_5104, room_5105, room_5405, room_5404, room_5403,
                               room_5402, room_5401, stair2_f5, stair9_f5], 5102, the_void, ['w', 'w', 'w', 'w', 'w',

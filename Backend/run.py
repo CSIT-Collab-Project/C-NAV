@@ -144,6 +144,7 @@ async def draw_path(node_list):
 
                 # Changes floor when travelling on stairs
                 if isinstance(current_list[i], StairNode) and isinstance(current_list[i + 1], StairNode):
+                    print(f"Stairing on step {i}")
                     if int(current_list[i].name[0]) < int(current_list[i + 1].name[0]):
                         floor[current_floor].paste(stair_up, (from_node[0] - 15, from_node[1] - 15), stair_up)
                     else:
@@ -431,7 +432,6 @@ async def draw_step(step):
             part_path.pop(i)
     for i in range(step):
         part_path.pop(0)
-    print(f"Part Path:{part_path}")
     return part_path
 
 
