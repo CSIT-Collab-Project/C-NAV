@@ -230,6 +230,11 @@ async function getMap(stepCount, floor) {
 
 const submitBtn = document.getElementById("location-submit")
 submitBtn.addEventListener("click", submitDirections);
+document.querySelector("body").addEventListener('keypress', function(event) {
+    if(event.key === "Enter") {
+        submitDirections();
+    }
+});
 
 function submitDirections() {
     // submitBtn.removeEventListener("click", submitDirections);
