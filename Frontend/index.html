@@ -33,7 +33,9 @@
                                 Bugs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn gform-btn" target="blank__" href="https://docs.google.com/forms/d/e/1FAIpQLScwHcC9m0vnNZXBU9TxAs5BIS5I6Zfg-ARv6Mggkd_mn-1HkA/viewform?usp=sf_link">Feature Requests</a>
+                            <a class="nav-link btn gform-btn" target="blank__"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLScwHcC9m0vnNZXBU9TxAs5BIS5I6Zfg-ARv6Mggkd_mn-1HkA/viewform?usp=sf_link">Feature
+                                Requests</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/about">About this Project</a>
@@ -47,13 +49,33 @@
     </div>
     <div class="main container" id="direction-form" style="display: block;">
         <form id="location-input" action="" class="flex-column flex-md-row">
-            <label class="" for="initial-location">Current Room</label>
-            <input type="text" id="initial-location" class="form-control" placeholder="Current Room Number"
-                aria-describedby="basic-addon1">
-                <label class="" for="destination">Destination Room</label>
-                <input type="text" id="destination" class="form-control" placeholder="Destination Room Number"
-                    aria-describedby="basic-addon1">
-                <button type="button" class="mt-2 btn btn-success" id="location-submit">Submit</button>
+            <label class="" for="initial-location">Where are you?</label>
+            <input type="text" inputmode="numeric" id="initial-location" class="form-control"
+                placeholder="Current Room Number" aria-describedby="basic-addon1">
+            <label class="" for="destination">Where to?</label>
+            <input type="text" inputmode="numeric" id="destination" class="form-control"
+                placeholder="Destination Room Number" aria-describedby="basic-addon1">
+            <p>or</p>
+            <div class="dropdown mt-2" id="destination-dropdown">
+                <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Nearest Bathroom
+                </a>
+                <ul class="dropdown-menu" id="bathroom-dropdown" aria-labelledby="dropdownMenuLink">
+                    <li value="1"><a class="dropdown-item" href="#">M</a></li>
+                    <li value="2"><a class="dropdown-item" href="#">F</a></li>
+                    <li value="3"><a class="dropdown-item" href="#">Neutral</a></li>
+                </ul>
+            </div>
+            <!-- <select name="bathrooms" class="mt-2" id="br">
+                <option value="">Nearest Bathroom</option>
+                <option value="1">M</option>
+                <option value="2">F</option>
+                <option value="3">Neutral</option>
+            </select> -->
+            <!-- <button type="button" class="mt-2 btn btn-submit" id="location-submit">BR Submit</button> -->
+
+            <button type="button" class="mt-2 btn btn-success" id="location-submit">Submit</button>
         </form>
         <div id="loading">
             <div class="loader" id="loader"></div>

@@ -20,7 +20,7 @@ function goHome() {
 }
 
 function loadingScreen() {
-    const loader =  document.getElementById("loader");
+    const loader = document.getElementById("loader");
     const loadTextEle = document.getElementById("loading-text");
     const dots = document.getElementById("dots");
     const loadingPhrases = ["Fetching the quickest path", "Calculating your way", "Searching through the nodes", "Making sure you're not late"];
@@ -32,6 +32,18 @@ function loadingScreen() {
 
 }
 
+document.querySelectorAll("#bathroom-dropdown li").forEach(item => {
+    item.addEventListener("click", () => {
+        if(item.classList.contains("selected")) {
+            item.classList.remove("selected");
+        }
+        else {
+            item.classList.add("selected");
+        }
+    })
+});
+
+
 function loaderClose() {
     document.getElementById("loader").style.display = "none";
     document.getElementById("loading").style.display = "none";
@@ -39,7 +51,20 @@ function loaderClose() {
 
 async function getDirections() {
     const currentRoom = document.getElementById("initial-location").value;
-    const destination = document.getElementById("destination").value;
+    let destination = document.getElementById("destination").value;
+    let bathroomValue = 0;
+    const bathroomMenu = document.querySelectorAll("#bathroom-dropdown li");
+    console.log(bathroomMenu);
+    for(const index in bathroomMenu) {
+        const element = bathroomMenu[index];
+        console.log(element.classList);
+        if(element.classList != undefined && element.classList.contains('selected')) {
+            bathroomValue = Number(element.value);
+        }
+    }
+    if(bathroomValue > 0) {
+        destination = bathroomValue;
+    }
     if ((currentRoom == "") || destination == "") {
         window.alert("Please enter two valid room numbers");
         return;
@@ -153,15 +178,15 @@ async function getDirections() {
         else if ((currentDirectionText.includes("Go down"))) {
             if (currentDirectionText.includes("two")) {
                 currentFloorNum -= 2;
-                nodeStepCount  -= 2 - 1;
+                nodeStepCount -= 2 - 1;
             }
             else if (currentDirectionText.includes("three")) {
                 currentFloorNum -= 3;
-                nodeStepCount -= 3-1;
+                nodeStepCount -= 3 - 1;
             }
             else if (currentDirectionText.includes("four")) {
                 currentFloorNum -= 4;
-                nodeStepCount -= 4-1;
+                nodeStepCount -= 4 - 1;
             }
             else {
                 currentFloorNum--;
@@ -174,16 +199,16 @@ async function getDirections() {
         if (currentDirectionText.includes("Go up")) {
             if (currentDirectionText.includes("two")) {
                 currentFloorNum -= 2;
-                nodeStepCount  -= 2 - 1;
+                nodeStepCount -= 2 - 1;
             }
             else if (currentDirectionText.includes("three")) {
                 currentFloorNum -= 3;
-                nodeStepCount -= 3-1;
+                nodeStepCount -= 3 - 1;
 
             }
             else if (currentDirectionText.includes("four")) {
                 currentFloorNum -= 4;
-                nodeStepCount -= 4-1;
+                nodeStepCount -= 4 - 1;
             }
             else {
                 currentFloorNum--;
@@ -230,8 +255,8 @@ async function getMap(stepCount, floor) {
 
 const submitBtn = document.getElementById("location-submit")
 submitBtn.addEventListener("click", submitDirections);
-document.querySelector("body").addEventListener('keypress', function(event) {
-    if(event.key === "Enter") {
+document.querySelector("body").addEventListener('keypress', function (event) {
+    if (event.key === "Enter") {
         submitDirections();
     }
 });
@@ -246,10 +271,15 @@ function bottomBar(start, end, directionList) {
     const numofSteps = directionList.length - 1;
     const nextStepBtn = document.getElementById("next-direction");
     const backBtn = document.getElementById("previous-direction");
-    const startZoneCall = zoneColor(start);
-    const startZoneColor = startZoneCall[1];
-    const endZoneCall = zoneColor(end);
-    const endZoneColor = endZoneCall[1];
+    let endZoneColor = "";
+    if(end.toString().length < 2) {
+        endZoneColor = "purple";
+        end = "BR";
+    }
+    else {
+        endZoneColor = zoneColor(end)[1];
+    }
+    const startZoneColor = zoneColor(start)[1];
     const startRoom = document.getElementById("start-id");
     const endRoom = document.getElementById("end-id");
     const dirTableElement = document.getElementById('direction-table');
