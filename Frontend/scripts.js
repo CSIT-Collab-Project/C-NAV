@@ -45,6 +45,39 @@ document.querySelectorAll("#bathroom-dropdown li").forEach(item => {
     })
 });
 
+function buildDropdown() {
+    const locationList = ["Library", "CCRC"];
+    document.querySelectorAll(".landmark-dropdown").forEach(element => {
+        console.log(element);
+        let aClassList = ['btn', 'btn-secondary', 'dropdown-toggle'];
+        let a = document.createElement('a');
+        a.setAttribute('id', "landmarkDropdownLink");
+        a.setAttribute('data-bs-toggle', 'dropdown');
+        a.innerText = "Landmark Locations";
+        for (item of aClassList) {
+            a.classList.add(item);
+        }
+        element.appendChild(a);
+
+        const menu = document.createElement('ul');
+        menu.classList.add("dropdown-menu");
+        menu.setAttribute('id', "destination-dropdown");
+        element.appendChild(menu);
+
+        for (item of locationList) {
+            const menuItem = document.createElement("li");
+            const itemA = document.createElement("a");
+            itemA.classList.add("dropdown-item");
+            itemA.innerText = item;    
+            menuItem.appendChild(itemA);
+            menu.appendChild(menuItem);
+        }
+        }
+    )
+
+}
+
+buildDropdown();
 
 function loaderClose() {
     document.getElementById("loader").style.display = "none";
@@ -113,7 +146,7 @@ async function getDirections() {
         "go down 4 floors": ["Go down four floors", ""],
         "enter doors in stairwell": ["Enter doors in stairwell", " "],
         "through doors to left": ["Through doors to the left", " "],
-        "through doors to right": ["Through doors to the right"]
+        "through doors to right": ["Through doors to the right", ""]
     }
     const badDirections = ["Exit the stairs to the left", "Exit the stairs to the right", "Exit the stairs straight ahead", "Exit stairs through doors to right", "Exit stairs through doors to left", "Exit stairs through doors across stairwell", "Exit to stairwell", "Enter doors in stairwell"];
     const currentDirection = document.getElementById("current-direction");

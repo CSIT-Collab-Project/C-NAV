@@ -50,13 +50,15 @@
     <div class="main container" id="direction-form" style="display: block;">
         <form id="location-input" action="" class="flex-column flex-md-row">
             <label class="" for="initial-location">Where are you?</label>
+            <div class="landmark-dropdown"></div>
             <input type="text" inputmode="numeric" id="initial-location" class="form-control"
                 placeholder="Current Room Number" aria-describedby="basic-addon1">
             <label class="" for="destination">Where to?</label>
             <input type="text" inputmode="numeric" id="destination" class="form-control"
                 placeholder="Destination Room Number" aria-describedby="basic-addon1">
             <p>or</p>
-            <div class="dropdown mt-2" id="destination-dropdown">
+
+            <div class="dropdown mt-2" id="bathroom-dropdown">
                 <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="bathroomDropdownLink"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     Nearest Bathroom
@@ -67,13 +69,18 @@
                     <li value="3"><a class="dropdown-item" href="#">Neutral</a></li>
                 </ul>
             </div>
-            <!-- <select name="bathrooms" class="mt-2" id="br">
-                <option value="">Nearest Bathroom</option>
-                <option value="1">M</option>
-                <option value="2">F</option>
-                <option value="3">Neutral</option>
-            </select> -->
-            <!-- <button type="button" class="mt-2 btn btn-submit" id="location-submit">BR Submit</button> -->
+            <div class="landmark-dropdown"></div>
+            <!-- <div class="dropdown mt-2" id="destination-dropdown">
+                <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="landmarkDropdownLink"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Landmark Locations
+                </a>
+                <ul class="dropdown-menu" id="bathroom-dropdown" aria-labelledby="landmarkDropdownLink">
+                    <li value="1"><a class="dropdown-item" href="#">M</a></li>
+                    <li value="2"><a class="dropdown-item" href="#">F</a></li>
+                    <li value="3"><a class="dropdown-item" href="#">Neutral</a></li>
+                </ul>
+            </div> -->
 
             <button type="button" class="mt-2 btn btn-success" id="location-submit">Submit</button>
         </form>
