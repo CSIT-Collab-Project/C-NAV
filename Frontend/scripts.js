@@ -34,11 +34,13 @@ function loadingScreen() {
 
 document.querySelectorAll("#bathroom-dropdown li").forEach(item => {
     item.addEventListener("click", () => {
-        if(item.classList.contains("selected")) {
+        if (item.classList.contains("selected")) {
             item.classList.remove("selected");
         }
         else {
             item.classList.add("selected");
+            const dropDownLink = document.getElementById("bathroomDropdownLink");
+            dropDownLink.innerHTML = item.innerText;
         }
     })
 });
@@ -55,14 +57,14 @@ async function getDirections() {
     let bathroomValue = 0;
     const bathroomMenu = document.querySelectorAll("#bathroom-dropdown li");
     console.log(bathroomMenu);
-    for(const index in bathroomMenu) {
+    for (const index in bathroomMenu) {
         const element = bathroomMenu[index];
         console.log(element.classList);
-        if(element.classList != undefined && element.classList.contains('selected')) {
+        if (element.classList != undefined && element.classList.contains('selected')) {
             bathroomValue = Number(element.value);
         }
     }
-    if(bathroomValue > 0) {
+    if (bathroomValue > 0) {
         destination = bathroomValue;
     }
     if ((currentRoom == "") || destination == "") {
@@ -272,7 +274,7 @@ function bottomBar(start, end, directionList) {
     const nextStepBtn = document.getElementById("next-direction");
     const backBtn = document.getElementById("previous-direction");
     let endZoneColor = "";
-    if(end.toString().length < 2) {
+    if (end.toString().length < 2) {
         endZoneColor = "purple";
         end = "BR";
     }
