@@ -418,7 +418,7 @@ async def go_to(start, end):
                 return current_path
 
             for connection in current_pos.connections:
-                if connection not in visited:
+                if connection not in visited and not (isinstance(connection, DoorNode) and connection.door_num < 10):
                     new_path = list(current_path)
                     new_path.append(connection)
                     visited.append(connection)
