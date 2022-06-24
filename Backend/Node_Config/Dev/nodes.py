@@ -147,6 +147,8 @@ fbr1 = DoorNode([], 0, the_void, "e", (457, 726))
 
 career = DoorNode([], 0, the_void, "s", (1274, 1307))
 
+main = DoorNode([], 0, the_void, "s", (870, 1034))
+
 # Testing
 room_1234 = DoorNode([], 0, the_void, "e")
 
@@ -513,7 +515,8 @@ room_list = [
     mbr1,
     fbr1,
     career,
-    library
+    library,
+    main
 ]
 
 
@@ -554,6 +557,9 @@ async def build_doors():
     await fbr1.set_info([fl1, bl1, stair3_f1, room_1202], 2, fl1, ["n", "s", "n", "n"])
 
     await career.set_info([fr1], 1501, the_void, ["s"])
+
+    await main.set_info([fl1, fr1, room_1105, room_1106, room_1102, room_1401, room_1402, room_1409, room_1410], 9,
+                        the_void, ["e", "w", "e", "e", "e", "w", "w", "w", "w"])
 
     await room_1107.set_info([fl1, room_1109], 1107, fl1, ["s", "n"])
     await room_1109.set_info([fl1, room_1107, stair2_f1], 1109, fl1, ["s", "s", "e"])
